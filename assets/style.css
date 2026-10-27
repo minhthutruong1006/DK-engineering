@@ -1,6 +1,6 @@
 /* ===== 기본 ===== */
 :root{
-  --accent:#0981f1;
+  --accent:#0062B1;
   --dark:#111;
   --text:#555;
   --line:#ddd;
@@ -49,7 +49,7 @@ svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-l
 /* ===== HEADER ===== */
 #header{position:fixed;left:0;top:0;width:100%;z-index:100;transition:background .3s,box-shadow .3s}
 #header .head{height:100px;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:'Poppins';font-style:italic;font-weight:600;font-size:34px;letter-spacing:-.02em;color:#fff;line-height:1}
+.logo{font-family:'Poppins';font-style:italic;font-weight:600;font-size:28px;letter-spacing:-.02em;color:#fff;line-height:1}
 .logo a,.logo{display:flex;flex-direction:column}
 .logo small{font-size:9px;font-weight:400;font-style:normal;letter-spacing:.02em;margin-top:2px;opacity:.8}
 .pcNav>ul{display:flex}
@@ -239,7 +239,7 @@ svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-l
   :root{--pad:20px;--radius:16px}
   .pcbr{display:none}
   #header .head,.allmenuHead{height:70px}
-  .logo{font-size:26px}
+  .logo{font-size:20px}
   .gnb .contact{display:none}
   .section{padding-top:120px}
   .title h2{font-size:24px;margin-bottom:20px}
@@ -286,3 +286,10 @@ svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-l
   .depth2{padding-left:24px}
   .depth2 a{font-size:16px}
 }
+
+/* ===== DK ENGINEERING 브랜드 이미지 ===== */
+.ph[style]::after{display:none}
+.visualBg{background:linear-gradient(180deg,rgba(0,40,90,.35),rgba(0,0,0,.15) 40%,rgba(0,0,0,.45)),url(img/hero.jpg) center/cover no-repeat}
+.pill{background:url(img/pill.jpg) center/cover no-repeat}
+.section1 p .sign{display:block;margin-top:24px;font-size:15px;color:rgba(255,255,255,.55)}
+.esg{background:linear-gradient(140deg,#0a2f5c,#0062B1 45%,#00A0E9)}
