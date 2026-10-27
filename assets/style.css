@@ -824,3 +824,11 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .oBox.ceo.ani.on:hover{transform:none}
 /* 조직도 모바일 최소 글자 크기 */
 .oBox{font-size:max(11px,2.15cqw)}.oBox.sub{font-size:max(10px,1.9cqw)}.oBox.biz{font-size:max(11px,2.3cqw)}
+/* 사훈/조직도 페이지: 위쪽 여백 축소 + 오각형을 조직도 박스 크기에 맞춤 */
+.subCon:has(.motto){padding-top:56px}
+.subCon:has(.motto)>.title{margin-bottom:24px}
+.penta{max-width:600px}
+.penta li span{font-size:21px}
+.pCenter{font-size:28px}
+.penta li{box-shadow:0 0 0 11px rgba(160,190,230,.28),0 16px 30px -16px rgba(0,50,110,.5)}
+@media (max-width:812px){.subCon:has(.motto){padding-top:40px}.penta li span{font-size:13px}.pCenter{font-size:17px}.penta li{box-shadow:0 0 0 6px rgba(160,190,230,.28),0 10px 20px -10px rgba(0,50,110,.5)}}
