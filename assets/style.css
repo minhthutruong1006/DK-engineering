@@ -662,3 +662,7 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
   filter:drop-shadow(0 10px 24px rgba(0,40,90,.18))}
 .ceoMsg2 .ceoPortrait .pic::after{z-index:2}
 .ceoMsg2 .ceoPortrait p{position:relative;margin-top:22px;padding-left:16px;border-left:3px solid var(--accent);font-size:15px;line-height:1.4}
+/* CEO 사진 v4: 원본 사진 그대로(배경·효과 없음) */
+.ceoMsg2 .ceoPortrait .pic{aspect-ratio:auto;background:none;box-shadow:none;border:0;display:block}
+.ceoMsg2 .ceoPortrait .pic::before,.ceoMsg2 .ceoPortrait .pic::after{display:none}
+.ceoMsg2 .ceoPortrait .pic img{width:100%;height:auto;-webkit-mask-image:none;mask-image:none;filter:none}

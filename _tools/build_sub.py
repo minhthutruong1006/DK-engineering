@@ -365,7 +365,7 @@ c = DK['ceo']
 page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 인사말: 21세기 전력산업의 Global Leader.',
      'CEO Message', 'CEO 인사', e(c['sub']), '', f'''  <div class="ceoMsg2">
     <div class="ceoPortrait ani">
-      <div class="pic"><img src="assets/img/ceo-cutout.png" alt="대경기술주식회사 대표이사 임영하"></div>
+      <div class="pic"><img src="assets/img/ceo-portrait.jpg" alt="대경기술주식회사 대표이사 임영하"></div>
       <p>대경기술주식회사 대표이사 <b>임영하</b></p>
     </div>
     <div class="ceoText ani">
