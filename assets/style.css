@@ -286,3 +286,26 @@ svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-l
   .depth2{padding-left:24px}
   .depth2 a{font-size:16px}
 }
+
+/* ===== 대경기술 브랜드 적용 ===== */
+:root{--accent:#0062B1;--sky:#00A0E9;--navy:#213363}
+.photo{background-color:#1b2a3d;background-position:center;background-size:cover;background-repeat:no-repeat}
+.photo::after{display:none}
+.visual .visualBg.photo{filter:saturate(1.05)}
+.visual::after{background:linear-gradient(180deg,rgba(6,22,48,.55),rgba(6,22,48,.35) 50%,rgba(6,22,48,.6))}
+.logo{font-size:26px;letter-spacing:-.01em}
+.logo small{font-size:10px;letter-spacing:.04em}
+#header.fix .logo,#header:hover .logo,.allmenuHead .logo{color:var(--accent)}
+.pill{background:url(img/pill.jpg) center/cover no-repeat;box-shadow:none}
+.section1{background:#000 radial-gradient(circle at 70% 120%,#0a2f5c 0,#000 60%)}
+.section1 p .sign{display:block;margin-top:24px;font-size:15px;color:rgba(255,255,255,.55)}
+.links .tit small.stat{display:block;margin-top:8px;font-size:15px;font-weight:500;color:var(--sky);text-align:center}
+.esg{background-size:cover;background-position:center}
+.press .date{color:var(--sky);font-weight:500}
+.section8 .bg::before{background:linear-gradient(90deg,rgba(6,30,66,.85),rgba(0,98,177,.35))}
+.section8 .title p{line-height:1.8}
+@media (max-width:812px){
+  .logo{font-size:20px}
+  .links .tit small.stat{display:inline;margin:0 0 0 8px}
+}
+.products a::before{background:linear-gradient(rgba(0,0,0,.05) 25%,rgba(4,20,44,.85))}
