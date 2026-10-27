@@ -68,7 +68,7 @@
     var hYears = tl.querySelectorAll('.hYear');
     var thumbs = tl.querySelectorAll('.hThumb img');
     var from = tl.querySelector('.hRange .from'), to = tl.querySelector('.hRange .to'), cat = tl.querySelector('.hCat');
-    var bar = tl.querySelector('.hLine .bar'), dot = tl.querySelector('.hLine .dot');
+    var hBar = tl.querySelector('.hLine .bar');
     var lastEra = -1;
     function updateHistory() {
       var mid = window.innerHeight * 0.5, act = 0;
@@ -83,8 +83,7 @@
       }
       var r = tl.querySelector('.hRight').getBoundingClientRect();
       var p = Math.min(Math.max((mid - r.top) / r.height, 0), 1);
-      bar.style.height = p * 100 + '%';
-      dot.style.top = p * 100 + '%';
+      hBar.style.height = p * 100 + '%';
     }
     window.addEventListener('scroll', updateHistory, { passive: true });
     window.addEventListener('resize', updateHistory);

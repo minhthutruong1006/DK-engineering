@@ -117,9 +117,9 @@ for d, t, s in sorted(HISTORY, key=lambda x: x[0]):
     years.setdefault(d[:4], []).append((d[5:], t, s))
 # 시기 구분: 왼쪽 고정 영역의 연도 범위·제목과 사진이 스크롤 위치에 따라 바뀜
 ERAS = [
-    ('2006', '2012', '원자력 협력 기반 구축', ['dk/about_history01.jpg', 'dk/about_history02.jpg', 'dk/about_history03.jpg']),
-    ('2013', '2017', '사옥·기업부설연구소 설립과 성장', ['dk/about_svis.jpg', 'dk/about_history04.jpg', 'dk/about_history05.jpg']),
-    ('2018', '2026', 'DK 그룹 출범과 원전해체 기술 선도', ['dk/about_history06.jpg', 'cert-wall.jpg', 'hero.jpg']),
+    ('2006', '2012', '원자력 협력 기반 구축', ['dk/about_history01.jpg', 'dk/about_history02.jpg']),
+    ('2013', '2017', '사옥·기업부설연구소 설립과 성장', ['dk/about_history03.jpg', 'dk/about_history04.jpg']),
+    ('2018', '2026', 'DK 그룹 출범과 원전해체 기술 선도', ['dk/about_history05.jpg', 'dk/about_history06.jpg']),
 ]
 era_of = lambda y: next(i for i, (a, b, _, _) in enumerate(ERAS) if a <= y <= b)
 rows, thumbs, n_img = [], [], 0

@@ -714,3 +714,11 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
   .hYear dd{font-size:15px;grid-template-columns:36px 1fr}
 }
 @media (max-width:812px){.hThumb{aspect-ratio:auto;height:110px}.hRange{font-size:26px}.hLeft{padding-top:10px;padding-bottom:12px}}
+/* 연혁 v2: 원본 크기(520×330) 사진, 느린 교체, 진행선 간격 확대, 점은 화면 가운데에 고정 */
+.hTimeline{grid-template-columns:minmax(0,560px) 140px minmax(0,1fr)}
+.hThumb{max-width:520px;aspect-ratio:520/330}
+.hThumb img{transition:clip-path 1.6s cubic-bezier(.65,0,.25,1)}
+.hLine .dot{position:sticky;top:calc(50vh - 7px);margin-top:0}
+.hRight{padding-left:20px}
+@media (max-width:1100px){.hTimeline{grid-template-columns:minmax(0,1fr) 80px minmax(0,1.1fr)}}
+@media (max-width:812px){.hTimeline{grid-template-columns:1fr}.hThumb{max-width:none;aspect-ratio:auto;height:110px}.hRight{padding-left:0}}
