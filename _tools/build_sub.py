@@ -403,7 +403,26 @@ page('company.html', '회사 개요', '대경기술주식회사 회사 개요: �
   <div class="companyPhoto ani photo" style="background-image:url(assets/img/contact.jpg)"></div>''')
 
 page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조직도.', 'Organization', '사훈/조직도', '기술 중시, 경쟁력 확보', '', f'''  {ttl('Motto', '사훈')}
-  <div class="figure ani"><img src="assets/img/dk/about_organ_vis01.jpg" alt="대경기술 사훈" loading="lazy"></div>
+  <div class="motto ani">
+    <span>기술중시</span><i></i><span>경쟁력확보</span>
+  </div>
+  <div class="policy">
+    <h4 class="policyTit ani">경영방침</h4>
+    <div class="orbit">
+      <svg class="orbitLine" viewBox="0 0 1400 520" preserveAspectRatio="none" aria-hidden="true">
+        <path id="orbitPath" d="M700,10 A690,250 0 1,1 699.9,10 Z" fill="none"/>
+        <circle r="9" class="orbitDot"><animateMotion dur="14s" repeatCount="indefinite"><mpath href="#orbitPath"/></animateMotion></circle>
+        <circle r="9" class="orbitDot"><animateMotion dur="14s" begin="-7s" repeatCount="indefinite"><mpath href="#orbitPath"/></animateMotion></circle>
+      </svg>
+      <ul class="policyList">
+        <li class="ani"><em>01</em><strong>설계 품질<br>제고</strong><small>Design Quality</small></li>
+        <li class="ani"><em>02</em><strong>고객 신뢰</strong><small>Customer Trust</small></li>
+        <li class="ani"><em>03</em><strong>투명 경영</strong><small>Transparent Management</small></li>
+        <li class="ani"><em>04</em><strong>자기 계발</strong><small>Self-Development</small></li>
+        <li class="ani"><em>05</em><strong>직원<br>상호 존중</strong><small>Mutual Respect</small></li>
+      </ul>
+    </div>
+  </div>
   <div class="block">
     {ttl('Organization', '조직도')}
     <div class="figure ani"><img src="assets/img/dk/about_organ_vis02.jpg" alt="대경기술 조직도" loading="lazy"></div>

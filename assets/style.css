@@ -734,3 +734,35 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 /* 연혁 v4: 사진은 스크롤 위치에 맞춰 아래→위로 덮임(JS가 clip-path 직접 조절, 전환 효과 없음) */
 .hThumb img,.hThumb img:first-child{opacity:1;transform:none;transition:none;clip-path:inset(100% 0 0 0);will-change:clip-path}
 .hThumb img:first-child{clip-path:inset(0 0 0 0)}
+/* ===== 사훈·경영방침: 타원 궤도 위를 도는 작은 원 + 5개 원형 카드 ===== */
+.motto{display:flex;align-items:center;justify-content:center;gap:34px;margin:10px 0 110px;font-size:54px;font-weight:700;letter-spacing:-.02em;color:#111}
+.motto span:last-child{background:linear-gradient(90deg,#00A0E9,#0062B1);-webkit-background-clip:text;background-clip:text;color:transparent}
+.motto i{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 8px rgba(0,98,177,.12);animation:mottoPulse 2.4s ease-in-out infinite}
+@keyframes mottoPulse{50%{box-shadow:0 0 0 16px rgba(0,98,177,0)}}
+.policyTit{text-align:center;font-size:20px;font-weight:600;color:var(--accent);letter-spacing:.3em;margin-bottom:30px}
+.orbit{position:relative;padding:70px 0}
+.orbitLine{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orbitLine path{stroke:#9cc7ea;stroke-width:1.2;vector-effect:non-scaling-stroke}
+.orbitDot{fill:var(--accent);stroke:rgba(0,98,177,.18);stroke-width:12}
+.policyList{list-style:none;position:relative;display:flex;justify-content:center}
+.policyList li{flex:0 0 auto;width:250px;aspect-ratio:1;margin:0 -10px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(160deg,#f4f8fc,#e6eff8);color:#111;box-shadow:0 20px 40px -24px rgba(0,62,120,.35);animation:policyFloat 6s ease-in-out infinite}
+.policyList li:nth-child(even){background:linear-gradient(160deg,#1f8fd6,#0062B1);color:#fff}
+.policyList li:nth-child(2){animation-delay:-1.2s}.policyList li:nth-child(3){animation-delay:-2.4s}.policyList li:nth-child(4){animation-delay:-3.6s}.policyList li:nth-child(5){animation-delay:-4.8s}
+@keyframes policyFloat{50%{translate:0 -10px}}
+.policyList em{font-style:normal;font-family:'Poppins';font-size:20px;font-weight:600;color:var(--accent);margin-bottom:10px}
+.policyList li:nth-child(even) em{color:#bfe3fb}
+.policyList strong{font-size:24px;font-weight:700;line-height:1.35}
+.policyList small{margin-top:10px;font-family:'Poppins';font-size:12px;letter-spacing:.06em;opacity:.6}
+.policyList li.ani{transition-delay:calc(var(--i,0) * .12s)}
+.policyList li:nth-child(1){--i:0}.policyList li:nth-child(2){--i:1}.policyList li:nth-child(3){--i:2}.policyList li:nth-child(4){--i:3}.policyList li:nth-child(5){--i:4}
+@media (max-width:1300px){.policyList li{width:210px}.policyList strong{font-size:20px}}
+@media (max-width:1100px){.policyList{flex-wrap:wrap;gap:16px}.policyList li{margin:0}.orbitLine{display:none}.orbit{padding:0}}
+@media (max-width:812px){
+  .motto{font-size:30px;gap:18px;margin-bottom:60px}
+  .policyList li{width:calc(50% - 8px)}
+  .policyList li:last-child{width:calc(50% - 8px)}
+  .policyList strong{font-size:17px}
+  .policyList em{font-size:16px;margin-bottom:6px}
+  .policyList small{font-size:10px}
+}
