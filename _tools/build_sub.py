@@ -363,14 +363,17 @@ def bul(L):
 
 c = DK['ceo']
 page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 인사말: 21세기 전력산업의 Global Leader.',
-     'CEO Message', 'CEO 인사', e(c['sub']), '', f'''  <div class="ceoWrap">
-    <div class="ceoPhoto ani"><img src="assets/img/dk/about_ceo_vis01.jpg" alt="대경기술주식회사 대표이사 임영하"></div>
+     'CEO Message', 'CEO 인사', e(c['sub']), '', f'''  <div class="ceoMsg">
     <div class="ceoText ani">
       <h2 class="eng">CEO Message<span class="dot"></span></h2>
-      <h3>{e(c['head'])}</h3>
+      <h3>{e(c['head']).replace(' 대경기술주식회사', '<br>대경기술주식회사')}</h3>
       <h4>{e(c['sub'])}</h4>
       {''.join(f'<p>{e(x)}</p>' for x in c['body'])}
       <div class="ceoSign"><span>{e(c['sign'])}</span><img src="assets/img/dk/about_ceo_vis02.jpg" alt="대표이사 서명"></div>
+    </div>
+    <div class="ceoPortrait ani">
+      <div class="pic"><img src="assets/img/ceo-portrait.jpg" alt="대경기술주식회사 대표이사 임영하"></div>
+      <p><small>대표이사</small>임 영 하</p>
     </div>
   </div>''')
 
