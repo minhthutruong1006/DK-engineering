@@ -445,3 +445,60 @@ body.sub #header .btnMenu span{background:#111}
   .groupFacts b{font-size:28px}
   .groupFacts span{font-size:13px}
 }
+
+/* ===== 하위 페이지: 전체 화면 비주얼 + 페이지 제목 ===== */
+body.sub #header:not(.fix):not(:hover){background:transparent;box-shadow:none}
+body.sub #header:not(.fix):not(:hover) .logo{color:#fff}
+body.sub #header:not(.fix):not(:hover) .pcNav>ul>li>a{color:#fff}
+body.sub #header:not(.fix):not(:hover) .gnb .contact,body.sub #header:not(.fix):not(:hover) .gnb .language{color:#fff;border-color:rgba(255,255,255,.6)}
+body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
+.subHero{position:relative;height:100vh;min-height:600px;overflow:hidden;background:#05101f;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center}
+.subHero .bg{position:absolute;inset:-4%;background:center/cover no-repeat;animation:zoom 18s ease-in-out infinite alternate}
+.subHero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(4,14,30,.65),rgba(4,14,30,.35) 45%,rgba(4,14,30,.75))}
+.subHero .inner{position:relative;z-index:2;padding:0 var(--pad)}
+.subHero h2{font-family:'Poppins';font-size:72px;font-weight:500;letter-spacing:.02em;line-height:1.1;opacity:0;transform:translateY(40px);animation:heroIn 1.2s .2s forwards}
+.subHero p{margin-top:22px;font-size:20px;color:rgba(255,255,255,.85);opacity:0;transform:translateY(30px);animation:heroIn 1.2s .5s forwards}
+.subHero .heroLine{position:absolute;left:0;top:50%;z-index:2;height:1px;width:0;background:rgba(255,255,255,.35);animation:lineIn 1.6s .3s forwards}
+.subHero .scrollDown{z-index:3}
+@keyframes heroIn{to{opacity:1;transform:none}}
+@keyframes lineIn{to{width:100%}}
+.pageTitle{padding:130px var(--pad) 0}
+.pageTitle .inner{max-width:1600px;margin:0 auto}
+.pageTitle .loc{display:flex;align-items:center;gap:10px;font-size:13px;color:#999;letter-spacing:.04em}
+.pageTitle .loc i{width:4px;height:4px;border-radius:50%;background:#ccc}
+.pageTitle .loc span:last-child{color:var(--accent)}
+.pageTitle h3{margin-top:22px;font-size:52px;font-weight:700;color:#000;letter-spacing:-.02em}
+.pageTitle p{margin-top:18px;max-width:900px;font-size:17px;line-height:1.75;color:#555}
+.pageTab{display:flex;flex-wrap:wrap;gap:10px;margin-top:44px;padding-bottom:40px;border-bottom:1px solid var(--line)}
+.pageTab a{display:block;padding:12px 26px;border:1px solid var(--line);border-radius:30px;font-size:15px;color:#555;transition:.25s}
+.pageTab a:hover{border-color:var(--accent);color:var(--accent)}
+.pageTab a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.subCon{padding-top:90px}
+/* 분야별 실적 */
+.perfIntro{display:grid;grid-template-columns:1fr 1.3fr;gap:60px;align-items:end;margin-bottom:60px}
+.perfIntro .title{margin:0}
+.perfIntro .title p b{color:var(--accent);font-family:'Poppins';font-size:22px}
+.perfPhotos{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.perfPhotos .photo{height:300px;border-radius:var(--radius)}
+.perfList{list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:50px;border-top:2px solid #111}
+.perfList li{display:grid;grid-template-columns:56px 1fr;align-items:baseline;padding:18px 4px;border-bottom:1px solid #e8e8e8;font-size:16px;line-height:1.6;color:#222}
+.perfList li em{font-style:normal;font-family:'Poppins';font-size:14px;color:var(--sky)}
+.perfMore{margin-top:40px;font-size:15px;color:#666}
+.perfMore a{color:var(--accent);font-weight:500;border-bottom:1px solid currentColor}
+@media (max-width:1100px){
+  .perfIntro{grid-template-columns:1fr;gap:30px}
+  .perfList{grid-template-columns:1fr}
+}
+@media (max-width:812px){
+  .subHero{height:70vh;min-height:420px}
+  .subHero h2{font-size:42px}
+  .subHero p{font-size:16px}
+  .pageTitle{padding-top:70px}
+  .pageTitle h3{font-size:32px}
+  .pageTitle p{font-size:15px}
+  .pageTab{gap:8px;margin-top:30px;padding-bottom:28px}
+  .pageTab a{padding:9px 16px;font-size:14px}
+  .subCon{padding-top:50px}
+  .perfPhotos .photo{height:180px}
+  .perfList li{grid-template-columns:40px 1fr;font-size:15px;padding:14px 2px}
+}

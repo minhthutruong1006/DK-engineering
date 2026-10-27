@@ -12,24 +12,43 @@ footer = idx[idx.index('<!-- ============ FOOTER'):idx.index('</body>')]
 header = re.sub(r'href="#', 'href="index.html#', header)
 footer = re.sub(r'href="#"', 'href="index.html"', footer)
 
-TABS = [('history.html', '연혁'), ('performance.html', '실적 목록'), ('rnd.html', '국책과제'), ('certification.html', '인증·특허')]
+# 하위 페이지 그룹: 큰 비주얼의 영문 섹션명·문구·배경과 같은 그룹 탭
+GROUPS = {
+    'about': ('ABOUT', '전력산업의 글로벌 리더, 대경기술', 'sub-history.jpg',
+              [('history.html', '연혁'), ('certification.html', '인증·특허')]),
+    'performance': ('PERFORMANCE', '국내를 넘어 세계로 향하는 기술력', 'sub-perf.jpg',
+                    [('perf-design.html', '설계/엔지니어링'), ('perf-nuclear.html', '원자력 공사/설치'),
+                     ('perf-plant.html', '플랜트 공사/제작'), ('performance.html', '전체 실적 목록')]),
+    'rnd': ('R&amp;D', '원전해체와 국산화 기술을 개발합니다', 'rnd.jpg', [('rnd.html', '국책과제')]),
+}
+PAGE_GROUP = {f: g for g, v in GROUPS.items() for f, _ in v[3]}
 e = html.escape
 
 
 def page(fname, title, desc, eng, h2, lead, bg, body):
     h = re.sub(r'<title>.*?</title>', f'<title>{title} | DK ENGINEERING 대경기술</title>', head)
     h = re.sub(r'<meta name="description" content=".*?">', f'<meta name="description" content="{e(desc)}">', h)
-    tabs = ''.join(f'<li><a href="{f}"{" class=\"on\"" if f == fname else ""}>{t}</a></li>' for f, t in TABS)
+    g_eng, g_lead, g_bg, g_tabs = GROUPS[PAGE_GROUP[fname]]
+    tabs = ''.join(f'<li><a href="{f}"{" class=\"on\"" if f == fname else ""}>{t}</a></li>' for f, t in g_tabs)
     out = f'''{h}<body class="sub">
 
-{header}<section class="subVisual" style="background-image:url(assets/img/{bg})">
+{header}<section class="subHero">
+  <div class="bg" style="background-image:url(assets/img/{g_bg})"></div>
   <div class="inner">
-    <div class="eng">{eng}</div>
-    <h2>{h2}</h2>
-    <p>{lead}</p>
+    <h2>{g_eng}</h2>
+    <p>{g_lead}</p>
   </div>
+  <span class="heroLine"></span>
+  <div class="scrollDown"><span></span>SCROLL</div>
 </section>
-<nav class="subTab"><ul>{tabs}</ul></nav>
+<div class="pageTitle">
+  <div class="inner">
+    <div class="loc"><a href="index.html">HOME</a><i></i><span>{g_eng}</span><i></i><span>{h2}</span></div>
+    <h3>{h2}</h3>
+    <p>{lead}</p>
+    <ul class="pageTab">{tabs}</ul>
+  </div>
+</div>
 
 <main class="subCon">
 {body}
@@ -274,3 +293,32 @@ page('certification.html', '인증·특허', '대경기술 면허·인증 현황
       <div class="row biz"><div class="node">경영지원본부</div><div class="node">원자력 사업본부</div><div class="node">플랜트 사업본부</div></div>
     </div>
   </div>''')
+
+
+# ---------- 5. 분야별 주요 실적 (dkenc.kr 주요 실적 3개 페이지 목록) ----------
+lists = json.load(open(os.path.join(ROOT, '_tools', 'dk_perf_lists.json'), encoding='utf-8'))
+PERF_PAGES = [
+    ('perf-design.html', 'design', '설계/엔지니어링', 'Design &amp; Engineering', '설계/엔지니어링(전/계장)',
+     '원자력사업본부는 한수원 가동원전 계전설비 설계 Q등급 유자격으로 가동원전 설비개선, 신규 원전 안전계통 도면·문서, SMR·연구용 원자로의 전기·계장 설계를 수행합니다.',
+     ['pd-design1.jpg', 'rnd.jpg']),
+    ('perf-nuclear.html', 'nuclear', '원자력 공사/설치', 'Nuclear Construction', '원자력 공사 &amp; 설치(전/계장)',
+     '주제어반·MCC·발전기·여자시스템 교체부터 CEDMCS·NIMS 같은 핵심 감시·제어설비 설치까지, 가동원전의 계획예방정비 기간에 맞춰 시공합니다.',
+     ['pd-nuclear1.jpg', 'pd-nuclear2.jpg']),
+    ('perf-plant.html', 'plant', '플랜트 공사/제작', 'Plant Construction', '플랜트 공사/제작',
+     '화력·복합화력 발전소 전기·계측제어 공사와 석유화학 플랜트 E-House·CCR Module 전기/계장, 일반 건축물 전기·소방 공사를 수행합니다.',
+     ['pd-plant1.jpg', 'pd-plant2.jpg']),
+]
+for fname, key, h2, eng, sub, intro, photos in PERF_PAGES:
+    items = lists[key]
+    li = ''.join(f'<li><em>{i:02d}</em><span>{e(t)}</span></li>' for i, t in enumerate(items, 1))
+    imgs = ''.join(f'<div class="photo" style="background-image:url(assets/img/{p})"></div>' for p in photos)
+    page(fname, h2, f'대경기술 주요 실적 - {h2}: {intro}', 'Performance', h2, intro, '', f'''  <div class="perfIntro">
+    <div class="title ani">
+      <h2>{eng}<span class="dot"></span></h2>
+      <h3>{sub}</h3>
+      <p>주요 수행 실적 <b>{len(items)}</b>건</p>
+    </div>
+    <div class="perfPhotos ani">{imgs}</div>
+  </div>
+  <ol class="perfList ani">{li}</ol>
+  <div class="perfMore ani">연월·발주처별 전체 실적은 <a href="performance.html">전체 실적 목록(585건)</a>에서 확인할 수 있습니다.</div>''')
