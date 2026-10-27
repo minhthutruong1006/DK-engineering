@@ -621,3 +621,31 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .ceoPortrait .pic img{width:82%;height:auto;object-fit:contain;margin:0 auto}
 @media (max-width:1100px){.ceoMsg{grid-template-columns:1fr 320px}}
 @media (max-width:812px){.ceoMsg{grid-template-columns:1fr}.ceoPortrait{max-width:320px}}
+/* CEO 인사 v2: 사진 왼쪽 · 제목 2블록 오른쪽 · 하단 흐르는 워드마크 */
+.ceoMsg2{display:grid;grid-template-columns:440px 1fr;gap:80px;align-items:start;max-width:1280px;margin:0 auto}
+.ceoMsg2 .ceoPortrait{position:sticky;top:130px}
+.ceoMsg2 .ceoPortrait .pic{border-radius:24px;overflow:hidden;aspect-ratio:440/500;background:#fff url(img/ceo-map.png) 50% 22%/190% auto no-repeat;border:1px solid #eef0f3;display:flex;justify-content:center;align-items:flex-end}
+.ceoMsg2 .ceoPortrait .pic img{display:block;width:82%;height:auto}
+.ceoMsg2 .ceoPortrait p{margin-top:18px;padding-left:20px;font-size:15px;color:#555;text-align:left;letter-spacing:0}
+.ceoMsg2 .ceoPortrait p b{color:#111;font-weight:700}
+.msgBlock+.msgBlock{margin-top:80px}
+.msgBlock h3{font-size:34px;font-weight:700;color:#111;line-height:1.4;letter-spacing:-.02em;margin-bottom:30px}
+.msgBlock h3 em{font-style:normal;background:linear-gradient(90deg,#00A0E9,#0062B1);-webkit-background-clip:text;background-clip:text;color:transparent}
+.msgBlock p{font-size:16px;line-height:1.95;color:#555;margin-top:12px}
+.msgBlock .ceoSign{justify-content:flex-start;margin-top:36px}
+.wordFlow{overflow:hidden;margin:120px calc(var(--pad) * -1) -100px;pointer-events:none;user-select:none}
+.wordFlow .track{display:flex;width:max-content;animation:wordFlow 40s linear infinite}
+.wordFlow span{font-family:'Poppins';font-style:italic;font-weight:600;font-size:170px;line-height:1;letter-spacing:-.03em;color:rgba(0,98,177,.07);padding-right:80px;white-space:nowrap}
+.wordFlow span i{font-style:italic;color:rgba(0,160,233,.09)}
+@keyframes wordFlow{to{transform:translateX(-50%)}}
+@media (max-width:1100px){.ceoMsg2{grid-template-columns:320px 1fr;gap:50px}.msgBlock h3{font-size:28px}}
+@media (max-width:812px){
+  .ceoMsg2{grid-template-columns:1fr;gap:40px}
+  .ceoMsg2 .ceoPortrait{position:static;max-width:340px;margin:0 auto}
+  .ceoMsg2 .ceoPortrait p{text-align:center;padding:0}
+  .msgBlock h3{font-size:23px;margin-bottom:20px}
+  .msgBlock p{font-size:15px}
+  .msgBlock+.msgBlock{margin-top:56px}
+  .wordFlow{margin-top:70px;margin-bottom:-60px}
+  .wordFlow span{font-size:80px;padding-right:40px}
+}
