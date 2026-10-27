@@ -115,12 +115,25 @@ HISTORY += [tuple(x) for x in DK['history_extra']]
 years = {}
 for d, t, s in sorted(HISTORY, key=lambda x: x[0]):
     years.setdefault(d[:4], []).append((d[5:], t, s))
-rows = []
-for y in sorted(years, reverse=True):
-    lis = ''.join(
-        f'<li class="{"award" if ("수상" in t) else ""}"><em>{m}</em><span>{e(t)}{f"<small>{e(s)}</small>" if s else ""}</span></li>'
-        for m, t, s in years[y])
-    rows.append(f'<div class="yearRow ani"><div class="year">{y}</div><ul>{lis}</ul></div>')
+# 시기 구분: 왼쪽 고정 영역의 연도 범위·제목과 사진이 스크롤 위치에 따라 바뀜
+ERAS = [
+    ('2006', '2012', '원자력 협력 기반 구축', ['dk/about_history01.jpg', 'dk/about_history02.jpg', 'dk/about_history03.jpg']),
+    ('2013', '2017', '사옥·기업부설연구소 설립과 성장', ['dk/about_svis.jpg', 'dk/about_history04.jpg', 'dk/about_history05.jpg']),
+    ('2018', '2026', 'DK 그룹 출범과 원전해체 기술 선도', ['dk/about_history06.jpg', 'cert-wall.jpg', 'hero.jpg']),
+]
+era_of = lambda y: next(i for i, (a, b, _, _) in enumerate(ERAS) if a <= y <= b)
+rows, thumbs, n_img = [], [], 0
+for i, (a, b, cat, imgs) in enumerate(ERAS):
+    ys = [y for y in sorted(years) if a <= y <= b]
+    for j, y in enumerate(ys):
+        k = n_img + min(j * len(imgs) // len(ys), len(imgs) - 1)   # 시기 안에서 연도가 넘어갈 때마다 사진 교체
+        lis = ''.join(
+            f'<dd class="{"award" if ("수상" in t) else ""}"><em>{m}</em><span>{e(t)}{f"<small>{e(s)}</small>" if s else ""}</span></dd>'
+            for m, t, s in years[y])
+        rows.append(f'<dl class="hYear" data-era="{i}" data-img="{k}"><dt>{y}</dt>{lis}</dl>')
+    thumbs += imgs
+    n_img += len(imgs)
+eras_json = json.dumps([[a, b, cat] for a, b, cat, _ in ERAS], ensure_ascii=False)
 page('history.html', '연혁', '대경기술주식회사(DK ENGINEERING) 2006~2026 연혁: 한수원 유자격공급자 등록, 면허 확장, 기업부설연구소 설립, 대통령 표창.',
      'History', '연혁', '2006년 설립 이후 원자력·전력산업과 함께 걸어온 길입니다.', 'sub-history.jpg', f'''  <div class="title ani">
     <h2>History<span class="dot"></span></h2>
@@ -132,9 +145,16 @@ page('history.html', '연혁', '대경기술주식회사(DK ENGINEERING) 2006~20
     <div><b>2013</b><span>사옥 신축 · 기업부설연구소 설립</span></div>
     <div><b>2026</b><span>대통령 표창 (과학기술진흥발전)</span></div>
   </div>
-  <div class="histPhotos ani">{''.join(f'<div class="photo" style="background-image:url(assets/img/dk/about_history0{i}.jpg)"></div>' for i in range(1, 7))}</div>
-  <div class="history">
-    {''.join(rows)}
+  <div class="hTimeline" data-eras='{eras_json}'>
+    <div class="hLeft">
+      <h4 class="hRange"><span class="from">{ERAS[0][0]}</span><i>-</i><span class="to">{ERAS[0][1]}</span></h4>
+      <p class="hCat">{ERAS[0][2]}</p>
+      <div class="hThumb">{''.join(f'<img src="assets/img/{p}" alt=""{" class=\"on\"" if n == 0 else ""}>' for n, p in enumerate(thumbs))}</div>
+    </div>
+    <div class="hLine"><span class="bar"></span><span class="dot"></span></div>
+    <div class="hRight">
+      {''.join(rows)}
+    </div>
   </div>''')
 
 # ---------- 2. 실적 목록 ----------

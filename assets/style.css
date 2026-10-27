@@ -674,3 +674,43 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 /* CEO: 사진과 인사말을 세로 가운데로 맞추고, 사진은 스크롤 따라 움직이지 않게 */
 .ceoMsg2{align-items:center}
 .ceoMsg2 .ceoPortrait{position:static;top:auto}
+/* ===== 연혁: 왼쪽 고정 시기·사진 / 가운데 진행선 / 오른쪽 연도 목록 ===== */
+.hTimeline{display:grid;grid-template-columns:minmax(0,1fr) 60px minmax(0,1fr);margin-top:20px}
+.hLeft{position:sticky;top:140px;align-self:start;padding-right:30px}
+.hRange{display:flex;align-items:baseline;gap:14px;font-family:'Poppins';font-size:64px;font-weight:600;line-height:1;color:var(--accent);letter-spacing:-.02em}
+.hRange i{font-style:normal;color:#c9d6e3;font-weight:300}
+.hCat{margin-top:18px;font-size:20px;font-weight:500;color:#222}
+.hLeft.swap .hRange,.hLeft.swap .hCat{animation:hSwap .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes hSwap{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.hThumb{position:relative;margin-top:40px;aspect-ratio:4/3;border-radius:var(--radius);overflow:hidden;background:#e9eef4}
+.hThumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(100% 0 0 0);transition:clip-path 1s cubic-bezier(.6,0,.2,1)}
+.hThumb img.on{clip-path:inset(0 0 0 0)}
+.hThumb img:first-child{clip-path:inset(0 0 0 0)}
+.hLine{position:relative;justify-self:center;width:2px;background:#e3e8ee}
+.hLine .bar{position:absolute;left:0;top:0;width:100%;height:0;background:linear-gradient(#00A0E9,#0062B1)}
+.hLine .dot{position:sticky;display:block;top:50vh;width:14px;height:14px;margin-left:-6px;border-radius:50%;background:#fff;border:3px solid var(--accent);box-shadow:0 0 0 6px rgba(0,98,177,.12)}
+.hLine .dot{position:absolute}
+.hRight{padding:0 0 30vh 30px}
+.hYear{padding:46px 0;border-bottom:1px solid #eef0f3}
+.hYear:first-child{padding-top:10px}
+.hYear dt{font-family:'Poppins';font-size:40px;font-weight:700;color:#c4c9cf;line-height:1;margin-bottom:22px;transition:color .4s}
+.hYear.on dt{color:var(--accent)}
+.hYear dd{display:grid;grid-template-columns:44px 1fr;gap:6px;padding:7px 0;font-size:17px;line-height:1.6;color:#999;transition:color .4s}
+.hYear.on dd{color:#222}
+.hYear dd em{font-style:normal;font-family:'Poppins';font-weight:500;color:#aab3bd}
+.hYear dd small{display:block;font-size:14px;color:#999}
+.hYear.on dd.award span{color:var(--accent);font-weight:500}
+@media (max-width:1100px){.hRange{font-size:46px}.hTimeline{grid-template-columns:minmax(0,1fr) 40px minmax(0,1.1fr)}}
+@media (max-width:812px){
+  .hTimeline{grid-template-columns:1fr}
+  .hLine{display:none}
+  .hLeft{top:70px;z-index:5;background:#fff;padding:14px 0 16px;margin:0 calc(var(--pad)*-1);padding-left:var(--pad);padding-right:var(--pad);box-shadow:0 10px 20px -16px rgba(0,0,0,.25)}
+  .hRange{font-size:30px}
+  .hCat{margin-top:8px;font-size:15px}
+  .hThumb{margin-top:14px;aspect-ratio:16/8;border-radius:14px}
+  .hRight{padding:0 0 20vh}
+  .hYear{padding:30px 0}
+  .hYear dt{font-size:30px;margin-bottom:14px}
+  .hYear dd{font-size:15px;grid-template-columns:36px 1fr}
+}
+@media (max-width:812px){.hThumb{aspect-ratio:auto;height:110px}.hRange{font-size:26px}.hLeft{padding-top:10px;padding-bottom:12px}}

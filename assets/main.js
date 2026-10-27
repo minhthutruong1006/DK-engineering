@@ -61,6 +61,36 @@
   allmenu.querySelector('.btnClose').addEventListener('click', function () { toggleMenu(false); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggleMenu(false); });
 
+  // 연혁: 화면 가운데를 지나는 연도에 맞춰 왼쪽 시기·사진과 가운데 진행선을 바꿈
+  var tl = document.querySelector('.hTimeline');
+  if (tl) {
+    var eras = JSON.parse(tl.getAttribute('data-eras'));
+    var hYears = tl.querySelectorAll('.hYear');
+    var thumbs = tl.querySelectorAll('.hThumb img');
+    var from = tl.querySelector('.hRange .from'), to = tl.querySelector('.hRange .to'), cat = tl.querySelector('.hCat');
+    var bar = tl.querySelector('.hLine .bar'), dot = tl.querySelector('.hLine .dot');
+    var lastEra = -1;
+    function updateHistory() {
+      var mid = window.innerHeight * 0.5, act = 0;
+      hYears.forEach(function (y, i) { if (y.getBoundingClientRect().top < mid) act = i; });
+      hYears.forEach(function (y, i) { y.classList.toggle('on', i === act); });
+      var cur = hYears[act], era = +cur.getAttribute('data-era'), img = +cur.getAttribute('data-img');
+      thumbs.forEach(function (t, i) { t.classList.toggle('on', i <= img); });
+      if (era !== lastEra) {
+        lastEra = era;
+        from.textContent = eras[era][0]; to.textContent = eras[era][1]; cat.textContent = eras[era][2];
+        tl.querySelector('.hLeft').classList.remove('swap'); void tl.offsetWidth; tl.querySelector('.hLeft').classList.add('swap');
+      }
+      var r = tl.querySelector('.hRight').getBoundingClientRect();
+      var p = Math.min(Math.max((mid - r.top) / r.height, 0), 1);
+      bar.style.height = p * 100 + '%';
+      dot.style.top = p * 100 + '%';
+    }
+    window.addEventListener('scroll', updateHistory, { passive: true });
+    window.addEventListener('resize', updateHistory);
+    updateHistory();
+  }
+
   // Press: 드래그 스크롤 + 진행 바
   var track = document.querySelector('.press .track');
   var bar = document.querySelector('.press .scrollbar span');
