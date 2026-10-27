@@ -75,7 +75,7 @@
       hYears.forEach(function (y, i) { if (y.getBoundingClientRect().top < mid) act = i; });
       hYears.forEach(function (y, i) { y.classList.toggle('on', i === act); });
       var cur = hYears[act], era = +cur.getAttribute('data-era'), img = +cur.getAttribute('data-img');
-      thumbs.forEach(function (t, i) { t.classList.toggle('on', i <= img); });
+      thumbs.forEach(function (t, i) { t.classList.toggle('on', i === img); });
       if (era !== lastEra) {
         lastEra = era;
         from.textContent = eras[era][0]; to.textContent = eras[era][1]; cat.textContent = eras[era][2];

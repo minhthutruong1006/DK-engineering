@@ -139,12 +139,6 @@ page('history.html', '연혁', '대경기술주식회사(DK ENGINEERING) 2006~20
     <h2>History<span class="dot"></span></h2>
     <h3>신뢰를 쌓아온 20년</h3>
   </div>
-  <div class="stats ani">
-    <div><b>2006</b><span>사업 시작 · 한수원 협력업체 등록</span></div>
-    <div><b>Q</b><span>한수원 유자격공급자 최고 등급</span></div>
-    <div><b>2013</b><span>사옥 신축 · 기업부설연구소 설립</span></div>
-    <div><b>2026</b><span>대통령 표창 (과학기술진흥발전)</span></div>
-  </div>
   <div class="hTimeline" data-eras='{eras_json}'>
     <div class="hLeft">
       <h4 class="hRange"><span class="from">{ERAS[0][0]}</span><i>-</i><span class="to">{ERAS[0][1]}</span></h4>
