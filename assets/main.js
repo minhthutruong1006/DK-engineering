@@ -69,13 +69,20 @@
     var thumbs = tl.querySelectorAll('.hThumb img');
     var from = tl.querySelector('.hRange .from'), to = tl.querySelector('.hRange .to'), cat = tl.querySelector('.hCat');
     var hBar = tl.querySelector('.hLine .bar');
-    var lastEra = -1;
+    var lastEra = -1, WIPE = 360, firstOf = {};
+    hYears.forEach(function (y) { var k = +y.getAttribute('data-img'); if (!(k in firstOf)) firstOf[k] = y; });
     function updateHistory() {
       var mid = window.innerHeight * 0.5, act = 0;
       hYears.forEach(function (y, i) { if (y.getBoundingClientRect().top < mid) act = i; });
       hYears.forEach(function (y, i) { y.classList.toggle('on', i === act); });
       var cur = hYears[act], era = +cur.getAttribute('data-era'), img = +cur.getAttribute('data-img');
-      thumbs.forEach(function (t, i) { t.classList.toggle('on', i === img); });
+      // 사진: 해당 사진의 첫 연도가 화면 가운데에 오기 직전 구간(WIPE px) 동안 스크롤만큼 아래에서 위로 덮음
+      thumbs.forEach(function (t, i) {
+        if (i === 0) { t.style.clipPath = 'inset(0 0 0 0)'; return; }
+        var first = firstOf[i];
+        var f = first ? Math.min(Math.max((mid - (first.getBoundingClientRect().top - WIPE)) / WIPE, 0), 1) : 0;
+        t.style.clipPath = 'inset(' + ((1 - f) * 100).toFixed(2) + '% 0 0 0)';
+      });
       if (era !== lastEra) {
         lastEra = era;
         from.textContent = eras[era][0]; to.textContent = eras[era][1]; cat.textContent = eras[era][2];
