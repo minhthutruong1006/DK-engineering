@@ -615,3 +615,9 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
   .ceoMsg .ceoText h4{font-size:17px}
   .ceoMsg .ceoText p{font-size:15px;line-height:1.9}
 }
+/* CEO 사진: 세계지도 점무늬 배경 + 배경 지운 대표 사진 */
+.ceoMsg{grid-template-columns:1fr 460px}
+.ceoPortrait .pic{background:#fff url(img/ceo-map.png) 50% 22%/190% auto no-repeat;border:1px solid #eef0f3;aspect-ratio:460/500}
+.ceoPortrait .pic img{width:82%;height:auto;object-fit:contain;margin:0 auto}
+@media (max-width:1100px){.ceoMsg{grid-template-columns:1fr 320px}}
+@media (max-width:812px){.ceoMsg{grid-template-columns:1fr}.ceoPortrait{max-width:320px}}

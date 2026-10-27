@@ -372,7 +372,7 @@ page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 
       <div class="ceoSign"><span>{e(c['sign'])}</span><img src="assets/img/dk/about_ceo_vis02.jpg" alt="대표이사 서명"></div>
     </div>
     <div class="ceoPortrait ani">
-      <div class="pic"><img src="assets/img/ceo-portrait.jpg" alt="대경기술주식회사 대표이사 임영하"></div>
+      <div class="pic"><img src="assets/img/ceo-cutout.png" alt="대경기술주식회사 대표이사 임영하"></div>
       <p><small>대표이사</small>임 영 하</p>
     </div>
   </div>''')
