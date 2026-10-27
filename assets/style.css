@@ -837,3 +837,13 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .penta .pLine{stroke:#5b9bd5;stroke-width:1.6;stroke-dasharray:3 5;animation:orgDash 1.2s linear infinite}
 .penta li{transition:opacity .8s,scale .8s cubic-bezier(.2,.8,.2,1.2),translate .35s,box-shadow .35s}
 .penta li:hover{translate:0 -8px;box-shadow:0 0 0 11px rgba(160,190,230,.45),0 22px 36px -14px rgba(0,50,110,.55)}
+/* 경영방침 원: 대표이사 박스처럼 둘레 빛이 천천히 커졌다 작아짐(원마다 박자 다르게) */
+.penta li{animation:pGlow 2.8s ease-in-out infinite}
+.penta li.c2{animation-delay:-.56s}.penta li.c3{animation-delay:-1.12s}.penta li.c4{animation-delay:-1.68s}.penta li.c5{animation-delay:-2.24s}
+@keyframes pGlow{
+  0%,100%{box-shadow:0 0 0 11px rgba(160,190,230,.45),0 16px 30px -16px rgba(0,50,110,.5)}
+  50%{box-shadow:0 0 0 17px rgba(160,190,230,.2),0 0 26px rgba(0,98,177,.35),0 16px 30px -16px rgba(0,50,110,.5)}
+}
+@media (max-width:812px){
+  @keyframes pGlow{0%,100%{box-shadow:0 0 0 6px rgba(160,190,230,.45)}50%{box-shadow:0 0 0 10px rgba(160,190,230,.2),0 0 16px rgba(0,98,177,.35)}}
+}
