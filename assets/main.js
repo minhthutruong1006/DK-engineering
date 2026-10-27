@@ -18,7 +18,7 @@
   // 메인 비주얼 슬라이드(페이드)
   var slides = document.querySelectorAll('.visual .slide');
   var cur = 0;
-  setInterval(function () {
+  if (slides.length > 1) setInterval(function () {
     slides[cur].classList.remove('on');
     cur = (cur + 1) % slides.length;
     slides[cur].classList.add('on');
@@ -64,6 +64,7 @@
   // Press: 드래그 스크롤 + 진행 바
   var track = document.querySelector('.press .track');
   var bar = document.querySelector('.press .scrollbar span');
+  if (!track) return;
   function updateBar() {
     var max = track.scrollWidth - track.clientWidth;
     var ratio = track.clientWidth / track.scrollWidth;
