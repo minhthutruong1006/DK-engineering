@@ -802,3 +802,25 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .motto{margin:-10px 0 40px}
 .pentaWrap{margin-top:0}
 @media (max-width:812px){.motto{margin:0 0 24px}}
+/* ===== 조직도: 원본 배치 그대로 HTML, 흐르는 점선·차례 등장·빛나는 대표이사 ===== */
+.orgFlow{display:flex;justify-content:center;margin-top:20px}
+.orgCanvas{position:relative;width:100%;max-width:1100px;aspect-ratio:1280/820;container-type:inline-size}
+.orgCanvas svg{position:absolute;inset:0;width:100%;height:100%}
+.orgCanvas path{fill:none;stroke:#5b9bd5;stroke-width:1.6;stroke-dasharray:3 5;vector-effect:non-scaling-stroke;animation:orgDash 1.2s linear infinite}
+@keyframes orgDash{to{stroke-dashoffset:-16}}
+.oBox{position:absolute;display:flex;align-items:center;justify-content:center;text-align:center;border-radius:1cqw;font-size:2.15cqw;font-weight:500;line-height:1.35;transition:transform .35s,box-shadow .35s}
+.oBox span{position:relative}
+.oBox.ceo{background:linear-gradient(160deg,#1574c6,#0058ad);color:#fff;font-weight:700;box-shadow:0 0 0 1.3cqw rgba(160,190,230,.45);animation:ceoGlow 2.8s ease-in-out infinite}
+@keyframes ceoGlow{50%{box-shadow:0 0 0 1.9cqw rgba(160,190,230,.2),0 0 2.5cqw rgba(0,98,177,.35)}}
+.oBox.dept{background:#fff;color:#2c6fb6;border:.18cqw solid #8fb4e0;box-shadow:0 .6cqw 1.6cqw -.8cqw rgba(0,60,130,.35)}
+.oBox.sub{background:linear-gradient(160deg,#9ab9e2,#7f9fd2);color:#fff;font-size:1.9cqw}
+.oBox.biz{background:linear-gradient(160deg,#7aa0d8,#5d88c8);color:#fff;font-size:2.3cqw;box-shadow:0 0 0 .35cqw rgba(160,190,230,.35),0 1.2cqw 2.4cqw -1.2cqw rgba(0,50,110,.5)}
+.oBox:hover{transform:translateY(-.5cqw);box-shadow:0 1.4cqw 2.6cqw -1cqw rgba(0,60,130,.45)}
+.oBox.ceo:hover{transform:none}
+.oBox.dept:hover{border-color:var(--accent);color:var(--accent)}
+.oBox.ani{opacity:0;transform:translateY(1.8cqw);transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1),box-shadow .35s;transition-delay:calc(var(--d) * .09s)}
+.oBox.ani.on{opacity:1;transform:none}
+.oBox.ani.on:hover{transform:translateY(-.5cqw);transition-delay:0s}
+.oBox.ceo.ani.on:hover{transform:none}
+/* 조직도 모바일 최소 글자 크기 */
+.oBox{font-size:max(11px,2.15cqw)}.oBox.sub{font-size:max(10px,1.9cqw)}.oBox.biz{font-size:max(11px,2.3cqw)}
