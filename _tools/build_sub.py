@@ -300,13 +300,13 @@ lists = json.load(open(os.path.join(ROOT, '_tools', 'dk_perf_lists.json'), encod
 PERF_PAGES = [
     ('perf-design.html', 'design', '설계/엔지니어링', 'Design &amp; Engineering', '설계/엔지니어링(전/계장)',
      '원자력사업본부는 한수원 가동원전 계전설비 설계 Q등급 유자격으로 가동원전 설비개선, 신규 원전 안전계통 도면·문서, SMR·연구용 원자로의 전기·계장 설계를 수행합니다.',
-     ['pd-design1.jpg', 'rnd.jpg']),
+     ['dk-design01.jpg', 'dk-design02.jpg']),
     ('perf-nuclear.html', 'nuclear', '원자력 공사/설치', 'Nuclear Construction', '원자력 공사 &amp; 설치(전/계장)',
      '주제어반·MCC·발전기·여자시스템 교체부터 CEDMCS·NIMS 같은 핵심 감시·제어설비 설치까지, 가동원전의 계획예방정비 기간에 맞춰 시공합니다.',
-     ['pd-nuclear1.jpg', 'pd-nuclear2.jpg']),
+     ['dk-nuclear01.jpg', 'dk-nuclear02.jpg']),
     ('perf-plant.html', 'plant', '플랜트 공사/제작', 'Plant Construction', '플랜트 공사/제작',
      '화력·복합화력 발전소 전기·계측제어 공사와 석유화학 플랜트 E-House·CCR Module 전기/계장, 일반 건축물 전기·소방 공사를 수행합니다.',
-     ['pd-plant1.jpg', 'pd-plant2.jpg']),
+     ['dk-plant01.jpg', 'dk-plant02.jpg']),
 ]
 for fname, key, h2, eng, sub, intro, photos in PERF_PAGES:
     items = lists[key]
