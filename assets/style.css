@@ -832,3 +832,8 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .pCenter{font-size:28px}
 .penta li{box-shadow:0 0 0 11px rgba(160,190,230,.28),0 16px 30px -16px rgba(0,50,110,.5)}
 @media (max-width:812px){.subCon:has(.motto){padding-top:40px}.penta li span{font-size:13px}.pCenter{font-size:17px}.penta li{box-shadow:0 0 0 6px rgba(160,190,230,.28),0 10px 20px -10px rgba(0,50,110,.5)}}
+/* 경영방침: 떠오름·도는 점 없이 조직도와 같은 효과(흐르는 점선, 차례 등장, 호버) */
+.penta li{animation:none}
+.penta .pLine{stroke:#5b9bd5;stroke-width:1.6;stroke-dasharray:3 5;animation:orgDash 1.2s linear infinite}
+.penta li{transition:opacity .8s,scale .8s cubic-bezier(.2,.8,.2,1.2),translate .35s,box-shadow .35s}
+.penta li:hover{translate:0 -8px;box-shadow:0 0 0 11px rgba(160,190,230,.45),0 22px 36px -14px rgba(0,50,110,.55)}

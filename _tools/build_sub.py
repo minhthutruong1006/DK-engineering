@@ -410,8 +410,6 @@ page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조�
     <div class="penta">
       <svg viewBox="0 0 760 740" aria-hidden="true">
         <path id="pentaPath" d="M380.0,105.0 L641.5,295.0 L541.6,602.5 L218.4,602.5 L118.5,295.0 Z" class="pLine"/>
-        <circle r="7" class="pDot"><animateMotion dur="12s" repeatCount="indefinite"><mpath href="#pentaPath"/></animateMotion></circle>
-        <circle r="7" class="pDot"><animateMotion dur="12s" begin="-6s" repeatCount="indefinite"><mpath href="#pentaPath"/></animateMotion></circle>
       </svg>
       <div class="pCenter ani" style="left:50.00%;top:51.35%">경영<br>방침</div>
       <ul><li class="c1 ani" style="left:50.00%;top:14.19%"><span>설계 품질<br>제고</span></li><li class="c2 ani" style="left:84.41%;top:39.87%"><span>고객 신뢰</span></li><li class="c3 ani" style="left:71.27%;top:81.42%"><span>투명 경영</span></li><li class="c4 ani" style="left:28.73%;top:81.42%"><span>자기 계발</span></li><li class="c5 ani" style="left:15.59%;top:39.87%"><span>직원<br>상호 존중</span></li></ul>
