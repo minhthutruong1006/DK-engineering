@@ -798,3 +798,7 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 /* 오각형 위치 보정: 등장 효과(.ani)의 transform과 겹치지 않도록 가운데 맞춤은 margin/translate로 */
 .penta li,.penta li.ani,.penta li.ani.on{transform:none;margin:-12% 0 0 -12%}
 .pCenter,.pCenter.ani,.pCenter.ani.on{transform:none;translate:-50% -50%}
+/* 사훈 간격 축소: 제목→사훈 문구→오각형 */
+.motto{margin:-10px 0 40px}
+.pentaWrap{margin-top:0}
+@media (max-width:812px){.motto{margin:0 0 24px}}
