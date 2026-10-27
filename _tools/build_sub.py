@@ -15,11 +15,18 @@ footer = re.sub(r'href="#"', 'href="index.html"', footer)
 # 하위 페이지 그룹: 큰 비주얼의 영문 섹션명·문구·배경과 같은 그룹 탭
 GROUPS = {
     'about': ('ABOUT', '전력산업의 글로벌 리더, 대경기술', 'sub-history.jpg',
-              [('history.html', '연혁'), ('certification.html', '인증·특허')]),
+              [('ceo.html', 'CEO 인사'), ('company.html', '회사 개요'), ('history.html', '연혁'), ('organ.html', '사훈/조직도'),
+               ('certification.html', '인증서'), ('clients.html', '주요 고객사'), ('ci.html', 'C.I. 소개')]),
+    'business': ('BUSINESS', '원자력, 화력발전소 및 플랜트 전기/계장 분야 선도 업체', 'dk/business_performance_top.jpg',
+                 [('biz-services.html', '수행 역무'), ('biz-nuclear.html', '원자력/발전'), ('biz-plant.html', '플랜트/해양모듈'),
+                  ('biz-major.html', '주요 사업'), ('rnd.html', '국책과제')]),
     'performance': ('PERFORMANCE', '국내를 넘어 세계로 향하는 기술력', 'sub-perf.jpg',
                     [('perf-design.html', '설계/엔지니어링'), ('perf-nuclear.html', '원자력 공사/설치'),
                      ('perf-plant.html', '플랜트 공사/제작'), ('performance.html', '전체 실적 목록')]),
-    'rnd': ('R&amp;D', '원전해체와 국산화 기술을 개발합니다', 'rnd.jpg', [('rnd.html', '국책과제')]),
+    'news': ('NEWS', '대경기술의 새로운 소식을 전합니다', 'dk/business_nuclear_power.jpg',
+             [('news.html', '대경기술 소식'), ('press.html', '보도자료')]),
+    'contact': ('CONTACT', '전력산업의 든든한 파트너, 대경기술', 'contact.jpg',
+                [('inquiry.html', '고객 문의'), ('location.html', '오시는 길')]),
 }
 PAGE_GROUP = {f: g for g, v in GROUPS.items() for f, _ in v[3]}
 e = html.escape
@@ -103,6 +110,8 @@ HISTORY = [
     ('2025.09', '한국동서발전㈜ EWP 감사패 수상', '당진 1~4호기'),
     ('2026.09', '대통령 표창 수상', '과학기술진흥발전 공로'),
 ]
+DK = json.load(open(os.path.join(ROOT, '_tools', 'dk_pages.json'), encoding='utf-8'))
+HISTORY += [tuple(x) for x in DK['history_extra']]
 years = {}
 for d, t, s in sorted(HISTORY, key=lambda x: x[0]):
     years.setdefault(d[:4], []).append((d[5:], t, s))
@@ -123,6 +132,7 @@ page('history.html', '연혁', '대경기술주식회사(DK ENGINEERING) 2006~20
     <div><b>2013</b><span>사옥 신축 · 기업부설연구소 설립</span></div>
     <div><b>2026</b><span>대통령 표창 (과학기술진흥발전)</span></div>
   </div>
+  <div class="histPhotos ani">{''.join(f'<div class="photo" style="background-image:url(assets/img/dk/about_history0{i}.jpg)"></div>' for i in range(1, 7))}</div>
   <div class="history">
     {''.join(rows)}
   </div>''')
@@ -292,6 +302,26 @@ page('certification.html', '인증·특허', '대경기술 면허·인증 현황
       <div class="line"></div>
       <div class="row biz"><div class="node">경영지원본부</div><div class="node">원자력 사업본부</div><div class="node">플랜트 사업본부</div></div>
     </div>
+  </div>
+
+  <div class="block">
+    <div class="title ani">
+      <h2>Certificates<span class="dot"></span></h2>
+      <h3>인증서</h3>
+    </div>
+    <ul class="dkList ani">{''.join(f'<li>{e(x)}</li>' for x in DK['cert_list'])}</ul>
+    <ul class="certGallery ani">{''.join(f'<li><div class="frame"><img src="assets/img/dk/about_certification{i:02d}.jpg" alt="{re.sub("<br>", " ", c)}" loading="lazy"></div><p>{c}</p></li>' for i, c in enumerate(DK['cert_captions'], 1))}</ul>
+  </div>
+
+  <div class="block">
+    <div class="title ani">
+      <h2>Patent<span class="dot"></span></h2>
+      <h3>특허 보유 현황</h3>
+    </div>
+    <div class="patentWrap ani">
+      <img src="assets/img/dk/about_patent.jpg" alt="특허증" loading="lazy">
+      <ul>{''.join(f'<li><b>{e(t)}</b><span>({e(n)})</span></li>' for t, n in DK['patents'])}</ul>
+    </div>
   </div>''')
 
 
@@ -322,3 +352,114 @@ for fname, key, h2, eng, sub, intro, photos in PERF_PAGES:
   </div>
   <ol class="perfList ani">{li}</ol>
   <div class="perfMore ani">연월·발주처별 전체 실적은 <a href="performance.html">전체 실적 목록(585건)</a>에서 확인할 수 있습니다.</div>''')
+
+
+# ---------- 6. dkenc.kr 하위 페이지 (원문 그대로) ----------
+def ttl(eng, h3):
+    return f'<div class="title ani"><h2>{eng}<span class="dot"></span></h2><h3>{h3}</h3></div>'
+
+def bul(L):
+    return '<ul class="dkList">' + ''.join(f'<li>{e(x)}</li>' for x in L) + '</ul>'
+
+c = DK['ceo']
+page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 인사말: 21세기 전력산업의 Global Leader.',
+     'CEO Message', 'CEO 인사', e(c['sub']), '', f'''  <div class="ceoWrap">
+    <div class="ceoPhoto ani photo" style="background-image:url(assets/img/biz-nuclear.jpg)"></div>
+    <div class="ceoText ani">
+      <h2 class="eng">CEO Message<span class="dot"></span></h2>
+      <h3>{e(c['head'])}</h3>
+      <h4>{e(c['sub'])}</h4>
+      {''.join(f'<p>{e(x)}</p>' for x in c['body'])}
+      <div class="ceoSign"><span>{e(c['sign'])}</span><img src="assets/img/dk/about_ceo_vis02.jpg" alt="대표이사 서명"></div>
+    </div>
+  </div>''')
+
+co = DK['company']
+page('company.html', '회사 개요', '대경기술주식회사 회사 개요: 설립일 2006.6.1, 부산 기장 대경기술빌딩, 주요 인허가와 주요 사업.',
+     'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''  {ttl('Company', '<br>'.join(e(x) for x in co['head']))}
+  <div class="infoTable ani">{''.join(f'<dl><dt>{e(k)}</dt><dd>{bul(v) if len(v) > 1 else e(v[0])}</dd></dl>' for k, v in co['rows'])}</div>
+  <div class="companyPhoto ani photo" style="background-image:url(assets/img/contact.jpg)"></div>''')
+
+page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조직도.', 'Organization', '사훈/조직도', '기술 중시, 경쟁력 확보', '', f'''  {ttl('Motto', '사훈')}
+  <div class="figure ani"><img src="assets/img/dk/about_organ_vis01.jpg" alt="대경기술 사훈" loading="lazy"></div>
+  <div class="block">
+    {ttl('Organization', '조직도')}
+    <div class="figure ani"><img src="assets/img/dk/about_organ_vis02.jpg" alt="대경기술 조직도" loading="lazy"></div>
+  </div>''')
+
+page('clients.html', '주요 고객사', '대경기술주식회사 주요 고객사.', 'Clients', '주요 고객사', '대경기술과 함께하는 주요 고객사입니다.', '', f'''  {ttl('Clients', '주요 고객사')}
+  <div class="figure ani"><img src="assets/img/dk/about_clients_vis01.jpg" alt="대경기술 주요 고객사" loading="lazy"></div>''')
+
+page('ci.html', 'C.I. 소개', '대경기술주식회사 C.I. 소개.', 'C.I.', 'C.I. 소개', e(DK['ci']), '', f'''  {ttl('C.I.', 'C.I.')}
+  <p class="lead ani">{e(DK['ci'])}</p>
+  <div class="figure ani"><img src="assets/img/dk/about_ci_vis01.jpg" alt="대경기술주식회사 C.I." loading="lazy"></div>''')
+
+si = DK['services_intro']
+proj = ''.join(f'<li class="ani"><div class="photo" style="background-image:url(assets/img/dk/business_performance0{i}.jpg)"></div><div class="txt"><h4>{e(t)}</h4>{bul(L)}</div></li>'
+               for i, (t, L) in enumerate(si['projects'], 1))
+page('biz-services.html', '수행 역무', '대경기술 수행 역무: 원자력, 화력발전소 및 플랜트 전기/계장 분야 선도 업체, 품질보증실, 기업부설연구소.',
+     'Services', '수행 역무', '원자력, 화력발전소 및 플랜트 전기/계장 분야 선도 업체', '', f'''  <div class="splitRow">
+    <div class="ani">{ttl('Services', '<br>'.join(e(x) for x in si['head']))}{''.join(f'<p class="para">{e(x)}</p>' for x in si['body'])}</div>
+    <div class="photo tall ani" style="background-image:url(assets/img/dk/business_performance_top.jpg)"></div>
+  </div>
+  <div class="block">
+    {ttl('Quality Assurance', '품질보증실')}
+    <div class="ani">{bul(si['qa'])}</div>
+  </div>
+  <div class="block">
+    {ttl('R&amp;D Center', '기업부설연구소')}
+    <p class="lead ani"><b>{e(si['lab_head'])}</b><br>{e(si['lab_sub'])}</p>
+    <ul class="projList">{proj}</ul>
+  </div>''')
+
+for fname, key, eng, img1, img2 in [('biz-nuclear.html', 'nuclear', 'Nuclear &amp; Power', 'business_nuclear.jpg', 'business_nuclear_power.jpg'),
+                                    ('biz-plant.html', 'plant', 'Plant &amp; Offshore Module', 'business_plant_ocean.jpg', 'business_plant.jpg')]:
+    d = DK[key]
+    page(fname, d['head'], f'대경기술 {d["head"]} - {d["dept"]}: ' + ', '.join(d['items']), eng, d['head'], d['dept'], '', f'''  <div class="splitRow">
+    <div class="photo square ani" style="background-image:url(assets/img/dk/{img1})"></div>
+    <div class="ani">{ttl(eng, e(d['head']))}<h4 class="dept">{e(d['dept'])}</h4>{bul(d['items'])}</div>
+  </div>
+  <div class="figure wide ani"><img src="assets/img/dk/{img2}" alt="{e(d['head'])}" loading="lazy"></div>''')
+
+major = ''.join(f'<li class="ani"><div class="photo" style="background-image:url(assets/img/dk/business_services0{i}.jpg)"></div><h4>{e(t)}</h4>{bul(L)}</li>'
+                for i, (t, L) in enumerate(DK['major'], 1))
+page('biz-major.html', '주요 사업', '대경기술 주요 사업: 고리 1호기 주제어반 교체, MCC 차단기반 교체, CEDMCS, TBM 국산화, KNPC E-House, CCR Module 등.',
+     'Major Projects', '주요 사업', '대경기술이 수행한 대표 사업입니다.', '', f'''  {ttl('Major Projects', '주요 사업')}
+  <ul class="majorGrid">{major}</ul>''')
+
+for fname, h2, eng in [('news.html', '대경기술 소식', 'News'), ('press.html', '보도자료', 'Press')]:
+    page(fname, h2, f'대경기술주식회사 {h2}.', eng, h2, '대경기술의 새로운 소식을 전합니다.', '', f'''  {ttl(eng, h2)}
+  <table class="perfTable boardTable ani">
+    <thead><tr><th>번호</th><th>제목</th><th>작성자</th><th>날짜</th></tr></thead>
+    <tbody><tr><td colspan="4" class="empty">등록된 게시물이 없습니다.</td></tr></tbody>
+  </table>''')
+
+L = DK['location']
+page('inquiry.html', '고객 문의', '대경기술주식회사 고객 문의: 051-722-0855, dk@dkenc.kr.', 'Contact', '고객 문의', '문의 내용을 남겨주시면 빠르게 답변드리겠습니다.', '', f'''  {ttl('Contact', '고객 문의')}
+  <form class="inqForm ani" action="mailto:{L['email']}" method="post" enctype="text/plain">
+    <div class="grid">
+      <label>업체명<input type="text" name="업체명"></label>
+      <label>담당자명<input type="text" name="담당자명"></label>
+      <label>E-mail<input type="email" name="E-mail"></label>
+      <label>제목<input type="text" name="제목"></label>
+    </div>
+    <label>문의 내용<textarea name="문의내용" rows="8"></textarea></label>
+    <label>첨부<input type="file" name="첨부" disabled><small>첨부 파일은 메일로 보내 주세요: {L['email']}</small></label>
+    <div class="agree"><strong>동의</strong>{''.join(f'<p>{e(x)}</p>' for x in DK['inquiry_privacy'])}<label class="chk"><input type="checkbox" required> 개인정보 수집 및 이용에 동의합니다.</label></div>
+    <button type="submit" class="sendBtn">SEND</button>
+  </form>
+  <ul class="contactInfo ani">
+    <li><b>ADDRESS</b>46080, 부산광역시 기장군 기장읍 청강로85번길 16 대경기술빌딩 (청강리 174-3번지)</li>
+    <li><b>TEL</b><a href="tel:0517220855">{L['tel']}</a></li>
+    <li><b>E-MAIL</b><a href="mailto:{L['email']}">{L['email']}</a></li>
+  </ul>''')
+
+page('location.html', '오시는 길', '대경기술주식회사 오시는 길: ' + L['addr'], 'Location', '오시는 길', e(L['addr']), '', f'''  {ttl('Location', '오시는 길')}
+  <div class="figure wide ani"><img src="assets/img/dk/customer_location.jpg" alt="대경기술 약도" loading="lazy"></div>
+  <div class="mapWrap ani"><iframe src="https://maps.google.com/maps?q=%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C+%EA%B8%B0%EC%9E%A5%EA%B5%B0+%EA%B8%B0%EC%9E%A5%EC%9D%8D+%EC%B2%AD%EA%B0%95%EB%A1%9C85%EB%B2%88%EA%B8%B8+16&output=embed" loading="lazy" title="대경기술 지도"></iframe></div>
+  <ul class="contactInfo ani">
+    <li><b>ADDRESS</b>{e(L['addr'])}</li>
+    <li><b>TEL</b><a href="tel:0517220855">{L['tel']}</a></li>
+    <li><b>FAX</b>{L['fax']}</li>
+    <li><b>E-MAIL</b><a href="mailto:{L['email']}">{L['email']}</a></li>
+  </ul>''')
