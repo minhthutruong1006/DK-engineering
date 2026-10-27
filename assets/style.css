@@ -589,3 +589,7 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
   .photo.tall{min-height:280px}
   .mapWrap{height:300px}
 }
+/* CEO: dkenc.kr 원본 CEO 비주얼(가로형)을 본문 위에 */
+.ceoWrap{grid-template-columns:1fr;gap:50px}
+.ceoPhoto{height:auto;position:static;border-radius:var(--radius);overflow:hidden;background:#f4f6f9}
+.ceoPhoto img{display:block;width:100%;max-width:900px;margin:0 auto}

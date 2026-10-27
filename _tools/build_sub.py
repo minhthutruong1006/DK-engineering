@@ -14,18 +14,18 @@ footer = re.sub(r'href="#"', 'href="index.html"', footer)
 
 # 하위 페이지 그룹: 큰 비주얼의 영문 섹션명·문구·배경과 같은 그룹 탭
 GROUPS = {
-    'about': ('ABOUT', '전력산업의 글로벌 리더, 대경기술', 'sub-history.jpg',
+    'about': ('ABOUT', '전력산업의 글로벌 리더, 대경기술', 'dk/about_svis.jpg',
               [('ceo.html', 'CEO 인사'), ('company.html', '회사 개요'), ('history.html', '연혁'), ('organ.html', '사훈/조직도'),
                ('certification.html', '인증서'), ('clients.html', '주요 고객사'), ('ci.html', 'C.I. 소개')]),
-    'business': ('BUSINESS', '원자력, 화력발전소 및 플랜트 전기/계장 분야 선도 업체', 'dk/business_performance_top.jpg',
+    'business': ('BUSINESS', '원자력, 화력발전소 및 플랜트 전기/계장 분야 선도 업체', 'dk/business_svis.jpg',
                  [('biz-services.html', '수행 역무'), ('biz-nuclear.html', '원자력/발전'), ('biz-plant.html', '플랜트/해양모듈'),
                   ('biz-major.html', '주요 사업'), ('rnd.html', '국책과제')]),
-    'performance': ('PERFORMANCE', '국내를 넘어 세계로 향하는 기술력', 'sub-perf.jpg',
+    'performance': ('PERFORMANCE', '국내를 넘어 세계로 향하는 기술력', 'dk/performance_svis.jpg',
                     [('perf-design.html', '설계/엔지니어링'), ('perf-nuclear.html', '원자력 공사/설치'),
                      ('perf-plant.html', '플랜트 공사/제작'), ('performance.html', '전체 실적 목록')]),
     'news': ('NEWS', '대경기술의 새로운 소식을 전합니다', 'dk/business_nuclear_power.jpg',
              [('news.html', '대경기술 소식'), ('press.html', '보도자료')]),
-    'contact': ('CONTACT', '전력산업의 든든한 파트너, 대경기술', 'contact.jpg',
+    'contact': ('CONTACT', '전력산업의 든든한 파트너, 대경기술', 'dk/customer_svis.jpg',
                 [('inquiry.html', '고객 문의'), ('location.html', '오시는 길')]),
 }
 PAGE_GROUP = {f: g for g, v in GROUPS.items() for f, _ in v[3]}
@@ -364,7 +364,7 @@ def bul(L):
 c = DK['ceo']
 page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 인사말: 21세기 전력산업의 Global Leader.',
      'CEO Message', 'CEO 인사', e(c['sub']), '', f'''  <div class="ceoWrap">
-    <div class="ceoPhoto ani photo" style="background-image:url(assets/img/biz-nuclear.jpg)"></div>
+    <div class="ceoPhoto ani"><img src="assets/img/dk/about_ceo_vis01.jpg" alt="대경기술주식회사 대표이사 임영하"></div>
     <div class="ceoText ani">
       <h2 class="eng">CEO Message<span class="dot"></span></h2>
       <h3>{e(c['head'])}</h3>
