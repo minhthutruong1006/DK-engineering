@@ -143,7 +143,10 @@
         cBg.style.top = lerp(vh * 0.1, (vh - H) / 2, e) + 'px';
         cBg.style.borderRadius = lerp(30, 26, e) + 'px';
         cImg.style.transform = 'scale(' + lerp(1, 1.28, e).toFixed(4) + ')';
-        cImg.style.objectPosition = '50% ' + lerp(17, 26, e).toFixed(2) + '%';
+        // 넓은 상태에서는 화면 비율과 상관없이 인증서 선반 전체(원본 y 550px 중심)가 가운데 오도록
+        var bw = w0, bh = vh * 0.8, sc = Math.max(bw / 1195, bh / 1689);
+        var p0 = Math.min(Math.max((550 * sc - bh / 2) / (1689 * sc - bh) * 100, 0), 100);
+        cImg.style.objectPosition = '50% ' + lerp(p0, 26, e).toFixed(2) + '%';
         cDark.style.opacity = lerp(.2, .5, e);
         cCenter.style.opacity = Math.max(1 - e * 2.5, 0);
         cBlock.style.opacity = Math.min(Math.max((e - .6) / .4, 0), 1);
