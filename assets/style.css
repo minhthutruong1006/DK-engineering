@@ -850,3 +850,32 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 /* 회사 개요: 메인에서 옮겨온 Overview 검정 섹션을 화면 전체 폭으로 */
 .subCon .section1.fullBleed{width:100vw;margin:-90px 0 100px calc(50% - 50vw);min-height:0;padding:150px var(--pad) 160px}
 @media (max-width:812px){.subCon .section1.fullBleed{margin:-50px 0 60px calc(50% - 50vw);padding:90px var(--pad) 100px}}
+/* ===== 하위 페이지 상단 v2: 가운데 위치표시·큰 한글 제목·반투명 알약 탭 ===== */
+.subHero2{position:relative;height:560px;overflow:hidden;background:#0a2f5c;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding-top:60px}
+.subHero2 .bg{position:absolute;inset:-3%;background:center/cover no-repeat;animation:zoom 18s ease-in-out infinite alternate}
+.subHero2::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,40,90,.55),rgba(0,62,130,.35) 50%,rgba(0,30,70,.55))}
+.subHero2 .inner{position:relative;z-index:2;padding:0 var(--pad);width:100%}
+.subHero2 .loc{display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px;font-weight:500;color:rgba(255,255,255,.9)}
+.subHero2 .loc svg{width:16px;height:16px;fill:#fff;stroke:none;display:block}
+.subHero2 .loc i{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.7)}
+.subHero2 h2{margin-top:22px;font-size:72px;font-weight:700;letter-spacing:-.02em;line-height:1.1;opacity:0;transform:translateY(30px);animation:heroIn 1s .15s forwards}
+.heroTab{list-style:none;display:inline-flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:40px;padding:6px;border-radius:40px;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;animation:heroIn 1s .4s forwards;transform:translateY(20px)}
+.heroTab a{display:block;padding:12px 22px;border-radius:30px;font-size:16px;font-weight:500;color:#fff;white-space:nowrap;transition:background .25s}
+.heroTab a:hover{background:rgba(255,255,255,.15)}
+.heroTab a.on{background:#1b2a6b;font-weight:600}
+.pageTitle2{padding:100px var(--pad) 0}
+.pageTitle2 .inner{max-width:1600px;margin:0 auto}
+.pageTitle2 h3{font-size:48px;font-weight:700;color:#000;letter-spacing:-.02em}
+.pageTitle2 p{margin-top:16px;max-width:900px;font-size:17px;line-height:1.75;color:#555}
+@media (max-width:812px){
+  .subHero2{height:auto;min-height:380px;padding:110px 0 50px}
+  .subHero2 .loc{font-size:13px}
+  .subHero2 h2{font-size:38px;margin-top:14px}
+  .heroTab{margin-top:26px;border-radius:22px;padding:5px;gap:2px}
+  .heroTab a{padding:8px 13px;font-size:13px}
+  .pageTitle2{padding-top:60px}
+  .pageTitle2 h3{font-size:30px}
+  .pageTitle2 p{font-size:15px}
+}
+.subCon .section1.fullBleed{margin-top:-20px}
+@media (max-width:812px){.subCon .section1.fullBleed{margin-top:0}}

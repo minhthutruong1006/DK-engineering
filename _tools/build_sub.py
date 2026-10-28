@@ -29,6 +29,7 @@ GROUPS = {
                 [('inquiry.html', '고객 문의'), ('location.html', '오시는 길')]),
 }
 PAGE_GROUP = {f: g for g, v in GROUPS.items() for f, _ in v[3]}
+GROUP_KO = {'about': '대경기술 소개', 'business': '사업 분야', 'performance': '주요 실적', 'news': '대경기술 뉴스', 'contact': '고객 문의'}
 e = html.escape
 
 
@@ -36,24 +37,23 @@ def page(fname, title, desc, eng, h2, lead, bg, body):
     h = re.sub(r'<title>.*?</title>', f'<title>{title} | DK ENGINEERING 대경기술</title>', head)
     h = re.sub(r'<meta name="description" content=".*?">', f'<meta name="description" content="{e(desc)}">', h)
     g_eng, g_lead, g_bg, g_tabs = GROUPS[PAGE_GROUP[fname]]
+    g_ko = GROUP_KO[PAGE_GROUP[fname]]
     tabs = ''.join(f'<li><a href="{f}"{" class=\"on\"" if f == fname else ""}>{t}</a></li>' for f, t in g_tabs)
+    home = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z"/></svg>'
     out = f'''{h}<body class="sub">
 
-{header}<section class="subHero">
+{header}<section class="subHero2">
   <div class="bg" style="background-image:url(assets/img/{g_bg})"></div>
   <div class="inner">
-    <h2>{g_eng}</h2>
-    <p>{g_lead}</p>
+    <div class="loc"><a href="index.html" aria-label="HOME">{home}</a><i></i><span>{g_ko}</span><i></i><span>{h2}</span></div>
+    <h2>{g_ko}</h2>
+    <ul class="heroTab">{tabs}</ul>
   </div>
-  <span class="heroLine"></span>
-  <div class="scrollDown"><span></span>SCROLL</div>
 </section>
-<div class="pageTitle">
+<div class="pageTitle2">
   <div class="inner">
-    <div class="loc"><a href="index.html">HOME</a><i></i><span>{g_eng}</span><i></i><span>{h2}</span></div>
     <h3>{h2}</h3>
     <p>{lead}</p>
-    <ul class="pageTab">{tabs}</ul>
   </div>
 </div>
 
