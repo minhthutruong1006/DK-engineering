@@ -1215,3 +1215,94 @@ html.lenis,html.lenis body{height:auto}
   .clCard img{max-width:82%;max-height:44%}
 }
 @media (prefers-reduced-motion:reduce){.clHead span,.clSub span{transition:none;opacity:1;transform:none}}
+
+/* ===== 원자력/발전 사업 (biz-nuclear): 본부명 라벨 + 번호 목록 ===== */
+.bizIntro{align-items:center}
+.bizIntro .title{margin-bottom:30px}
+.bizDept{margin-bottom:18px;font-size:15px;font-weight:600;color:var(--accent)}
+.bizNum li{grid-template-columns:52px 1fr;padding:20px 4px}
+.bizNum span{font-size:18px}
+@media (max-width:812px){.bizNum li{grid-template-columns:40px 1fr;padding:16px 2px}.bizNum span{font-size:16px}}
+
+/* ===== 원자력/발전: 4분할 사진 모자이크 (원본 이미지를 조각내 HTML로 재구성 + 모션) ===== */
+.nucMosaic{container-type:inline-size;position:relative;display:grid;grid-template-columns:1fr 1fr;aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden;background:#0b1a2c}
+.nucMosaic .q{position:relative;overflow:hidden;opacity:0;transition:transform 1.1s cubic-bezier(.2,.7,.2,1),opacity .9s}
+.nucMosaic .q img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .5s}
+/* 가운데 원 = 각 조각 안쪽 모서리의 1/4 원 (구워진 원보다 조금 크게 덮음) */
+.nucMosaic .q::after{content:'';position:absolute;width:37%;height:37%;background:#031222;transition:background .4s,transform 1s cubic-bezier(.2,.7,.2,1) .35s;transform:scale(0)}
+.nucMosaic .tl::after{right:0;bottom:0;border-top-left-radius:100%;transform-origin:100% 100%;background:#005698}
+.nucMosaic .tr::after{left:0;bottom:0;border-top-right-radius:100%;transform-origin:0 100%}
+.nucMosaic .bl::after{right:0;top:0;border-bottom-left-radius:100%;transform-origin:100% 0}
+.nucMosaic .br::after{left:0;top:0;border-bottom-right-radius:100%;transform-origin:0 0}
+.nucMosaic .tl img{transform-origin:100% 100%}.nucMosaic .tr img{transform-origin:0 100%}
+.nucMosaic .bl img{transform-origin:100% 0}.nucMosaic .br img{transform-origin:0 0}
+.nucMosaic .cap{position:absolute;z-index:2;color:#fff;font-size:max(12px,2.9cqw);font-weight:500;line-height:1.3;letter-spacing:-.01em;opacity:0;transition:opacity .6s,transform .6s;transition-delay:1s}
+.nucMosaic .tl .cap{right:5%;bottom:5%;text-align:right;transform:translateY(8px)}
+.nucMosaic .tr .cap{left:5%;bottom:5%;transform:translateY(8px)}
+.nucMosaic .bl .cap{right:5%;top:5%;text-align:right;transform:translateY(-8px)}
+.nucMosaic .br .cap{left:5%;top:5%;transform:translateY(-8px)}
+/* 등장: 네 조각이 바깥에서 가운데로 모이고, 원이 펼쳐진 뒤 라벨 */
+.nucMosaic .tl{transform:translate(-7%,-7%)}.nucMosaic .tr{transform:translate(7%,-7%);transition-delay:.1s}
+.nucMosaic .bl{transform:translate(-7%,7%);transition-delay:.2s}.nucMosaic .br{transform:translate(7%,7%);transition-delay:.3s}
+.nucMosaic.on .q{opacity:1;transform:none}
+.nucMosaic.on .q::after{transform:scale(1)}
+.nucMosaic.on .cap{opacity:1;transform:none}
+.nucMosaic.on .tr .cap{transition-delay:1.1s}.nucMosaic.on .bl .cap{transition-delay:1.2s}.nucMosaic.on .br .cap{transition-delay:1.3s}
+/* 호버: 사진은 가운데 기준으로 살짝 확대, 해당 1/4 원은 포인트 블루 */
+.nucMosaic .q:hover img{transform:scale(1.06)}
+.nucMosaic .q:hover::after{background:#0062B1}
+.nucMosaic .tl:hover::after{background:#0072cc}
+.nucMosaic:hover .q:not(:hover) img{filter:brightness(.7) saturate(.8)}
+@media (prefers-reduced-motion:reduce){
+  .nucMosaic .q,.nucMosaic .q::after,.nucMosaic .cap,.nucMosaic .q img{transition:none!important}
+}
+/* 플랜트/해양모듈: 같은 모자이크, 원 색만 원본에 맞춤 */
+.nucMosaic.plant .tl::after{background:#023a68}
+.nucMosaic.plant .tr::after{background:#032a3c}
+.nucMosaic.plant .bl::after{background:#024071}
+.nucMosaic.plant .br::after{background:#01226e}
+.nucMosaic.plant .q:hover::after{background:#0062B1}
+
+/* ===== 주요 사업 (biz-major): 번호 카드 + 읽기 쉬운 본문 ===== */
+.majorCards{gap:32px 28px;align-items:stretch}
+.majorCards>li{display:flex;flex-direction:column;border:1px solid #e3e6eb;border-radius:20px;overflow:hidden;background:#fff;transition:box-shadow .4s,transform .4s}
+.majorCards>li:hover{box-shadow:0 24px 50px -30px rgba(16,40,80,.35);transform:translateY(-4px)}
+.majorCards .ph{overflow:hidden}
+.majorCards .photo{aspect-ratio:16/9;border-radius:0;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.majorCards>li:hover .photo{transform:scale(1.04)}
+.majorCards .body{padding:28px 32px 34px}
+.majorCards em{font:500 14px 'Poppins',sans-serif;font-style:normal;color:var(--sky);letter-spacing:.04em}
+.majorCards h4{margin:8px 0 18px;font-size:22px;font-weight:600;color:#111;line-height:1.45;letter-spacing:-.01em;word-break:keep-all}
+.majorList{list-style:none;border-top:1px solid #e5e8ec}
+.majorList li{position:relative;padding:12px 0 12px 16px;border-bottom:1px solid #f0f2f5;font-size:16px;line-height:1.75;color:#444;word-break:keep-all}
+.majorList li:last-child{border-bottom:0}
+.majorList li::before{content:'';position:absolute;left:0;top:24px;width:6px;height:1.5px;background:var(--accent)}
+@media (max-width:812px){
+  .majorCards .body{padding:20px 20px 24px}
+  .majorCards h4{font-size:19px}
+  .majorList li{font-size:15px;padding:10px 0 10px 14px}
+  .majorList li::before{top:21px}
+}
+
+/* ===== 국책과제 (rnd): 카드·통계 박스 대신 담백한 표 ===== */
+.rndHead{display:flex;gap:28px;margin:10px 0 14px;font-size:15px;color:#555}
+.rndHead b{font-family:'Poppins';font-weight:600;color:#111}
+.rndTable{width:100%;border-collapse:collapse;border-top:2px solid #111}
+.rndTable th{padding:15px 12px;border-bottom:1px solid #ccd2da;background:#f6f8fa;font-size:14px;font-weight:500;color:#555;text-align:left}
+.rndTable th:first-child{width:250px}.rndTable th:last-child{width:220px}
+.rndTable td{padding:20px 12px;border-bottom:1px solid #e5e8ec;vertical-align:top}
+.rndTable .date{font-family:'Poppins';font-size:14px;color:#666;white-space:nowrap}
+.rndTable .date em{display:block;margin-top:6px;font:500 13px 'Noto Sans KR',sans-serif;font-style:normal;color:var(--accent)}
+.rndTable .tit{font-size:16.5px;line-height:1.65;color:#111;word-break:keep-all}
+.rndTable .org{font-size:15px;color:#333;line-height:1.5}
+.rndTable .org small{display:block;margin-top:3px;font-family:'Poppins';font-size:12.5px;color:#999}
+@media (max-width:812px){
+  .rndTable thead{display:none}
+  .rndTable tr{display:block;padding:16px 2px;border-bottom:1px solid #e5e8ec}
+  .rndTable td{display:block;padding:0;border:0}
+  .rndTable .date{display:flex;gap:8px;align-items:center;font-size:13px}
+  .rndTable .date em{margin:0}
+  .rndTable .tit{margin:6px 0;font-size:15.5px}
+  .rndTable .org{font-size:13.5px;color:#666}
+  .rndTable .org small{display:inline;margin-left:6px}
+}
