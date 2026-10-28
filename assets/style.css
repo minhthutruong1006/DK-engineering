@@ -923,3 +923,11 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
 .subHero2 .bg{background-position:center 60%}
 .subHero2 .loc,.subHero2 h2{text-shadow:0 2px 14px rgba(0,30,70,.45)}
 .heroTab{background:rgba(10,40,90,.28)}
+/* 회사 개요 Overview: 밝은 배경 버전 */
+.section1.fullBleed{background:#f4f8fc radial-gradient(circle at 75% 110%,#d6e7f7 0,#eef4fb 45%,#f8fbfe 75%)}
+.section1.fullBleed .title h2{color:#111}
+.section1.fullBleed .bigTit{color:#0b1f3f}
+.section1.fullBleed p{color:#444}
+.section1.fullBleed p .sign{color:#888}
+.section1.fullBleed .btnMore.light{color:#111}
+.section1.fullBleed .pill{box-shadow:0 10px 24px -12px rgba(0,50,110,.45)}
