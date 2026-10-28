@@ -1183,3 +1183,35 @@ html.lenis,html.lenis body{height:auto}
 .amBrochure small{margin-left:4px;font-size:12px;font-weight:400;color:rgba(255,255,255,.65)}
 .amBrochure:hover{background:var(--accent)}
 .allmenuWrap{padding-bottom:110px}
+
+/* ===== Clients: Toss식 — sticky 헤드라인 위로 로고 카드가 덮으며 지나감 ===== */
+.clMain{max-width:none;padding:0 0 60px}
+.clGroup{position:relative}
+.clSticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;text-align:center;padding:0 var(--pad)}
+.clLabel{display:flex;align-items:center;gap:8px;margin-bottom:26px;font-family:'Poppins';font-size:16px;font-weight:500;color:#4e535c}
+.clLabel i{width:10px;height:10px;border-radius:50%;background:#4e535c}
+.clHead{font-size:clamp(48px,7.4vw,128px);font-weight:700;line-height:1.15;letter-spacing:-.04em;color:#1c1f25}
+.clSub{margin-top:28px;font-size:clamp(18px,1.6vw,26px);font-weight:500;color:#4e535c;word-break:keep-all}
+.clHead span,.clSub span{display:block;opacity:0;transform:translateY(160px);transition:opacity .9s cubic-bezier(.2,.8,.2,1),transform 1.1s cubic-bezier(.2,.8,.2,1)}
+.clSub span{transition-delay:.14s}
+.clGroup.on .clHead span,.clGroup.on .clSub span{opacity:1;transform:none}
+.clCards{position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1400px;margin:0 auto;padding:0 var(--pad)}
+.clCol{display:flex;flex-direction:column;gap:24px}
+.clCol:nth-child(1){padding-top:120px}
+.clCol:nth-child(2){padding-top:240px}
+.clCard{display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border-radius:44px;background:#f2f4f7;box-shadow:0 20px 50px rgba(17,30,50,.08);transition:background .4s,transform .4s}
+.clCard img{max-width:76%;max-height:40%;object-fit:contain;transition:transform .4s}
+.clCard:hover{background:#e9edf2}
+.clCard:hover img{transform:scale(1.05)}
+@media (max-width:1100px){
+  .clCards{grid-template-columns:repeat(2,1fr)}
+  .clCol{display:contents}
+}
+@media (max-width:640px){
+  .clSticky{height:100svh}
+  .clLabel{font-size:14px;margin-bottom:18px}
+  .clCards{grid-template-columns:1fr 1fr;gap:12px}
+  .clCard{border-radius:24px}
+  .clCard img{max-width:82%;max-height:44%}
+}
+@media (prefers-reduced-motion:reduce){.clHead span,.clSub span{transition:none;opacity:1;transform:none}}
