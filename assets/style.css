@@ -912,3 +912,9 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
 .iPhoto .photo{background-size:150% auto;background-position:78% 100%}
 .iPhoto:hover .photo{transform:scale(1.03)}
 @media (max-width:1100px){.iPhoto .photo{aspect-ratio:16/10;background-size:140% auto}}
+/* 사옥 사진: 확대 없이(cover) 아래 기준 — 칸을 조금 낮춰 위쪽 하늘만 잘리게 */
+.iPhoto .photo{background-size:cover;background-position:center bottom}
+.iPhoto:hover .photo{transform:none}
+.iCard{min-height:220px}
+@media (max-width:1100px){.iPhoto .photo{aspect-ratio:16/9;background-size:cover}}
+@media (max-width:812px){.iCard{min-height:0}}
