@@ -297,6 +297,7 @@ page('certification.html', '인증·특허', '대경기술 면허·인증 현황
       <div class="cfBg">
         <img src="assets/img/cert-wall.jpg" alt="대경기술 면허·인증서 벽면">
         <i class="cfDark"></i>
+        <p class="cfCenter">Certification</p>
         <div class="cfBlock">
           <div class="cfTop">
             <p class="cfName" data-names='["NUCLEAR & POWER","QUALITY & SAFETY","ENGINEERING LICENSES"]'>NUCLEAR &amp; POWER</p>

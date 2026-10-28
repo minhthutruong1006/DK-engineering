@@ -100,7 +100,9 @@
   // 인증: 왼쪽 고정 사진 패널 + 오른쪽 목록, 화면 가운데 그룹에 맞춰 이름·앵커 변경
   var cf = document.querySelector('.certFlow');
   if (cf) {
-    var cBg = cf.querySelector('.cfBg');
+    var cBg = cf.querySelector('.cfBg'), cDark = cf.querySelector('.cfDark'), cCenter = cf.querySelector('.cfCenter');
+    var cBlock = cf.querySelector('.cfBlock'), cCont = cf.querySelector('.cfContents');
+    var lerp = function (a, b, t) { return a + (b - a) * t; };
     var cName = cf.querySelector('.cfName');
     var cNames = JSON.parse(cName.getAttribute('data-names'));
     var cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
@@ -113,7 +115,8 @@
       a.addEventListener('click', function (ev) {
         var el = document.querySelector(a.getAttribute('href'));
         if (!el) return; ev.preventDefault();
-        if (lenis) lenis.scrollTo(el, { offset: -120, duration: 1.2 }); else el.scrollIntoView({ behavior: 'smooth' });
+        var off = -(window.innerHeight - el.offsetHeight) / 2;
+        if (lenis) lenis.scrollTo(el, { offset: off, duration: 1.2 }); else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + off, behavior: 'smooth' });
       });
     });
     function setGroup(i) {
@@ -127,6 +130,26 @@
       var act = 0;
       cPanels.forEach(function (p, i) { if (p.getBoundingClientRect().top < mid) act = i; });
       setGroup(act);
+      // saltlux처럼: 처음엔 넓은 사진 → 스크롤하면 왼쪽(45%)으로 줄어들고 오른쪽(45%)에 내용
+      if (vw > 1024) {
+        var cr = cf.getBoundingClientRect(), W = cr.width;
+        var H = Math.min(vh * 0.7, 640);
+        var t = Math.min(Math.max((-cr.top + vh * 0.3) / (vh * 1.0), 0), 1);
+        var e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        var w0 = Math.min(vw * 0.8, 1440), x0 = (vw - w0) / 2 - cr.left;
+        cBg.style.left = lerp(x0, 0, e) + 'px';
+        cBg.style.width = lerp(w0, W * 0.45, e) + 'px';
+        cBg.style.height = lerp(vh * 0.8, H, e) + 'px';
+        cBg.style.top = lerp(vh * 0.1, (vh - H) / 2, e) + 'px';
+        cBg.style.borderRadius = lerp(30, 26, e) + 'px';
+        cDark.style.opacity = lerp(.2, .5, e);
+        cCenter.style.opacity = Math.max(1 - e * 2.5, 0);
+        cBlock.style.opacity = Math.min(Math.max((e - .6) / .4, 0), 1);
+        cCont.style.opacity = Math.min(Math.max((e - .7) / .3, 0), 1);
+      } else {
+        ['left', 'width', 'height', 'top', 'borderRadius'].forEach(function (k) { cBg.style[k] = ''; });
+        cDark.style.opacity = cCenter.style.opacity = cBlock.style.opacity = cCont.style.opacity = '';
+      }
       // 오른쪽 항목은 화면에 들어오면 하나씩 등장
       var k = 0;
       cItems.forEach(function (el) {
