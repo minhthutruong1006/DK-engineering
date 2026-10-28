@@ -385,7 +385,7 @@ page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 
 
 co = DK['company']
 page('company.html', '회사 개요', '대경기술주식회사 회사 개요: 설립일 2006.6.1, 부산 기장 대경기술빌딩, 주요 인허가와 주요 사업.',
-     'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''  {ttl('Company', '<br>'.join(e(x) for x in co['head']))}
+     'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''{open(os.path.join(ROOT, '_tools', 'overview_section.html'), encoding='utf-8').read()}  {ttl('Company', '<br>'.join(e(x) for x in co['head']))}
   <div class="infoTable ani">{''.join(f'<dl><dt>{e(k)}</dt><dd>{bul(v) if len(v) > 1 else e(v[0])}</dd></dl>' for k, v in co['rows'])}</div>
   <div class="companyPhoto ani photo" style="background-image:url(assets/img/contact.jpg)"></div>''')
 
