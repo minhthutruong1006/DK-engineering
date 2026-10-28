@@ -297,7 +297,6 @@ page('certification.html', '인증·특허', '대경기술 면허·인증 현황
       <div class="cfBg">
         <img src="assets/img/cert-wall.jpg" alt="대경기술 면허·인증서 벽면">
         <i class="cfDark"></i>
-        <p class="cfCenter">Certification</p>
         <div class="cfBlock">
           <div class="cfTop">
             <div class="cfNum"><span class="d"><span class="trk"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="d"><span class="trk"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></div>

@@ -97,15 +97,14 @@
     updateHistory();
   }
 
-  // 인증: 넓은 사진 → 왼쪽 고정 패널로 축소, 화면 가운데 그룹에 맞춰 번호·이름·앵커 변경
+  // 인증: 왼쪽 고정 사진 패널 + 오른쪽 목록, 화면 가운데 그룹에 맞춰 번호·이름·앵커 변경
   var cf = document.querySelector('.certFlow');
   if (cf) {
-    var cBg = cf.querySelector('.cfBg'), cDark = cf.querySelector('.cfDark'), cCenter = cf.querySelector('.cfCenter');
-    var cBlock = cf.querySelector('.cfBlock'), cCont = cf.querySelector('.cfContents'), cName = cf.querySelector('.cfName');
+    var cBg = cf.querySelector('.cfBg');
+    var cName = cf.querySelector('.cfName');
     var cNames = JSON.parse(cName.getAttribute('data-names'));
     var cTrk = cf.querySelectorAll('.cfNum .trk'), cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
-    var cImg = cBg.querySelector('img'), cAct = -1;
-    var lerp = function (a, b, t) { return a + (b - a) * t; };
+    var cImg = cBg.querySelector('img'), cAct = -1, cItems = cf.querySelectorAll('.cfPanel li');
     function setGroup(i) {
       if (i === cAct) return; cAct = i;
       var n = String(i + 1).padStart(2, '0');
@@ -120,20 +119,10 @@
       var act = 0;
       cPanels.forEach(function (p, i) { if (p.getBoundingClientRect().top < mid) act = i; });
       setGroup(act);
-      if (vw <= 1024) { cBg.removeAttribute('style'); cImg.style.removeProperty('--z'); return; }
-      var t = Math.min(Math.max(-cf.getBoundingClientRect().top / (vh * 0.9), 0), 1);
-      var e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      var w0 = Math.min(vw * 0.8, 1440);
-      cBg.style.left = lerp((vw - w0) / 2, vw * 0.03, e) + 'px';
-      cBg.style.width = lerp(w0, vw * 0.42, e) + 'px';
-      cBg.style.top = lerp(vh * 0.1, vh * 0.08, e) + 'px';
-      cBg.style.height = lerp(vh * 0.8, vh * 0.86, e) + 'px';
-      cBg.style.borderRadius = lerp(30, 24, e) + 'px';
-      cImg.style.setProperty('--z', lerp(1.06, 1, e));
-      cDark.style.opacity = lerp(.12, .5, e);
-      cCenter.style.opacity = Math.max(1 - e * 2.2, 0);
-      cBlock.style.opacity = Math.min(Math.max((e - .55) / .4, 0), 1);
-      cCont.style.opacity = Math.min(Math.max((e - .6) / .4, 0), 1);
+      // 왼쪽 사진은 스크롤에 따라 천천히 움직임(패럴랙스), 오른쪽 항목은 화면에 들어오면 하나씩 등장
+      var r = cf.getBoundingClientRect(), t = Math.min(Math.max(-r.top / Math.max(r.height - vh, 1), 0), 1);
+      cImg.style.setProperty('--py', (vw <= 1024 ? 0 : (t - 0.5) * -6) + '%');
+      cItems.forEach(function (li) { if (li.getBoundingClientRect().top < vh * 0.9) li.classList.add('on'); });
     }
     window.addEventListener('scroll', updateCert, { passive: true });
     window.addEventListener('resize', updateCert);
