@@ -104,7 +104,7 @@
     var cName = cf.querySelector('.cfName');
     var cNames = JSON.parse(cName.getAttribute('data-names'));
     var cTrk = cf.querySelectorAll('.cfNum .trk'), cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
-    var cImg = cBg.querySelector('img'), cAct = -1, cItems = cf.querySelectorAll('.cfPanel li');
+    var cImg = cBg.querySelector('img'), cAct = 0, cItems = cf.querySelectorAll('.cfPanel li');
     function setGroup(i) {
       if (i === cAct) return; cAct = i;
       var n = String(i + 1).padStart(2, '0');
