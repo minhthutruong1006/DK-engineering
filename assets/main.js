@@ -97,49 +97,6 @@
     updateHistory();
   }
 
-  // 인증: 넓은 사진 → 왼쪽 고정 패널로 축소, 화면 가운데 그룹에 맞춰 번호·이름·앵커 변경
-  var cf = document.querySelector('.certFlow');
-  if (cf) {
-    var cBg = cf.querySelector('.cfBg'), cDark = cf.querySelector('.cfDark'), cCenter = cf.querySelector('.cfCenter');
-    var cBlock = cf.querySelector('.cfBlock'), cCont = cf.querySelector('.cfContents'), cName = cf.querySelector('.cfName');
-    var cNames = JSON.parse(cName.getAttribute('data-names'));
-    var cTrk = cf.querySelectorAll('.cfNum .trk'), cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
-    var cImg = cBg.querySelector('img'), cAct = -1;
-    var lerp = function (a, b, t) { return a + (b - a) * t; };
-    function setGroup(i) {
-      if (i === cAct) return; cAct = i;
-      var n = String(i + 1).padStart(2, '0');
-      cTrk[0].style.transform = 'translateY(' + (-n[0] * 10) + '%)';
-      cTrk[1].style.transform = 'translateY(' + (-n[1] * 10) + '%)';
-      cName.style.opacity = 0;
-      setTimeout(function () { cName.textContent = cNames[i]; cName.style.opacity = .9; }, 250);
-      cAnch.forEach(function (a, k) { a.classList.toggle('on', k === i); });
-    }
-    function updateCert() {
-      var vw = window.innerWidth, vh = window.innerHeight, mid = vh * 0.5;
-      var act = 0;
-      cPanels.forEach(function (p, i) { if (p.getBoundingClientRect().top < mid) act = i; });
-      setGroup(act);
-      if (vw <= 1024) { cBg.removeAttribute('style'); cImg.style.removeProperty('--z'); return; }
-      var t = Math.min(Math.max(-cf.getBoundingClientRect().top / (vh * 0.9), 0), 1);
-      var e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      var w0 = Math.min(vw * 0.8, 1440);
-      cBg.style.left = lerp((vw - w0) / 2, vw * 0.03, e) + 'px';
-      cBg.style.width = lerp(w0, vw * 0.42, e) + 'px';
-      cBg.style.top = lerp(vh * 0.1, vh * 0.08, e) + 'px';
-      cBg.style.height = lerp(vh * 0.8, vh * 0.86, e) + 'px';
-      cBg.style.borderRadius = lerp(30, 24, e) + 'px';
-      cImg.style.setProperty('--z', lerp(1.06, 1, e));
-      cDark.style.opacity = lerp(.12, .5, e);
-      cCenter.style.opacity = Math.max(1 - e * 2.2, 0);
-      cBlock.style.opacity = Math.min(Math.max((e - .55) / .4, 0), 1);
-      cCont.style.opacity = Math.min(Math.max((e - .6) / .4, 0), 1);
-    }
-    window.addEventListener('scroll', updateCert, { passive: true });
-    window.addEventListener('resize', updateCert);
-    updateCert();
-  }
-
   // Press: 드래그 스크롤 + 진행 바
   var track = document.querySelector('.press .track');
   var bar = document.querySelector('.press .scrollbar span');
