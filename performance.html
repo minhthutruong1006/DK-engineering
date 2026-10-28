@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=44">
+<link rel="stylesheet" href="assets/style.css?v=46">
 </head>
 <body class="sub">
 
@@ -123,6 +123,7 @@ var PERF = [["원자력 & 플랜트공사", "발전 플랜트", "2026.09", "BNPP
   document.getElementById('fYear').addEventListener('change', function () { st.year = this.value; render(); });
   document.getElementById('fQ').addEventListener('input', function () { st.q = this.value; render(); });
   render();
+  window.perfRender = render;
 })();
 </script>
 </main>
@@ -143,5 +144,8 @@ var PERF = [["원자력 & 플랜트공사", "발전 플랜트", "2026.09", "BNPP
 
 <button class="btnTop" aria-label="맨 위로"></button>
 <script src="assets/main.js?v=45"></script>
+<script src="assets/dk-config.js?v=2"></script>
+<script src="assets/dk-api.js?v=2"></script>
+<script src="assets/dk-site.js?v=2"></script>
 </body>
 </html>

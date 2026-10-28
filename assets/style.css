@@ -1046,3 +1046,20 @@ html.lenis,html.lenis body{height:auto}
   .cfBlock{padding:16px}
   .cfAnchors a{padding:6px 12px;font-size:13px}
 }
+
+/* ===== 소식·보도자료 게시판 (관리자 등록 글) ===== */
+.boardTable td.no,.boardTable td.date{width:110px;text-align:center;font-family:'Poppins';color:#888}
+.boardTable td:nth-child(3){width:140px;text-align:center}
+.boardTable .bRow{cursor:pointer}
+.boardTable .bRow:hover td,.boardTable .bRow.open td{background:#f6f8fb}
+.boardTable .bRow .tit{font-weight:500;color:#111}
+.boardTable .bRow.open .tit{color:var(--accent)}
+.boardTable .bView td{padding:30px 40px 36px;background:#fafbfc}
+.boardTable .bView .txt{font-size:15px;line-height:1.9;color:#333}
+.boardTable .bView .link{margin-top:18px}
+.boardTable .bView .link a{color:var(--accent);font-weight:500;border-bottom:1px solid currentColor}
+@media (max-width:812px){
+  .boardTable td.no,.boardTable td:nth-child(3){display:none}
+  .boardTable .bView td{padding:20px 4px}
+}
+.boardTable tr[hidden]{display:none!important}

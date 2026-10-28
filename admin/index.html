@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>관리자 | DK ENGINEERING 대경기술</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#0062B1;--sky:#00A0E9;--navy:#213363;--line:#e3e6eb;--bg:#f4f6f9;--text:#222;--sub:#6b7280}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--text);font-size:15px;word-break:keep-all}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+[hidden]{display:none!important}
+
+.top{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 32px;background:#fff;border-bottom:1px solid var(--line)}
+.top .brand{display:flex;align-items:center;gap:14px}
+.top .brand img{height:32px}
+.top .brand span{font:500 13px 'Poppins',sans-serif;color:var(--sub);letter-spacing:.06em}
+.top .right{display:flex;align-items:center;gap:16px;font-size:14px}
+.top .right a{color:var(--sub);text-decoration:none}
+.top .right a:hover{color:var(--accent)}
+.top .right button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 14px;font-size:13px}
+.demo{background:#fff8e1;border-bottom:1px solid #f3e2a9;color:#7a5b00;font-size:13px;text-align:center;padding:9px 16px}
+
+.wrap{max-width:1200px;margin:0 auto;padding:36px 32px 80px}
+.tabs{display:grid;grid-template-columns:repeat(6,1fr);background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:28px}
+.tabs button{height:54px;border:0;border-left:1px solid var(--line);background:none;font-weight:500;color:var(--sub);display:flex;align-items:center;justify-content:center;gap:8px}
+.tabs button:first-child{border-left:0}
+.tabs button.on{background:var(--navy);color:#fff}
+.tabs .badge{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#e5484d;color:#fff;font:600 11px/20px 'Poppins',sans-serif}
+
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:20px}
+.panel h2{font-size:18px;font-weight:700;margin-bottom:18px;display:flex;align-items:baseline;gap:10px}
+.panel h2 small{font:500 13px 'Poppins',sans-serif;color:var(--sky)}
+.form{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 16px}
+.form label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:500;color:#444}
+.form .w2{grid-column:span 2}.form .w4{grid-column:1/-1}
+.form input,.form select,.form textarea{height:44px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:14px}
+.form textarea{height:auto;min-height:160px;padding:12px;line-height:1.7;resize:vertical}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid rgba(0,98,177,.2);border-color:var(--accent)}
+.actions{grid-column:1/-1;display:flex;gap:8px;justify-content:flex-end}
+.btn{height:42px;padding:0 22px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:14px;font-weight:500}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.danger{color:#c62828}
+.btn:hover{filter:brightness(.97)}
+
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.toolbar select,.toolbar input{height:38px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:14px}
+.toolbar input{flex:1;max-width:320px}
+.toolbar .cnt{margin-left:auto;font-size:13px;color:var(--sub)}
+table{width:100%;border-collapse:collapse;border-top:2px solid #111}
+th{font-size:13px;font-weight:500;color:var(--sub);text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);background:#fafbfc}
+td{padding:13px 10px;border-bottom:1px solid #eef0f3;font-size:14px;vertical-align:middle}
+td.num{font-family:'Poppins',sans-serif;color:var(--sub);white-space:nowrap;width:1%}
+td.ops{white-space:nowrap;width:1%;text-align:right}
+td.ops button{border:0;background:none;color:var(--sub);font-size:13px;padding:4px 8px}
+td.ops button:hover{color:var(--accent)}
+td.ops button.del:hover{color:#c62828}
+tr.click{cursor:pointer}
+tr.click:hover td{background:#f6f8fb}
+tr.unread td.t{font-weight:700}
+.empty{padding:50px 0;text-align:center;color:#9aa0a6}
+.chip{display:inline-block;padding:2px 10px;border-radius:12px;font-size:12px;font-weight:500;white-space:nowrap}
+.chip.s0{background:#fdecec;color:#c62828}.chip.s1{background:#e8f1fb;color:var(--accent)}.chip.s2{background:#eef0f3;color:#666}
+.chip.c{background:#eef0f3;color:#444}
+
+.drawer{position:fixed;inset:0;z-index:50;background:rgba(10,20,40,.35);display:flex;justify-content:flex-end}
+.drawer .box{width:min(560px,100%);height:100%;overflow:auto;background:#fff;padding:32px}
+.drawer .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:22px}
+.drawer h3{font-size:20px;line-height:1.4}
+.drawer .x{border:0;background:none;font-size:26px;line-height:1;color:var(--sub)}
+.drawer dl{display:grid;grid-template-columns:90px 1fr;gap:10px 14px;font-size:14px;margin-bottom:22px}
+.drawer dt{color:var(--sub)}
+.drawer .body{white-space:pre-wrap;line-height:1.8;background:var(--bg);border-radius:10px;padding:18px;font-size:14px;margin-bottom:22px}
+.drawer label{display:block;font-size:13px;font-weight:500;color:#444;margin-bottom:6px}
+.drawer select,.drawer textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;margin-bottom:16px}
+.drawer textarea{min-height:110px;resize:vertical}
+.drawer .actions{justify-content:space-between}
+
+.login{min-height:calc(100vh - 68px);display:flex;align-items:center;justify-content:center;padding:20px}
+.login form{width:min(380px,100%);background:#fff;border:1px solid var(--line);border-radius:16px;padding:36px}
+.login h1{font-size:20px;margin-bottom:24px}
+.login input{display:block;width:100%;height:46px;padding:0 14px;border:1px solid var(--line);border-radius:8px;margin-bottom:12px}
+.login .btn{width:100%;margin-top:6px}
+.login .err{color:#c62828;font-size:13px;margin-top:10px;min-height:18px}
+.top .who{font-size:13px;color:var(--sub)}
+.cntr{float:right;font-weight:400;font-size:12px;color:#9aa0a6}.cntr.over{color:#c62828}
+.note{font-size:13px;color:var(--sub);line-height:1.7;margin:-6px 0 16px}
+.mails{list-style:none;margin-bottom:16px}
+.mails li{display:flex;justify-content:space-between;align-items:center;padding:12px 4px;border-bottom:1px solid #eef0f3;font-size:14px}
+.mails li button{border:0;background:none;color:var(--sub);font-size:13px}.mails li button:hover{color:#c62828}
+.addRow{display:flex;gap:8px}.addRow input{flex:1;max-width:360px;height:42px;padding:0 12px;border:1px solid var(--line);border-radius:8px}
+.seoCur{font-weight:400;font-size:12.5px;color:#9aa0a6;line-height:1.5}
+td .ov{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:10px;background:#e8f1fb;color:var(--accent);font-size:11px}
+td .sub{display:block;font-size:12.5px;color:#9aa0a6;margin-top:3px;max-width:640px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#111;color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;z-index:60}
+
+@media (max-width:812px){
+  .top{padding:0 16px}.top .brand span{display:none}
+  .wrap{padding:20px 16px 60px}
+  .tabs{grid-template-columns:repeat(3,1fr)}
+  .tabs button:nth-child(4){border-left:0}
+  .tabs button:nth-child(n+4){border-top:1px solid var(--line)}
+  .panel{padding:20px}
+  .form{grid-template-columns:1fr 1fr}.form .w2{grid-column:1/-1}
+  th.hm,td.hm{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><img src="../assets/img/logo/logo_ov.png" alt="대경기술주식회사"><span>ADMIN</span></div>
+  <div class="right"><span class="who" id="who"></span><a href="../index.html" target="_blank">사이트 보기</a><button id="logout" hidden>로그아웃</button></div>
+</header>
+<div class="demo" id="demoBar" hidden>서버 미연결 미리보기 모드입니다. 등록한 내용은 이 브라우저에만 저장되며 다른 방문자에게는 보이지 않습니다. 서버 연결은 assets/dk-config.js</div>
+
+<section class="login" id="login" hidden>
+  <form id="loginForm">
+    <h1>관리자 로그인</h1>
+    <input name="id" placeholder="아이디" autocomplete="username" required>
+    <input name="pw" type="password" placeholder="비밀번호" autocomplete="current-password" required>
+    <button class="btn primary">로그인</button>
+    <p class="err" id="loginErr"></p>
+  </form>
+</section>
+
+<main class="wrap" id="app" hidden>
+  <nav class="tabs" id="tabs">
+    <button data-t="inq" class="on">고객 문의 <span class="badge" id="inqBadge" hidden></span></button>
+    <button data-t="perf">주요 실적</button>
+    <button data-t="news">대경기술 소식</button>
+    <button data-t="press">보도자료</button>
+    <button data-t="seo">SEO</button>
+    <button data-t="set">설정</button>
+  </nav>
+
+  <!-- 고객 문의 -->
+  <section data-v="inq">
+    <div class="panel">
+      <h2>고객 문의 <small id="inqCount"></small></h2>
+      <div class="toolbar">
+        <select id="inqStatus"><option value="">전체 상태</option><option value="0">신규</option><option value="1">확인</option><option value="2">답변 완료</option></select>
+        <input id="inqQ" type="search" placeholder="업체명·담당자·제목 검색">
+      </div>
+      <table><thead><tr><th>접수일</th><th>상태</th><th>업체명</th><th class="hm">담당자</th><th>제목</th></tr></thead><tbody id="inqList"></tbody></table>
+    </div>
+  </section>
+
+  <!-- 주요 실적 -->
+  <section data-v="perf" hidden>
+    <div class="panel">
+      <h2 id="perfFormTitle">실적 등록</h2>
+      <form class="form" id="perfForm">
+        <label>구분<select name="cat" required><option value="design">설계/엔지니어링</option><option value="nuclear">원자력 공사/설치</option><option value="plant">플랜트 공사/제작</option></select></label>
+        <label>분야<select name="field"><option>발전 플랜트</option><option>일반건설</option></select></label>
+        <label>수행 연월<input name="ym" type="month" required></label>
+        <label>&nbsp;<span style="font-weight:400;color:#888;font-size:12px;line-height:44px">해당 실적 페이지와 전체 실적 목록에 함께 표시</span></label>
+        <label class="w4">공사 / 용역명<input name="title" required maxlength="200" placeholder="예: 고리 2호기 안전정지 케이블 화재방호체 설치 설계 용역"></label>
+        <div class="actions"><button type="button" class="btn" id="perfCancel" hidden>취소</button><button class="btn primary">등록</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h2>등록한 실적 <small id="perfCount"></small></h2>
+      <div class="toolbar"><select id="perfCat"><option value="">전체 구분</option><option value="design">설계/엔지니어링</option><option value="nuclear">원자력 공사/설치</option><option value="plant">플랜트 공사/제작</option></select><span class="cnt">기존 홈페이지 실적은 페이지에 그대로 있고, 여기서 등록한 것만 목록에 나옵니다.</span></div>
+      <table><thead><tr><th>연월</th><th>구분</th><th class="hm">분야</th><th>공사 / 용역명</th><th></th></tr></thead><tbody id="perfList"></tbody></table>
+    </div>
+  </section>
+
+  <!-- 소식 / 보도자료 (같은 화면을 board 값만 바꿔 사용) -->
+  <section data-v="board" hidden>
+    <div class="panel">
+      <h2 id="postFormTitle">글쓰기</h2>
+      <form class="form" id="postForm">
+        <label class="w2">제목<input name="title" required maxlength="200"></label>
+        <label>작성자<input name="author" value="대경기술" required></label>
+        <label>날짜<input name="date" type="date" required></label>
+        <label class="w4">내용<textarea name="body" required></textarea></label>
+        <label class="w4">원문 링크 (선택)<input name="link" type="url" placeholder="https://"></label>
+        <div class="actions"><button type="button" class="btn" id="postCancel" hidden>취소</button><button class="btn primary">등록</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h2 id="postListTitle">게시글 <small id="postCount"></small></h2>
+      <table><thead><tr><th>날짜</th><th>제목</th><th class="hm">작성자</th><th></th></tr></thead><tbody id="postList"></tbody></table>
+    </div>
+  </section>
+
+  <!-- SEO -->
+  <section data-v="seo" hidden>
+    <div class="panel" id="seoEdit" hidden>
+      <h2 id="seoTitle">SEO 수정</h2>
+      <form class="form" id="seoForm">
+        <label class="w4">검색 결과 제목 (title)<span class="cntr" id="cTitle"></span><input name="title" maxlength="120"><span class="seoCur" id="curTitle"></span></label>
+        <label class="w4">검색 결과 설명 (description)<span class="cntr" id="cDesc"></span><textarea name="description" style="min-height:90px" maxlength="300"></textarea><span class="seoCur" id="curDesc"></span></label>
+        <label class="w4">공유 이미지 주소 (og:image, 선택)<input name="og_image" type="url" placeholder="https://... 1200×630 권장"></label>
+        <div class="actions"><button type="button" class="btn danger" id="seoReset">원래대로</button><button type="button" class="btn" id="seoCancel">닫기</button><button class="btn primary">저장</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h2>페이지별 SEO <small id="seoCount"></small></h2>
+      <p class="note">페이지를 누르면 검색 결과에 나오는 제목과 설명을 고칠 수 있습니다. 제목은 30자 안팎, 설명은 80~120자가 적당합니다. 수정한 값은 페이지가 열릴 때 적용되며, 서버를 붙이면 HTML에 직접 반영하도록 할 수 있습니다.</p>
+      <table><thead><tr><th>페이지</th><th>제목 / 설명</th></tr></thead><tbody id="seoList"></tbody></table>
+    </div>
+  </section>
+
+  <!-- 설정: 알림 메일 · 관리자 계정 -->
+  <section data-v="set" hidden>
+    <div class="panel">
+      <h2>문의 알림 메일 <small id="mailCount"></small></h2>
+      <p class="note">고객 문의가 접수되면 아래 주소로 알림 메일을 보냅니다. 메일 발송은 서버를 연결한 뒤부터 작동합니다.</p>
+      <ul class="mails" id="mailList"></ul>
+      <form class="addRow" id="mailForm"><input name="email" type="email" placeholder="받을 메일 주소 (예: dk@dkenc.kr)" required><button class="btn primary">추가</button></form>
+    </div>
+    <div class="panel">
+      <h2 id="acctFormTitle">관리자 계정 추가</h2>
+      <form class="form" id="acctForm">
+        <label>아이디<input name="login_id" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_.\-]+" autocomplete="off"></label>
+        <label>이름<input name="name" required maxlength="30"></label>
+        <label>비밀번호<input name="pw" type="password" minlength="8" autocomplete="new-password"></label>
+        <label>비밀번호 확인<input name="pw2" type="password" autocomplete="new-password"></label>
+        <div class="actions"><button type="button" class="btn" id="acctCancel" hidden>취소</button><button class="btn primary">추가</button></div>
+      </form>
+    </div>
+    <div class="panel">
+      <h2>관리자 계정 <small id="acctCount"></small></h2>
+      <table><thead><tr><th>아이디</th><th>이름</th><th class="hm">마지막 로그인</th><th></th></tr></thead><tbody id="acctList"></tbody></table>
+    </div>
+  </section>
+</main>
+
+<div class="drawer" id="drawer" hidden>
+  <div class="box">
+    <div class="head"><h3 id="dTitle"></h3><button class="x" id="dClose" aria-label="닫기">&times;</button></div>
+    <dl id="dMeta"></dl>
+    <div class="body" id="dBody"></div>
+    <label for="dStatus">처리 상태</label>
+    <select id="dStatus"><option value="0">신규</option><option value="1">확인</option><option value="2">답변 완료</option></select>
+    <label for="dMemo">메모 (내부용)</label>
+    <textarea id="dMemo" placeholder="답변 내용, 담당자 등"></textarea>
+    <div class="actions"><button class="btn danger" id="dDel">삭제</button><button class="btn primary" id="dSave">저장</button></div>
+  </div>
+</div>
+
+<script src="../assets/dk-config.js?v=2"></script>
+<script src="../assets/dk-api.js?v=2"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = DK.esc;
+  var CAT = { design: '설계/엔지니어링', nuclear: '원자력 공사/설치', plant: '플랜트 공사/제작' };
+  var ST = ['신규', '확인', '답변 완료'];
+  var BOARD = { news: '대경기술 소식', press: '보도자료' };
+  var cur = 'inq', board = 'news', inqs = [], openInq = null, editPerf = null, editPost = null;
+
+  function toast(m) {
+    var t = document.createElement('div'); t.className = 'toast'; t.textContent = m;
+    document.body.appendChild(t); setTimeout(function () { t.remove(); }, 2200);
+  }
+  function fail(e) {
+    if (e && e.auth) { DK.logout(); showLogin(); return; }
+    toast((e && e.message) || '오류가 발생했습니다');
+  }
+  function local(s, n) { // ISO 시각을 이 PC 시간대로 'YYYY-MM-DD HH:MM'
+    var d = new Date(s); if (!s || isNaN(d)) return s || '';
+    d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, n).replace('T', ' ');
+  }
+  function ymd(s) { return local(s, 10); }
+  function today() { var d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); }
+  function sortDesc(a, k) { return a.sort(function (x, y) { return String(y[k] || '').localeCompare(String(x[k] || '')); }); }
+
+  // ---------- 로그인 ----------
+  function showLogin() { $('#login').hidden = false; $('#app').hidden = true; $('#logout').hidden = true; $('#who').textContent = ''; }
+  function showApp() {
+    var me = DK.me() || {};
+    $('#login').hidden = true; $('#app').hidden = false; $('#logout').hidden = false;
+    $('#who').textContent = (me.name || '') + (me.login_id ? ' (' + me.login_id + ')' : '');
+    go(cur);
+  }
+  $('#loginForm').addEventListener('submit', function (e) {
+    e.preventDefault(); $('#loginErr').textContent = '';
+    var f = this;
+    DK.login(f.id.value.trim(), f.pw.value).then(function () { f.reset(); showApp(); }, function (err) { $('#loginErr').textContent = err.auth ? '아이디 또는 비밀번호가 맞지 않습니다.' : err.message; });
+  });
+  $('#logout').addEventListener('click', function () { DK.logout(); showLogin(); });
+
+  // ---------- 탭 ----------
+  function go(t) {
+    cur = t;
+    document.querySelectorAll('#tabs button').forEach(function (b) { b.classList.toggle('on', b.dataset.t === t); });
+    var v = t === 'news' || t === 'press' ? 'board' : t;
+    document.querySelectorAll('[data-v]').forEach(function (s) { s.hidden = s.dataset.v !== v; });
+    if (v === 'board') { board = t; resetPost(); loadPosts(); }
+    if (t === 'perf') loadPerf();
+    if (t === 'seo') loadSeo();
+    if (t === 'set') { loadMails(); loadAccts(); }
+    loadInq();
+  }
+  $('#tabs').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) go(b.dataset.t); });
+
+  // ---------- 고객 문의 ----------
+  function loadInq() {
+    DK.inquiries.list().then(function (a) {
+      inqs = sortDesc(a || [], 'created_at');
+      var n = inqs.filter(function (x) { return !+x.status; }).length;
+      $('#inqBadge').hidden = !n; $('#inqBadge').textContent = n;
+      renderInq();
+    }, fail);
+  }
+  function renderInq() {
+    var st = $('#inqStatus').value, q = $('#inqQ').value.trim().toLowerCase();
+    var a = inqs.filter(function (x) {
+      if (st !== '' && String(+x.status || 0) !== st) return false;
+      return !q || [x.company, x.name, x.title].join(' ').toLowerCase().indexOf(q) >= 0;
+    });
+    $('#inqCount').textContent = a.length + '건';
+    $('#inqList').innerHTML = a.length ? a.map(function (x) {
+      var s = +x.status || 0;
+      return '<tr class="click' + (s ? '' : ' unread') + '" data-id="' + esc(x.id) + '"><td class="num">' + esc(ymd(x.created_at)) + '</td><td><span class="chip s' + s + '">' + ST[s] + '</span></td><td>' + esc(x.company) + '</td><td class="hm">' + esc(x.name) + '</td><td class="t">' + esc(x.title || '(제목 없음)') + '</td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">접수된 문의가 없습니다.</td></tr>';
+  }
+  $('#inqStatus').addEventListener('change', renderInq);
+  $('#inqQ').addEventListener('input', renderInq);
+  $('#inqList').addEventListener('click', function (e) {
+    var tr = e.target.closest('tr[data-id]'); if (!tr) return;
+    openInq = inqs.filter(function (x) { return x.id === tr.dataset.id; })[0]; if (!openInq) return;
+    var x = openInq;
+    $('#dTitle').textContent = x.title || '(제목 없음)';
+    $('#dMeta').innerHTML = [['접수일', local(x.created_at, 16)], ['업체명', x.company], ['담당자', x.name], ['E-mail', x.email ? '<a href="mailto:' + esc(x.email) + '">' + esc(x.email) + '</a>' : '']].map(function (r) {
+      return '<dt>' + r[0] + '</dt><dd>' + (r[0] === 'E-mail' ? r[1] : esc(r[1])) + '</dd>';
+    }).join('');
+    $('#dBody').textContent = x.content || '';
+    $('#dStatus').value = String(+x.status || 0);
+    $('#dMemo').value = x.memo || '';
+    $('#drawer').hidden = false;
+    if (!+x.status) DK.inquiries.update(x.id, { status: 1 }).then(function () { x.status = 1; $('#dStatus').value = '1'; loadInq(); });
+  });
+  function closeDrawer() { $('#drawer').hidden = true; openInq = null; }
+  $('#dClose').addEventListener('click', closeDrawer);
+  $('#drawer').addEventListener('click', function (e) { if (e.target === this) closeDrawer(); });
+  $('#dSave').addEventListener('click', function () {
+    DK.inquiries.update(openInq.id, { status: +$('#dStatus').value, memo: $('#dMemo').value }).then(function () { toast('저장했습니다'); closeDrawer(); loadInq(); }, fail);
+  });
+  $('#dDel').addEventListener('click', function () {
+    if (!confirm('이 문의를 삭제할까요? 되돌릴 수 없습니다.')) return;
+    DK.inquiries.remove(openInq.id).then(function () { toast('삭제했습니다'); closeDrawer(); loadInq(); }, fail);
+  });
+
+  // ---------- 주요 실적 ----------
+  var perfs = [];
+  function loadPerf() { DK.perf.list().then(function (a) { perfs = sortDesc(a || [], 'ym'); renderPerf(); }, fail); }
+  function renderPerf() {
+    var c = $('#perfCat').value, a = perfs.filter(function (x) { return !c || x.cat === c; });
+    $('#perfCount').textContent = a.length + '건';
+    $('#perfList').innerHTML = a.length ? a.map(function (x) {
+      return '<tr><td class="num">' + esc(x.ym) + '</td><td><span class="chip c">' + esc(CAT[x.cat] || x.cat) + '</span></td><td class="hm">' + esc(x.field) + '</td><td>' + esc(x.title) + '</td><td class="ops"><button data-e="' + esc(x.id) + '">수정</button><button class="del" data-d="' + esc(x.id) + '">삭제</button></td></tr>';
+    }).join('') : '<tr><td colspan="5" class="empty">등록한 실적이 없습니다.</td></tr>';
+  }
+  $('#perfCat').addEventListener('change', renderPerf);
+  function resetPerf() { editPerf = null; $('#perfForm').reset(); $('#perfFormTitle').textContent = '실적 등록'; $('#perfForm .primary').textContent = '등록'; $('#perfCancel').hidden = true; }
+  $('#perfCancel').addEventListener('click', resetPerf);
+  $('#perfForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = this, d = { cat: f.cat.value, field: f.field.value, ym: f.ym.value.replace('-', '.'), title: f.title.value.trim() };
+    (editPerf ? DK.perf.update(editPerf, d) : DK.perf.create(d)).then(function () { toast(editPerf ? '수정했습니다' : '등록했습니다'); resetPerf(); loadPerf(); }, fail);
+  });
+  $('#perfList').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.d) { if (confirm('이 실적을 삭제할까요?')) DK.perf.remove(b.dataset.d).then(function () { toast('삭제했습니다'); loadPerf(); }, fail); return; }
+    var x = perfs.filter(function (p) { return p.id === b.dataset.e; })[0], f = $('#perfForm');
+    editPerf = x.id; f.cat.value = x.cat; f.field.value = x.field || '발전 플랜트'; f.ym.value = (x.ym || '').replace('.', '-'); f.title.value = x.title;
+    $('#perfFormTitle').textContent = '실적 수정'; $('#perfForm .primary').textContent = '수정 저장'; $('#perfCancel').hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---------- 소식 / 보도자료 ----------
+  var posts = [];
+  function loadPosts() { DK.posts.list({ board: board }).then(function (a) { posts = sortDesc(a || [], 'date'); renderPosts(); }, fail); }
+  function renderPosts() {
+    $('#postListTitle').firstChild.textContent = BOARD[board] + ' ';
+    $('#postCount').textContent = posts.length + '건';
+    $('#postList').innerHTML = posts.length ? posts.map(function (x) {
+      return '<tr><td class="num">' + esc(x.date) + '</td><td>' + esc(x.title) + '</td><td class="hm">' + esc(x.author) + '</td><td class="ops"><button data-e="' + esc(x.id) + '">수정</button><button class="del" data-d="' + esc(x.id) + '">삭제</button></td></tr>';
+    }).join('') : '<tr><td colspan="4" class="empty">등록된 글이 없습니다.</td></tr>';
+  }
+  function resetPost() {
+    editPost = null; $('#postForm').reset(); $('#postForm').date.value = today();
+    $('#postFormTitle').textContent = BOARD[board] + ' 글쓰기'; $('#postForm .primary').textContent = '등록'; $('#postCancel').hidden = true;
+  }
+  $('#postCancel').addEventListener('click', resetPost);
+  $('#postForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = this, d = { board: board, title: f.title.value.trim(), author: f.author.value.trim(), date: f.date.value, body: f.body.value, link: f.link.value.trim() };
+    (editPost ? DK.posts.update(editPost, d) : DK.posts.create(d)).then(function () { toast(editPost ? '수정했습니다' : '등록했습니다'); resetPost(); loadPosts(); }, fail);
+  });
+  $('#postList').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.d) { if (confirm('이 글을 삭제할까요?')) DK.posts.remove(b.dataset.d).then(function () { toast('삭제했습니다'); loadPosts(); }, fail); return; }
+    var x = posts.filter(function (p) { return p.id === b.dataset.e; })[0], f = $('#postForm');
+    editPost = x.id; f.title.value = x.title; f.author.value = x.author || ''; f.date.value = x.date; f.body.value = x.body || ''; f.link.value = x.link || '';
+    $('#postFormTitle').textContent = '글 수정'; $('#postForm .primary').textContent = '수정 저장'; $('#postCancel').hidden = false;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ---------- SEO ----------
+  var PAGES = [
+    ['index.html', '메인'], ['ceo.html', 'CEO 인사'], ['company.html', '회사 개요'], ['history.html', '연혁'], ['organ.html', '사훈/조직도'],
+    ['certification.html', '인증·특허'], ['ci.html', 'C.I. 소개'], ['clients.html', '주요 고객사'], ['biz-services.html', '수행 역무'],
+    ['biz-nuclear.html', '원자력/발전 사업'], ['biz-plant.html', '플랜트/해양모듈'], ['biz-major.html', '주요 사업'], ['rnd.html', '국책과제'],
+    ['perf-design.html', '설계/엔지니어링 실적'], ['perf-nuclear.html', '원자력 공사/설치 실적'], ['perf-plant.html', '플랜트 공사/제작 실적'],
+    ['performance.html', '전체 실적 목록'], ['news.html', '대경기술 소식'], ['press.html', '보도자료'], ['inquiry.html', '고객 문의'], ['location.html', '오시는 길']
+  ];
+  var orig = {}, seoMap = {}, seoPage = null;
+  function readOrig(p) { // 원래 HTML에 들어 있는 title·description
+    if (orig[p]) return Promise.resolve(orig[p]);
+    return fetch('../' + p).then(function (r) { return r.text(); }).then(function (h) {
+      var d = new DOMParser().parseFromString(h, 'text/html'), m = d.querySelector('meta[name=description]');
+      return (orig[p] = { title: d.title, description: m ? m.content : '' });
+    }, function () { return (orig[p] = { title: '', description: '' }); });
+  }
+  function loadSeo() {
+    Promise.all([DK.seo.list().catch(function () { return []; })].concat(PAGES.map(function (p) { return readOrig(p[0]); }))).then(function (r) {
+      seoMap = {}; (r[0] || []).forEach(function (x) { seoMap[x.page] = x; });
+      $('#seoCount').textContent = PAGES.length + '개 페이지 · 수정 ' + Object.keys(seoMap).length;
+      $('#seoList').innerHTML = PAGES.map(function (p) {
+        var o = seoMap[p[0]], v = Object.assign({}, orig[p[0]], o || {});
+        return '<tr class="click" data-p="' + p[0] + '"><td style="white-space:nowrap">' + esc(p[1]) + (o ? '<span class="ov">수정됨</span>' : '') + '</td><td>' + esc(v.title) + '<span class="sub">' + esc(v.description) + '</span></td></tr>';
+      }).join('');
+    });
+  }
+  function cnt(el, out, max) { var n = el.value.length; out.textContent = n + '자'; out.classList.toggle('over', n > max); }
+  $('#seoForm').title.addEventListener('input', function () { cnt(this, $('#cTitle'), 40); });
+  $('#seoForm').description.addEventListener('input', function () { cnt(this, $('#cDesc'), 150); });
+  $('#seoList').addEventListener('click', function (e) {
+    var tr = e.target.closest('tr[data-p]'); if (!tr) return;
+    seoPage = tr.dataset.p;
+    var o = orig[seoPage] || {}, v = Object.assign({}, o, seoMap[seoPage] || {}), f = $('#seoForm');
+    $('#seoTitle').textContent = 'SEO 수정 · ' + PAGES.filter(function (p) { return p[0] === seoPage; })[0][1];
+    f.title.value = v.title || ''; f.description.value = v.description || ''; f.og_image.value = v.og_image || '';
+    $('#curTitle').textContent = '원래 값: ' + (o.title || ''); $('#curDesc').textContent = '원래 값: ' + (o.description || '');
+    cnt(f.title, $('#cTitle'), 40); cnt(f.description, $('#cDesc'), 150);
+    $('#seoReset').hidden = !seoMap[seoPage];
+    $('#seoEdit').hidden = false; window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  $('#seoCancel').addEventListener('click', function () { $('#seoEdit').hidden = true; });
+  $('#seoForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = this, d = { title: f.title.value.trim(), description: f.description.value.trim(), og_image: f.og_image.value.trim() };
+    DK.seo.save(seoPage, d).then(function () { toast('저장했습니다'); $('#seoEdit').hidden = true; loadSeo(); }, fail);
+  });
+  $('#seoReset').addEventListener('click', function () {
+    if (!confirm('이 페이지의 SEO를 원래 값으로 되돌릴까요?')) return;
+    DK.seo.reset(seoPage).then(function () { toast('원래대로 되돌렸습니다'); $('#seoEdit').hidden = true; loadSeo(); }, fail);
+  });
+
+  // ---------- 설정: 문의 알림 메일 ----------
+  var mails = [];
+  function loadMails() {
+    DK.settings.get().then(function (s) { mails = (s && s.notify_emails) || []; renderMails(); }, fail);
+  }
+  function renderMails() {
+    $('#mailCount').textContent = mails.length + '개';
+    $('#mailList').innerHTML = mails.length ? mails.map(function (m, i) {
+      return '<li><span>' + esc(m) + '</span><button data-i="' + i + '">삭제</button></li>';
+    }).join('') : '<li style="color:#9aa0a6">등록된 메일이 없습니다.</li>';
+  }
+  function saveMails(msg) { DK.settings.save({ notify_emails: mails }).then(function () { toast(msg); renderMails(); }, fail); }
+  $('#mailForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = this.email.value.trim().toLowerCase();
+    if (mails.indexOf(m) >= 0) { toast('이미 등록된 주소입니다'); return; }
+    mails.push(m); this.reset(); saveMails('추가했습니다');
+  });
+  $('#mailList').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-i]'); if (!b) return;
+    mails.splice(+b.dataset.i, 1); saveMails('삭제했습니다');
+  });
+
+  // ---------- 설정: 관리자 계정 ----------
+  var accts = [], editAcct = null;
+  function loadAccts() {
+    DK.accounts.list().then(function (a) {
+      accts = a || []; var me = DK.me() || {};
+      $('#acctCount').textContent = accts.length + '명';
+      $('#acctList').innerHTML = accts.map(function (x) {
+        var self = x.login_id === me.login_id;
+        return '<tr><td>' + esc(x.login_id) + (self ? '<span class="ov">나</span>' : '') + '</td><td>' + esc(x.name) + '</td><td class="hm num">' + esc(x.last_login ? local(x.last_login, 16) : '-') + '</td><td class="ops"><button data-e="' + esc(x.id) + '">수정</button>' + (self ? '' : '<button class="del" data-d="' + esc(x.id) + '">삭제</button>') + '</td></tr>';
+      }).join('');
+    }, fail);
+  }
+  function resetAcct() {
+    editAcct = null; var f = $('#acctForm'); f.reset(); f.login_id.disabled = false; f.pw.required = true;
+    $('#acctFormTitle').textContent = '관리자 계정 추가'; $('#acctForm .primary').textContent = '추가'; $('#acctCancel').hidden = true;
+  }
+  $('#acctCancel').addEventListener('click', resetAcct);
+  $('#acctForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = this;
+    if (f.pw.value !== f.pw2.value) { toast('비밀번호 확인이 일치하지 않습니다'); return; }
+    var d = { name: f.name.value.trim() }; if (f.pw.value) d.pw = f.pw.value;
+    var p = editAcct ? DK.accounts.update(editAcct, d) : DK.accounts.create(Object.assign({ login_id: f.login_id.value.trim() }, d));
+    p.then(function () { toast(editAcct ? '수정했습니다' : '계정을 추가했습니다'); resetAcct(); loadAccts(); }, fail);
+  });
+  $('#acctList').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.d) { if (confirm('이 관리자 계정을 삭제할까요?')) DK.accounts.remove(b.dataset.d).then(function () { toast('삭제했습니다'); loadAccts(); }, fail); return; }
+    var x = accts.filter(function (a) { return a.id === b.dataset.e; })[0], f = $('#acctForm');
+    editAcct = x.id; f.login_id.value = x.login_id; f.login_id.disabled = true; f.name.value = x.name; f.pw.required = false;
+    $('#acctFormTitle').textContent = '계정 수정 · ' + x.login_id + ' (비밀번호는 바꿀 때만 입력)'; $('#acctForm .primary').textContent = '수정 저장'; $('#acctCancel').hidden = false;
+    f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+  resetAcct();
+
+  $('#demoBar').hidden = !DK.demo;
+  if (DK.loggedIn()) showApp(); else showLogin();
+})();
+</script>
+</body>
+</html>
