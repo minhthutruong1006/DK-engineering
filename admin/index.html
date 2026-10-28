@@ -328,8 +328,8 @@ td.ops a:hover{color:var(--accent)}
   </div>
 </div>
 
-<script src="../assets/dk-config.js?v=6"></script>
-<script src="../assets/dk-api.js?v=6"></script>
+<script src="../assets/dk-config.js?v=7"></script>
+<script src="../assets/dk-api.js?v=7"></script>
 <script>
 (function () {
   var $ = function (s) { return document.querySelector(s); };
@@ -572,7 +572,7 @@ td.ops a:hover{color:var(--accent)}
   // 미리보기: 사이트와 같은 모양으로 새 창에
   $('#postPreview').addEventListener('click', function () {
     var f = $('#postForm'), w = window.open('', '_blank');
-    w.document.write('<!DOCTYPE html><meta charset="utf-8"><title>미리보기</title><link rel="stylesheet" href="' + new URL('../assets/style.css?v=72', location.href) + '"><body class="sub" style="padding:60px 24px"><div class="subCon" style="padding:0;max-width:1000px"><div class="postView"><div class="pvHead"><h3>' + esc(f.title.value || '(제목)') + '</h3><div class="meta"><span>' + esc(f.author.value) + '</span><span>' + esc(f.date.value) + '</span></div></div><div class="pvBody">' + bodyHtml() + '</div></div></div></body>');
+    w.document.write('<!DOCTYPE html><meta charset="utf-8"><title>미리보기</title><link rel="stylesheet" href="' + new URL('../assets/style.css?v=73', location.href) + '"><body class="sub" style="padding:60px 24px"><div class="subCon" style="padding:0;max-width:1000px"><div class="postView"><div class="pvHead"><h3>' + esc(f.title.value || '(제목)') + '</h3><div class="meta"><span>' + esc(f.author.value) + '</span><span>' + esc(f.date.value) + '</span></div></div><div class="pvBody">' + bodyHtml() + '</div></div></div></body>');
     w.document.close();
   });
 

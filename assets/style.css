@@ -1320,3 +1320,17 @@ html.lenis,html.lenis body{height:auto}
   .clCard{border-radius:18px}
   .clCard img{max-width:78%;max-height:50%}
 }
+
+/* ===== 회사 개요: 아이콘 카드 그리드 대신 사진 + 항목·내용 표 ===== */
+.coInfo{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:60px;align-items:stretch}
+.coInfo .photo{min-height:520px;border-radius:var(--radius)}
+.coTable{border-top:2px solid #111}
+.coTable>div{display:grid;grid-template-columns:150px 1fr;gap:24px;padding:22px 4px;border-bottom:1px solid #e5e8ec}
+.coTable dt{font-size:15px;font-weight:600;color:#111;padding-top:1px}
+.coTable dd{font-size:16px;line-height:1.75;color:#333;word-break:keep-all}
+.coList{list-style:none}
+.coList li{position:relative;padding-left:14px}
+.coList li+li{margin-top:6px}
+.coList li::before{content:'';position:absolute;left:0;top:.85em;width:6px;height:1.5px;background:#999}
+@media (max-width:1100px){.coInfo{grid-template-columns:1fr;gap:36px}.coInfo .photo{min-height:0;aspect-ratio:16/9}}
+@media (max-width:812px){.coTable>div{grid-template-columns:1fr;gap:6px;padding:16px 2px}.coTable dd{font-size:15px}}

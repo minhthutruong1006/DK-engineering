@@ -5,6 +5,23 @@
   function byDesc(k) { return function (a, b) { return String(b[k] || '').localeCompare(String(a[k] || '')); }; }
   function quiet() {}
 
+  // 화면 문구 (영문판은 <html lang="en">)
+  var T = document.documentElement.lang === 'en' ? {
+    total: 'Total', count: '', search: 'Search title or content', searchAria: 'Search posts', searchBtn: 'Search',
+    notice: 'Notice', file: 'File', files: 'Attachments', noResult: 'No results found.', noPost: 'No posts yet.',
+    prevPage: 'Previous page', nextPage: 'Next page', original: 'View original', next: 'Next', prev: 'Previous',
+    none: function (l) { return 'No ' + l.toLowerCase() + ' post.'; }, list: 'List',
+    sent: 'Your inquiry has been received. We will reply soon.',
+    fail: 'We could not submit your inquiry. Please contact dk@dkenc.kr or +82-51-722-0855.'
+  } : {
+    total: '전체', count: '건', search: '제목·내용 검색', searchAria: '게시글 검색', searchBtn: '검색',
+    notice: '공지', file: '첨부', files: '첨부파일', noResult: '검색 결과가 없습니다.', noPost: '등록된 게시물이 없습니다.',
+    prevPage: '이전 페이지', nextPage: '다음 페이지', original: '원문 보기', next: '다음글', prev: '이전글',
+    none: function (l) { return l + '이 없습니다.'; }, list: '목록',
+    sent: '문의가 접수되었습니다. 빠르게 답변드리겠습니다.',
+    fail: '일시적인 오류로 접수하지 못했습니다. dk@dkenc.kr 또는 051-722-0855로 문의해 주세요.'
+  };
+
   // ---------- 관리자 SEO 수정값 (모든 페이지) ----------
   var page = location.pathname.split('/').pop() || 'index.html';
   DK.seo.list().then(function (a) {
@@ -57,7 +74,7 @@
   if (board) {
     var PER = 10, all = [], view = [], pageNo = 1, pageCount = 1;
     var body = board.querySelector('tbody');
-    board.insertAdjacentHTML('beforebegin', '<div class="bbsTop"><span class="bbsCount">전체 <b>0</b>건</span><form class="bbsSearch" role="search"><input type="search" placeholder="제목·내용 검색" aria-label="게시글 검색"><button>검색</button></form></div>');
+    board.insertAdjacentHTML('beforebegin', '<div class="bbsTop"><span class="bbsCount">' + T.total + ' <b>0</b>' + T.count + '</span><form class="bbsSearch" role="search"><input type="search" placeholder="' + T.search + '" aria-label="' + T.searchAria + '"><button>' + T.searchBtn + '</button></form></div>');
     board.insertAdjacentHTML('afterend', '<div class="bbsPager" hidden></div><div class="postView" hidden></div>');
     var top = board.previousElementSibling, pager = board.nextElementSibling, pv = pager.nextElementSibling;
     var input = top.querySelector('input');
@@ -74,14 +91,14 @@
       var left = view.filter(function (x) { return !x.pinned; }).length, nos = {};
       view.forEach(function (x) { if (!x.pinned) nos[x.id] = left--; }); // 공지 제외 최신글이 가장 큰 번호
       body.innerHTML = rows.length ? rows.map(function (x) {
-        var no = x.pinned ? '<span class="pin">공지</span>' : nos[x.id];
-        var clip = x.files && x.files.length ? '<i class="clip" title="첨부파일">첨부</i>' : '';
+        var no = x.pinned ? '<span class="pin">' + T.notice + '</span>' : nos[x.id];
+        var clip = x.files && x.files.length ? '<i class="clip" title="' + T.files + '">' + T.file + '</i>' : '';
         return '<tr class="bRow' + (x.pinned ? ' pinned' : '') + '"><td class="no">' + no + '</td><td class="tit"><a href="?id=' + encodeURIComponent(x.id) + '" data-id="' + DK.esc(x.id) + '">' + DK.esc(x.title) + '</a>' + clip + '</td><td>' + DK.esc(x.author) + '</td><td class="date">' + DK.esc(x.date) + '</td></tr>';
-      }).join('') : '<tr><td colspan="4" class="empty">' + (q ? '검색 결과가 없습니다.' : '등록된 게시물이 없습니다.') + '</td></tr>';
+      }).join('') : '<tr><td colspan="4" class="empty">' + (q ? T.noResult : T.noPost) + '</td></tr>';
       pager.hidden = pages < 2;
-      var h = '<button data-p="' + (pageNo - 1) + '"' + (pageNo < 2 ? ' disabled' : '') + ' aria-label="이전 페이지">‹</button>';
+      var h = '<button data-p="' + (pageNo - 1) + '"' + (pageNo < 2 ? ' disabled' : '') + ' aria-label="' + T.prevPage + '">‹</button>';
       for (var p = 1; p <= pages; p++) h += '<button data-p="' + p + '"' + (p === pageNo ? ' class="on" aria-current="page"' : '') + '>' + p + '</button>';
-      pager.innerHTML = h + '<button data-p="' + (pageNo + 1) + '"' + (pageNo >= pages ? ' disabled' : '') + ' aria-label="다음 페이지">›</button>';
+      pager.innerHTML = h + '<button data-p="' + (pageNo + 1) + '"' + (pageNo >= pages ? ' disabled' : '') + ' aria-label="' + T.nextPage + '">›</button>';
     }
 
     function show(id) {
@@ -96,14 +113,14 @@
         return '<li><a href="' + DK.esc(f.url) + '" download="' + DK.esc(f.name) + '">' + DK.esc(f.name) + '</a><em>' + size(f.size) + '</em></li>';
       }).join('');
       function nav(lbl, y) {
-        return '<li><span>' + lbl + '</span>' + (y ? '<a href="?id=' + encodeURIComponent(y.id) + '" data-id="' + DK.esc(y.id) + '">' + DK.esc(y.title) + '</a><em>' + DK.esc(y.date) + '</em>' : '<span class="none">' + lbl + '이 없습니다.</span>') + '</li>';
+        return '<li><span>' + lbl + '</span>' + (y ? '<a href="?id=' + encodeURIComponent(y.id) + '" data-id="' + DK.esc(y.id) + '">' + DK.esc(y.title) + '</a><em>' + DK.esc(y.date) + '</em>' : '<span class="none">' + T.none(lbl) + '</span>') + '</li>';
       }
       pv.innerHTML = '<div class="pvHead"><h3>' + DK.esc(x.title) + '</h3><div class="meta"><span>' + DK.esc(x.author) + '</span><span>' + DK.esc(x.date) + '</span></div></div>' +
         '<div class="pvBody">' + DK.clean(x.body) + '</div>' +
-        (x.link ? '<p class="pvLink"><a href="' + DK.esc(x.link) + '" target="_blank" rel="noopener">원문 보기</a></p>' : '') +
-        (files ? '<div class="pvFiles"><strong>첨부파일</strong><ul>' + files + '</ul></div>' : '') +
-        '<ul class="pvNav">' + nav('다음글', next) + nav('이전글', prev) + '</ul>' +
-        '<div class="pvBtns"><a href="' + location.pathname.split('/').pop() + '" class="btnList">목록</a></div>';
+        (x.link ? '<p class="pvLink"><a href="' + DK.esc(x.link) + '" target="_blank" rel="noopener">' + T.original + '</a></p>' : '') +
+        (files ? '<div class="pvFiles"><strong>' + T.files + '</strong><ul>' + files + '</ul></div>' : '') +
+        '<ul class="pvNav">' + nav(T.next, next) + nav(T.prev, prev) + '</ul>' +
+        '<div class="pvBtns"><a href="' + location.pathname.split('/').pop() + '" class="btnList">' + T.list + '</a></div>';
       document.title = x.title + ' | ' + document.title.split(' | ').slice(-1)[0];
     }
 
@@ -137,23 +154,24 @@
   if (form) {
     form.addEventListener('submit', function (e) {
       if (e.defaultPrevented) return; // 자동등록방지 실패
+      function v(ko, en) { var el = form.elements[ko] || form.elements[en]; return el ? el.value.trim() : ''; } // 영문판은 필드 이름이 영어
       var d = {
-        company: form.elements['업체명'].value.trim(),
-        name: form.elements['담당자명'].value.trim(),
-        email: form.elements['E-mail'].value.trim(),
-        title: form.elements['제목'].value.trim(),
-        content: form.elements['문의내용'].value.trim(),
+        company: v('업체명', 'Company'),
+        name: v('담당자명', 'Name'),
+        email: v('E-mail', 'E-mail'),
+        title: v('제목', 'Subject'),
+        content: v('문의내용', 'Message'),
         status: 0
       };
       if (DK.demo) { DK.inquiries.create(d); return; } // 미리보기: 기록만 남기고 기존 메일 전송 그대로
       e.preventDefault();
       var btn = form.querySelector('.sendBtn'); btn.disabled = true;
       DK.inquiries.create(d).then(function () {
-        alert('문의가 접수되었습니다. 빠르게 답변드리겠습니다.');
+        alert(T.sent);
         form.reset();
         var re = document.getElementById('capRe'); if (re) re.click();
       }, function () {
-        alert('일시적인 오류로 접수하지 못했습니다. dk@dkenc.kr 또는 051-722-0855로 문의해 주세요.');
+        alert(T.fail);
       }).then(function () { btn.disabled = false; });
     });
   }
