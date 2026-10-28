@@ -50,7 +50,7 @@ def page(fname, title, desc, eng, h2, lead, bg, body):
     <ul class="heroTab">{tabs}</ul>
   </div>
 </section>
-{'' if fname in ('company.html', 'history.html') else f'''<div class="pageTitle2">
+{'' if fname in ('company.html', 'history.html', 'organ.html') else f'''<div class="pageTitle2">
   <div class="inner">
     <h3>{h2}</h3>
     <p>{lead}</p>
@@ -409,7 +409,7 @@ page('company.html', '회사 개요', '대경기술주식회사 회사 개요: �
      'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''{open(os.path.join(ROOT, '_tools', 'overview_section.html'), encoding='utf-8').read()}  <div class="title coTitle ani"><h2>Company<span class="dot"></span></h2><h3>회사 개요</h3><p>{' '.join(e(x) for x in co['head'])}</p></div>
   <div class="infoGrid">{info_grid(co['rows'])}</div>''')
 
-page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조직도.', 'Organization', '사훈/조직도', '기술 중시, 경쟁력 확보', '', f'''  {ttl('Motto', '사훈')}
+page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조직도.', 'Organization', '사훈/조직도', '기술 중시, 경쟁력 확보', '', f'''  <div class="title coTitle ani"><h2>Motto<span class="dot"></span></h2><h3>사훈</h3><p><b>기술 중시, 경쟁력 확보</b> 대경기술의 사훈과 경영방침입니다.</p></div>
   <div class="motto ani">
     <span>기술중시</span><i></i><span>경쟁력확보</span>
   </div>
@@ -423,7 +423,7 @@ page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조�
     </div>
   </div>
   <div class="block">
-    {ttl('Organization', '조직도')}
+    <div class="title coTitle ani"><h2>Organization<span class="dot"></span></h2><h3>조직도</h3></div>
     <div class="orgFlow"><div class="orgCanvas"><svg viewBox="0 0 1280 820" preserveAspectRatio="none" aria-hidden="true"><path d="M773,115 V580"/><path d="M310,193 H950"/><path d="M310,193 V243"/><path d="M597,193 V243"/><path d="M950,193 V243"/><path d="M597,338 V387"/><path d="M533,387 H661"/><path d="M533,387 V436"/><path d="M661,387 V436"/><path d="M950,338 V436"/><path d="M310,580 H950"/><path d="M310,580 V630"/><path d="M597,580 V630"/><path d="M950,580 V630"/></svg><div class="oBox ceo ani" style="left:52.97%;top:2.38%;width:14.84%;height:11.59%;--d:0"><span>대표이사</span></div><div class="oBox dept ani" style="left:14.30%;top:29.57%;width:19.84%;height:11.59%;--d:1"><span>기업부설연구소</span></div><div class="oBox dept ani" style="left:36.72%;top:29.57%;width:19.84%;height:11.59%;--d:2"><span>품질보증실</span></div><div class="oBox dept ani" style="left:64.30%;top:29.57%;width:19.84%;height:11.59%;--d:3"><span>안전보건환경팀</span></div><div class="oBox sub ani" style="left:37.93%;top:53.11%;width:7.42%;height:11.59%;--d:4"><span>Q.A</span></div><div class="oBox sub ani" style="left:47.93%;top:53.11%;width:7.42%;height:11.59%;--d:5"><span>Q.S</span></div><div class="oBox sub ani" style="left:70.51%;top:53.11%;width:7.42%;height:11.59%;--d:6"><span>HSE</span></div><div class="oBox biz ani" style="left:14.30%;top:76.77%;width:19.84%;height:21.34%;--d:7"><span>경영<br>지원실</span></div><div class="oBox biz ani" style="left:36.72%;top:76.77%;width:19.84%;height:21.34%;--d:8"><span>원자력<br>사업본부</span></div><div class="oBox biz ani" style="left:64.30%;top:76.77%;width:19.84%;height:21.34%;--d:9"><span>플랜트<br>사업본부</span></div></div></div>
   </div>''')
 
