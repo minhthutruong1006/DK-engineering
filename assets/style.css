@@ -1001,44 +1001,48 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
   .inqForm .captcha input{flex-basis:100%;max-width:none}
 }
 
-/* 인증: 넓은 사진이 스크롤하면 왼쪽 고정 패널로 줄어들고 오른쪽에 목록 */
+/* 인증: 왼쪽 고정 사진 패널 + 오른쪽 목록 (saltlux 연혁 방식) */
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
 .certFlow{position:relative}
 .cfSide{position:absolute;inset:0;z-index:3;pointer-events:none}
-.cfSticky{position:sticky;top:100px;width:46%;height:calc(100vh - 140px);max-height:860px}
-.cfBg{position:absolute;inset:0;border-radius:28px;overflow:hidden;pointer-events:auto;background:#cfcfcf}
-.cfBg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 20%;transform:translateY(var(--py,0)) scale(1.08)}
-.cfDark{position:absolute;inset:0;background:#0b1a2e;opacity:.42}
-.cfCenter{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Poppins';font-size:clamp(48px,6vw,96px);font-weight:600;color:#fff;letter-spacing:-.02em;text-shadow:0 4px 30px rgba(0,0,0,.25)}
-.cfBlock{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:34px;color:#fff}
+.cfSticky{position:sticky;top:120px;width:38%;height:min(66vh,600px)}
+.cfBg{position:absolute;inset:0;border-radius:26px;overflow:hidden;pointer-events:auto;background:#cfd6df;box-shadow:0 30px 60px -30px rgba(9,60,130,.45)}
+.cfBg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;transform:translateY(var(--py,0)) scale(1.1)}
+.cfDark{position:absolute;inset:0;background:linear-gradient(165deg,rgba(9,129,241,.38) 0%,rgba(6,52,120,.55) 55%,rgba(4,22,52,.82) 100%)}
+.cfBlock{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;color:#fff}
 .cfTop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.cfNum{display:flex;font-family:'Poppins';font-size:clamp(70px,7vw,124px);font-weight:600;line-height:1;height:1em;overflow:hidden}
+.cfNum{display:flex;font-family:'Poppins';font-size:clamp(64px,6vw,104px);font-weight:600;line-height:1;height:1em;overflow:hidden;text-shadow:0 6px 30px rgba(0,30,80,.35)}
 .cfNum .d{display:block;height:1em;overflow:hidden}
-.cfNum .trk{display:flex;flex-direction:column;transition:transform .9s cubic-bezier(.65,0,.2,1)}
+.cfNum .trk{display:flex;flex-direction:column;transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
 .cfNum .trk span{display:block;height:1em;line-height:1em}
-.cfName{margin-top:14px;font-size:15px;letter-spacing:.2em;opacity:.9;transition:opacity .3s}
-.cfAnchors{position:relative;display:flex;justify-content:center;flex-wrap:wrap;gap:4px 6px}
-.cfAnchors a{padding:4px 10px;font-size:15px;font-weight:600;color:#fff;opacity:.55;transition:opacity .35s}
-.cfAnchors a.on,.cfAnchors a:hover{opacity:1}
-.cfContents{position:relative;z-index:1;padding:0 0 20px calc(46% + 90px)}
-.cfPanel{padding:40px 0 140px;scroll-margin-top:100px}
-.cfPanel:last-child{padding-bottom:40px}
-.cfPanel li{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
-.cfPanel li.on{opacity:1;transform:none}
-.cfEng{font-size:13px;letter-spacing:.18em;color:#9fa0a0}
-.cfTitle{margin:10px 0 34px;font-size:clamp(30px,2.6vw,44px);font-weight:600;color:#111;line-height:1.25}
-.cfPanel li{display:flex;gap:20px;padding:13px 0;font-size:17px;line-height:1.6;color:#333}
-.cfPanel li b{flex-shrink:0;width:44px;font-family:'Poppins';font-size:19px;font-weight:600;color:#111}
+.cfName{margin-top:16px;padding:6px 14px;border:1px solid rgba(255,255,255,.45);border-radius:30px;font-size:12px;letter-spacing:.22em;opacity:.95;transition:opacity .3s}
+.cfAnchors{position:relative;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:6px;margin:0 auto;border-radius:40px;background:rgba(255,255,255,.12);backdrop-filter:blur(6px)}
+.cfAnchors a{padding:7px 16px;border-radius:30px;font-size:14px;font-weight:600;color:#fff;opacity:.75;transition:background .4s,opacity .4s}
+.cfAnchors a:hover{opacity:1}
+.cfAnchors a.on{opacity:1;background:var(--accent)}
+.cfContents{position:relative;z-index:1;padding:0 0 20px calc(38% + 100px)}
+.cfPanel{padding:30px 0 130px;scroll-margin-top:120px}
+.cfPanel:last-child{padding-bottom:30px}
+.cfEng{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;letter-spacing:.18em;color:var(--accent)}
+.cfEng::before{content:'';width:28px;height:2px;background:var(--accent)}
+.cfTitle{margin:12px 0 30px;font-size:clamp(28px,2.3vw,38px);font-weight:600;color:#0d1b2e;line-height:1.3}
+.cfPanel ul{border-top:2px solid #0d1b2e}
+.cfPanel li{position:relative;display:flex;align-items:flex-start;gap:22px;padding:20px 14px;border-bottom:1px solid #e3e9f1;font-size:17px;line-height:1.6;color:#333;transition:background .35s}
+.cfPanel li::before{content:'';position:absolute;left:0;top:-1px;width:0;height:1px;background:var(--accent);transition:width .5s cubic-bezier(.16,1,.3,1)}
+.cfPanel li:hover{background:#f3f8fe}
+.cfPanel li:hover::before{width:100%}
+.cfPanel li b{flex-shrink:0;width:40px;font-family:'Poppins';font-size:18px;font-weight:600;color:var(--accent)}
+.cfRv{opacity:0;transform:translateY(40px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1),background .35s}
+.cfRv.on{opacity:1;transform:none}
 @media (max-width:1024px){
-  .certFlow{padding-top:0}
   .cfSide{position:static}
-  .cfSticky{position:static;height:auto}
-  .cfBg{position:relative;left:auto;top:auto;width:100%;height:300px;border-radius:20px}
-  .cfSticky{width:auto;max-height:none}
-  .cfCenter{display:none}
-  .cfContents{margin-top:0;padding:0}
-  .cfPanel{padding:50px 0 10px}
-  .cfPanel li{font-size:15px;gap:14px}
+  .cfSticky{position:static;width:auto;height:280px}
+  .cfBg{border-radius:20px}
+  .cfContents{padding:0}
+  .cfPanel{padding:44px 0 10px}
+  .cfPanel li{font-size:15px;gap:14px;padding:16px 6px}
   .cfPanel li b{width:30px;font-size:16px}
-  .cfBlock{padding:20px}
+  .cfBlock{padding:16px}
+  .cfAnchors a{padding:6px 12px;font-size:13px}
 }
-@media (max-width:1024px){.cfDark{opacity:.45!important}}

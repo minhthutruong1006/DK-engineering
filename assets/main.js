@@ -104,7 +104,18 @@
     var cName = cf.querySelector('.cfName');
     var cNames = JSON.parse(cName.getAttribute('data-names'));
     var cTrk = cf.querySelectorAll('.cfNum .trk'), cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
-    var cImg = cBg.querySelector('img'), cAct = 0, cItems = cf.querySelectorAll('.cfPanel li');
+    var cImg = cBg.querySelector('img'), cAct = 0, cItems = cf.querySelectorAll('.cfEng, .cfTitle, .cfPanel li');
+    cItems.forEach(function (el) { el.classList.add('cfRv'); });
+    // saltlux처럼 관성 스크롤(Lenis)로 부드럽게
+    var lenis = window.Lenis ? new Lenis({ duration: 1.1 }) : null;
+    if (lenis) (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
+    cAnch.forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        var el = document.querySelector(a.getAttribute('href'));
+        if (!el) return; ev.preventDefault();
+        if (lenis) lenis.scrollTo(el, { offset: -120, duration: 1.2 }); else el.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
     function setGroup(i) {
       if (i === cAct) return; cAct = i;
       var n = String(i + 1).padStart(2, '0');
@@ -121,8 +132,14 @@
       setGroup(act);
       // 왼쪽 사진은 스크롤에 따라 천천히 움직임(패럴랙스), 오른쪽 항목은 화면에 들어오면 하나씩 등장
       var r = cf.getBoundingClientRect(), t = Math.min(Math.max(-r.top / Math.max(r.height - vh, 1), 0), 1);
-      cImg.style.setProperty('--py', (vw <= 1024 ? 0 : (t - 0.5) * -6) + '%');
-      cItems.forEach(function (li) { if (li.getBoundingClientRect().top < vh * 0.9) li.classList.add('on'); });
+      cImg.style.setProperty('--py', (vw <= 1024 ? 0 : (t - 0.5) * -8) + '%');
+      var k = 0;
+      cItems.forEach(function (el) {
+        if (!el.classList.contains('on') && el.getBoundingClientRect().top < vh * 0.88) {
+          el.style.transitionDelay = (k++ * 0.08) + 's, ' + ((k - 1) * 0.08) + 's, 0s';
+          el.classList.add('on');
+        }
+      });
     }
     window.addEventListener('scroll', updateCert, { passive: true });
     window.addEventListener('resize', updateCert);
