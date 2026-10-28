@@ -8,14 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=40">
+<link rel="stylesheet" href="assets/style.css?v=41">
 </head>
 <body class="sub">
 
 <!-- ============ HEADER ============ -->
 <header id="header">
   <div class="head">
-    <h1 class="logo"><a href="index.html">DK ENGINEERING<small>대경기술주식회사 · Since 2006</small></a></h1>
+    <h1 class="logo imgLogo"><a href="index.html"><img class="w" src="assets/img/logo/logo.png" alt="대경기술주식회사 DK ENGINEERING"><img class="c" src="assets/img/logo/logo_ov.png" alt=""></a></h1>
     <nav class="pcNav">
       <ul>
         <li><a href="ceo.html">대경기술 소개</a>
@@ -46,7 +46,7 @@
 <!-- ============ FULL MENU ============ -->
 <div class="allmenu" aria-hidden="true">
   <div class="allmenuHead">
-    <span class="logo">DK ENGINEERING<small>대경기술주식회사 · Since 2006</small></span>
+    <span class="logo imgLogo"><img class="c" src="assets/img/logo/logo_ov.png" alt="대경기술주식회사"></span>
     <button class="btnClose" aria-label="닫기"></button>
   </div>
   <div class="allmenuWrap">
@@ -64,15 +64,9 @@
   </div>
   <div class="scrollHint"><span></span>SCROLL</div>
 </section>
-<div class="pageTitle2">
-  <div class="inner">
-    <h3>고객 문의</h3>
-    <p>문의 내용을 남겨주시면 빠르게 답변드리겠습니다.</p>
-  </div>
-</div>
 
 <main class="subCon">
-  <div class="title ani"><h2>Contact<span class="dot"></span></h2><h3>고객 문의</h3></div>
+  <div class="title coTitle ani"><h2>Contact<span class="dot"></span></h2><h3>고객 문의</h3><p>문의 내용을 남겨주시면 빠르게 답변드리겠습니다.</p></div>
   <form class="inqForm ani" action="mailto:dk@dkenc.kr" method="post" enctype="text/plain">
     <div class="grid">
       <label>업체명<input type="text" name="업체명"></label>
@@ -83,6 +77,7 @@
     <label>문의 내용<textarea name="문의내용" rows="8"></textarea></label>
     <label>첨부<input type="file" name="첨부" disabled><small>첨부 파일은 메일로 보내 주세요: dk@dkenc.kr</small></label>
     <div class="agree"><strong>동의</strong><p>당사는 보다 다양한 서비스 제공을 위하여 아래와 같이 개인정보를 수집, 활용합니다.</p><p>서비스 제공을 위해서 필요한 최소한의 개인정보이므로 동의를 해주셔야만 서비스를 이용 하실 수 있습니다.</p><p>* 목적 : 고객의 문의에 대한 답변을 위한 개인정보</p><p>* 항목 : 업체명, 담당자명, 연락처, 이메일</p><p>* 보유기간 : 고객님의 개인정보는 서비스 제공 기간동안 보유 및 이용하며, 개인정보의 수집 및 이용목적의 달성 시 파기됩니다. 또한 관계법령에 의해 보존할 경우 그 의무기간 동안 보관됩니다.</p><label class="chk"><input type="checkbox" required> 개인정보 수집 및 이용에 동의합니다.</label></div>
+    <div class="captcha"><strong>자동등록방지</strong><div class="row"><canvas id="capImg" width="160" height="54" aria-label="자동등록방지 숫자 이미지"></canvas><button type="button" class="capRe" id="capRe">새로고침</button><input type="text" id="capIn" inputmode="numeric" maxlength="5" autocomplete="off" placeholder="왼쪽 숫자 5자리를 입력하세요" required aria-label="자동등록방지 숫자 입력"></div></div>
     <button type="submit" class="sendBtn">SEND</button>
   </form>
   <ul class="contactInfo ani">
@@ -95,10 +90,10 @@
 <!-- ============ FOOTER ============ -->
 <footer id="footer">
   <div class="foot">
-    <div class="logo">DK ENGINEERING<small>대경기술주식회사</small></div>
+    <div class="logo imgLogo"><img class="w" src="assets/img/logo/logo.png" alt="대경기술주식회사"></div>
     <ul class="fm"><li><a href="index.html">이용약관</a></li><li><a href="index.html">이메일무단수집거부</a></li><li><a href="index.html">개인정보처리방침</a></li></ul>
     <address>
-      상호 : 대경기술주식회사 <span class="bar"></span> 대표이사 : 임영하 <span class="bar"></span> 관계사 : (주)DK KOCEN · 디케이이앤씨(주)<br>
+      상호 : 대경기술주식회사 <span class="bar"></span> 대표이사 : 임영하<br>
       주소 : 46080 부산광역시 기장군 기장읍 청강로85번길 16 대경기술빌딩<br>
       TEL : 051-722-0855 <span class="bar"></span> FAX : 051-722-1330 <span class="bar"></span> E-mail : dk@dkenc.kr
     </address>
@@ -108,5 +103,35 @@
 
 <button class="btnTop" aria-label="맨 위로"></button>
 <script src="assets/main.js?v=40"></script>
+<script>
+(function () {
+  var cv = document.getElementById('capImg'), inp = document.getElementById('capIn'), code = '';
+  function draw() {
+    var c = cv.getContext('2d'), w = cv.width, h = cv.height, i;
+    code = ''; for (i = 0; i < 5; i++) code += Math.floor(Math.random() * 10);
+    c.fillStyle = '#f2f5f9'; c.fillRect(0, 0, w, h);
+    for (i = 0; i < 6; i++) {
+      c.strokeStyle = 'rgba(33,51,99,' + (0.15 + Math.random() * 0.25) + ')';
+      c.beginPath(); c.moveTo(Math.random() * w, Math.random() * h); c.lineTo(Math.random() * w, Math.random() * h); c.stroke();
+    }
+    c.font = '600 28px Poppins, sans-serif'; c.textBaseline = 'middle';
+    for (i = 0; i < 5; i++) {
+      c.save(); c.translate(18 + i * 28, h / 2 + (Math.random() * 10 - 5)); c.rotate((Math.random() - 0.5) * 0.5);
+      c.fillStyle = ['#0062B1', '#213363', '#00A0E9'][i % 3]; c.fillText(code[i], 0, 0); c.restore();
+    }
+    for (i = 0; i < 40; i++) { c.fillStyle = 'rgba(0,0,0,.18)'; c.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5); }
+    inp.value = ''; inp.setCustomValidity('');
+  }
+  document.getElementById('capRe').addEventListener('click', draw);
+  inp.addEventListener('input', function () { inp.setCustomValidity(''); });
+  inp.form.addEventListener('submit', function (e) {
+    if (inp.value.trim() !== code) {
+      e.preventDefault(); draw();
+      inp.setCustomValidity('자동등록방지 숫자가 일치하지 않습니다. 다시 입력해 주세요.'); inp.reportValidity();
+    }
+  });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(draw);
+})();
+</script>
 </body>
 </html>

@@ -565,7 +565,7 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .contactInfo{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:60px}
 .contactInfo li{background:#f2f5f9;border-radius:16px;padding:26px;font-size:15px;line-height:1.7;color:#333}
 .contactInfo b{display:block;font-family:'Poppins';font-size:13px;letter-spacing:.12em;color:var(--accent);margin-bottom:8px}
-.mapWrap{margin-top:30px;border-radius:var(--radius);overflow:hidden;height:420px}
+.mapWrap{margin-top:30px;border-radius:var(--radius);overflow:hidden;height:520px}
 .mapWrap iframe{width:100%;height:100%;border:0}
 @media (max-width:1100px){
   .splitRow,.ceoWrap,.patentWrap,.projList li{grid-template-columns:1fr;gap:30px}
@@ -587,7 +587,7 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
   .majorGrid{grid-template-columns:1fr}
   .inqForm .grid{grid-template-columns:1fr;gap:0}
   .photo.tall{min-height:280px}
-  .mapWrap{height:300px}
+  .mapWrap{height:360px}
 }
 /* CEO: dkenc.kr 원본 CEO 비주얼(가로형)을 본문 위에 */
 .ceoWrap{grid-template-columns:1fr;gap:50px}
@@ -939,3 +939,64 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
 .subHero2 .scrollHint span{width:1px;height:46px;background:rgba(255,255,255,.35);position:relative;overflow:hidden}
 .subHero2 .scrollHint span::after{content:'';position:absolute;left:0;top:-50%;width:1px;height:50%;background:#fff;animation:drop 1.8s infinite}
 @media (max-width:812px){.subHero2{height:100svh;min-height:520px;padding:70px 0 0}.subHero2 .scrollHint{bottom:20px}}
+
+/* ===== 주요 실적: 설계/엔지니어링 (사업장 필터 + 카드 그리드) ===== */
+.pdGridWrap{overflow:hidden;border-top:2px solid #111}
+.pdGrid{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);margin-right:-1px}
+.pdGrid li{position:relative;display:flex;flex-direction:column;gap:28px;min-height:190px;padding:30px 30px 34px;border-right:1px solid #e5e8ec;border-bottom:1px solid #e5e8ec;background:#fff;transition:background .3s}
+.pdGrid li::before{content:'';position:absolute;left:0;top:-2px;width:100%;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.pdGrid li:hover{background:#f6f8fb}
+.pdGrid li:hover::before{transform:scaleX(1)}
+.pdGrid .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.pdGrid em{font:500 15px 'Poppins',sans-serif;font-style:normal;color:var(--sky);letter-spacing:.02em}
+.pdGrid p{margin-top:auto;font-size:17px;font-weight:500;line-height:1.6;color:#111;letter-spacing:-.01em;word-break:keep-all}
+.pdMore{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:70px;margin-top:100px;padding:60px 64px;border-radius:var(--radius);background:var(--navy);color:#fff}
+.pdMore .eng{font:500 14px 'Poppins',sans-serif;color:#7fd0f5;letter-spacing:.04em}
+.pdMore .txt p{margin-top:14px;font-size:22px;font-weight:500;line-height:1.55}
+.pdMore .num{display:flex;align-items:baseline;gap:6px}
+.pdMore .num b{font:500 72px/1 'Poppins',sans-serif;letter-spacing:-.02em}
+.pdMore .num span{font-size:18px;color:rgba(255,255,255,.7)}
+.pdMore .pdLinks{list-style:none;min-width:260px;border-top:1px solid rgba(255,255,255,.25)}
+.pdMore .pdLinks a{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:15px;color:rgba(255,255,255,.85);transition:color .25s,padding .25s}
+.pdMore .pdLinks a::after{content:'\2192';font-family:'Poppins'}
+.pdMore .pdLinks a:hover{color:#fff;padding-left:6px}
+.pdMore .pdLinks li:first-child a{color:#fff;font-weight:500}
+@media (max-width:1280px){
+  .pdGrid{grid-template-columns:repeat(2,1fr)}
+  .pdMore{grid-template-columns:1fr auto;gap:40px}
+  .pdMore .pdLinks{grid-column:1/-1}
+}
+@media (max-width:812px){
+  .pdGrid{grid-template-columns:1fr}
+  .pdGrid li{min-height:0;gap:16px;padding:22px 4px 24px}
+  .pdGrid p{font-size:15px}
+  .pdMore{grid-template-columns:1fr;gap:28px;margin-top:60px;padding:36px 24px}
+  .pdMore .txt p{font-size:18px}
+  .pdMore .num b{font-size:52px}
+  .pdMore .pdLinks{min-width:0}
+}
+
+/* ===== 로고: dkenc.kr 원본 이미지 (흰색 logo.png / 컬러 logo_ov.png) ===== */
+.logo.imgLogo,.logo.imgLogo a{display:block;line-height:0}
+.logo.imgLogo img{width:230px;height:auto}
+#header .logo.imgLogo .c{display:none}
+#header.fix .logo.imgLogo .w,#header:hover .logo.imgLogo .w{display:none}
+#header.fix .logo.imgLogo .c,#header:hover .logo.imgLogo .c{display:block}
+.foot .logo.imgLogo img{width:200px}
+@media (max-width:812px){
+  .logo.imgLogo img{width:170px}
+  .foot .logo.imgLogo img{width:160px}
+}
+
+/* ===== 고객 문의: 자동등록방지 ===== */
+.inqForm .captcha{margin:0 0 36px}
+.inqForm .captcha strong{display:block;margin-bottom:10px;font-size:15px;font-weight:500;color:#222}
+.inqForm .captcha .row{display:flex;align-items:center;gap:10px}
+.inqForm .captcha canvas{flex:none;width:160px;height:54px;border:1px solid var(--line);border-radius:10px}
+.inqForm .capRe{flex:none;height:54px;padding:0 18px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;font-size:14px;color:#555;cursor:pointer;transition:border-color .2s,color .2s}
+.inqForm .capRe:hover{border-color:var(--accent);color:var(--accent)}
+.inqForm .captcha input{flex:1;max-width:340px;height:54px;padding:0 16px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px}
+@media (max-width:812px){
+  .inqForm .captcha .row{flex-wrap:wrap}
+  .inqForm .captcha input{flex-basis:100%;max-width:none}
+}
