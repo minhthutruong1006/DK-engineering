@@ -119,7 +119,7 @@
     function setGroup(i) {
       if (i === cAct) return; cAct = i;
       cName.style.opacity = 0;
-      setTimeout(function () { cName.textContent = cNames[i]; cName.style.opacity = .9; }, 250);
+      setTimeout(function () { cName.textContent = cNames[i]; cName.style.opacity = 1; }, 250);
       cAnch.forEach(function (a, k) { a.classList.toggle('on', k === i); });
     }
     function updateCert() {
@@ -127,9 +127,7 @@
       var act = 0;
       cPanels.forEach(function (p, i) { if (p.getBoundingClientRect().top < mid) act = i; });
       setGroup(act);
-      // 왼쪽 사진은 스크롤에 따라 천천히 움직임(패럴랙스), 오른쪽 항목은 화면에 들어오면 하나씩 등장
-      var r = cf.getBoundingClientRect(), t = Math.min(Math.max(-r.top / Math.max(r.height - vh, 1), 0), 1);
-      cImg.style.setProperty('--py', (vw <= 1024 ? 0 : (t - 0.5) * -8) + '%');
+      // 오른쪽 항목은 화면에 들어오면 하나씩 등장
       var k = 0;
       cItems.forEach(function (el) {
         if (!el.classList.contains('on') && el.getBoundingClientRect().top < vh * 0.88) {
