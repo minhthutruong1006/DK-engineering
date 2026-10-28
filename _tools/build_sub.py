@@ -299,7 +299,6 @@ page('certification.html', '인증·특허', '대경기술 면허·인증 현황
         <i class="cfDark"></i>
         <div class="cfBlock">
           <div class="cfTop">
-            <div class="cfNum"><span class="d"><span class="trk"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="d"><span class="trk" style="transform:translateY(-10%)"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></div>
             <p class="cfName" data-names='["NUCLEAR & POWER","QUALITY & SAFETY","ENGINEERING LICENSES"]'>NUCLEAR &amp; POWER</p>
           </div>
           <div class="cfAnchors"><a href="#cf0" class="on">원자력·전력</a><a href="#cf1">품질·안전</a><a href="#cf2">사업 면허</a></div>

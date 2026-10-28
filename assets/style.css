@@ -1007,17 +1007,17 @@ html.lenis,html.lenis body{height:auto}
 .certFlow{position:relative}
 .cfSide{position:absolute;inset:0;z-index:3;pointer-events:none}
 .cfSticky{position:sticky;top:120px;width:38%;height:min(66vh,600px)}
-.cfBg{position:absolute;inset:0;border-radius:26px;overflow:hidden;pointer-events:auto;background:#cfd6df;box-shadow:0 30px 60px -30px rgba(9,60,130,.45)}
-.cfBg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 22%;transform:translateY(var(--py,0)) scale(1.1)}
-.cfDark{position:absolute;inset:0;background:linear-gradient(165deg,rgba(9,129,241,.38) 0%,rgba(6,52,120,.55) 55%,rgba(4,22,52,.82) 100%)}
+.cfBg{position:absolute;inset:0;border-radius:26px;overflow:hidden;pointer-events:auto;background:#cfd6df;box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+.cfBg img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 24%;transform:translateY(var(--py,0)) scale(1.28);transform-origin:50% 28%}
+.cfDark{position:absolute;inset:auto 0 0;height:40%;background:linear-gradient(to top,rgba(0,0,0,.35),rgba(0,0,0,0))}
 .cfBlock{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;color:#fff}
-.cfTop{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cfTop{position:absolute;left:0;right:0;top:26px;display:flex;justify-content:center;text-align:center}
 .cfNum{display:flex;font-family:'Poppins';font-size:clamp(64px,6vw,104px);font-weight:600;line-height:1;height:1em;overflow:hidden;text-shadow:0 6px 30px rgba(0,30,80,.35)}
 .cfNum .d{display:block;height:1em;overflow:hidden}
 .cfNum .trk{display:flex;flex-direction:column;transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
 .cfNum .trk span{display:block;height:1em;line-height:1em}
-.cfName{margin-top:16px;padding:6px 14px;border:1px solid rgba(255,255,255,.45);border-radius:30px;font-size:12px;letter-spacing:.22em;opacity:.95;transition:opacity .3s}
-.cfAnchors{position:relative;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:6px;margin:0 auto;border-radius:40px;background:rgba(255,255,255,.12);backdrop-filter:blur(6px)}
+.cfName{padding:8px 18px;background:rgba(10,20,35,.45);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);border-radius:30px;font-size:12px;letter-spacing:.22em;opacity:.95;transition:opacity .3s}
+.cfAnchors{position:relative;display:flex;justify-content:center;flex-wrap:wrap;gap:6px;padding:6px;margin:0 auto;border-radius:40px;background:rgba(10,20,35,.4);backdrop-filter:blur(6px)}
 .cfAnchors a{padding:7px 16px;border-radius:30px;font-size:14px;font-weight:600;color:#fff;opacity:.75;transition:background .4s,opacity .4s}
 .cfAnchors a:hover{opacity:1}
 .cfAnchors a.on{opacity:1;background:var(--accent)}

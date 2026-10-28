@@ -97,13 +97,13 @@
     updateHistory();
   }
 
-  // 인증: 왼쪽 고정 사진 패널 + 오른쪽 목록, 화면 가운데 그룹에 맞춰 번호·이름·앵커 변경
+  // 인증: 왼쪽 고정 사진 패널 + 오른쪽 목록, 화면 가운데 그룹에 맞춰 이름·앵커 변경
   var cf = document.querySelector('.certFlow');
   if (cf) {
     var cBg = cf.querySelector('.cfBg');
     var cName = cf.querySelector('.cfName');
     var cNames = JSON.parse(cName.getAttribute('data-names'));
-    var cTrk = cf.querySelectorAll('.cfNum .trk'), cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
+    var cPanels = cf.querySelectorAll('.cfPanel'), cAnch = cf.querySelectorAll('.cfAnchors a');
     var cImg = cBg.querySelector('img'), cAct = 0, cItems = cf.querySelectorAll('.cfEng, .cfTitle, .cfPanel li');
     cItems.forEach(function (el) { el.classList.add('cfRv'); });
     // saltlux처럼 관성 스크롤(Lenis)로 부드럽게
@@ -118,9 +118,6 @@
     });
     function setGroup(i) {
       if (i === cAct) return; cAct = i;
-      var n = String(i + 1).padStart(2, '0');
-      cTrk[0].style.transform = 'translateY(' + (-n[0] * 10) + '%)';
-      cTrk[1].style.transform = 'translateY(' + (-n[1] * 10) + '%)';
       cName.style.opacity = 0;
       setTimeout(function () { cName.textContent = cNames[i]; cName.style.opacity = .9; }, 250);
       cAnch.forEach(function (a, k) { a.classList.toggle('on', k === i); });
