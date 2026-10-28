@@ -195,3 +195,22 @@
   });
   track.addEventListener('click', function (e) { if (moved) e.preventDefault(); }, true);
 })();
+
+/* Clients 그룹: 헤드라인 줄별 등장 + 카드가 덮을수록 헤드라인 흐려짐 */
+(function () {
+  var g = document.querySelector('.clGroup');
+  if (!g) return;
+  var head = g.querySelector('.clSticky');
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { g.classList.add('on'); io.disconnect(); } });
+  }, { threshold: .35 });
+  io.observe(head);
+  function dim() {
+    var r = g.getBoundingClientRect(), vh = window.innerHeight;
+    var p = Math.min(1, Math.max(0, (-r.top - vh * .15) / (vh * .7)));
+    head.style.opacity = 1 - p * .62;
+  }
+  window.addEventListener('scroll', dim, { passive: true });
+  window.addEventListener('resize', dim);
+  dim();
+})();
