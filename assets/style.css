@@ -1129,3 +1129,57 @@ html.lenis,html.lenis body{height:auto}
 }
 @media (min-width:813px){.links .tit{text-align:center}}
 .section8 .bg.photo{background-position:center bottom}
+
+/* ===== 수행 역무 (biz-services): 가독성 정리 ===== */
+.svcIntro{align-items:start}
+.svcIntro .title{margin-bottom:36px}
+.svcLead{font-size:19px;line-height:1.85;color:#222;font-weight:500;letter-spacing:-.01em;word-break:keep-all}
+.svcPara{margin-top:20px;font-size:16.5px;line-height:1.9;color:#555;word-break:keep-all}
+.svcIntro .photo.tall{min-height:600px;position:sticky;top:120px}
+.svcSec{display:grid;grid-template-columns:minmax(260px,1fr) 2fr;gap:60px;margin-top:150px;padding-top:60px;border-top:1px solid #e5e8ec}
+.svcSec.col{grid-template-columns:1fr;gap:44px}
+.svcSec .title{margin:0}
+.svcSec .title p{margin-top:16px;font-size:17px;line-height:1.7;color:#555}
+.svcSec .title p b{color:#111;font-weight:600}
+.svcNum{list-style:none;border-top:2px solid #111}
+.svcNum li{display:grid;grid-template-columns:64px 1fr;align-items:baseline;padding:24px 4px;border-bottom:1px solid #e5e8ec}
+.svcNum em{font:500 15px 'Poppins',sans-serif;font-style:normal;color:var(--sky)}
+.svcNum span{font-size:19px;font-weight:500;color:#111;line-height:1.6;word-break:keep-all}
+.svcProj{list-style:none;display:grid;gap:28px}
+.svcProj li{display:grid;grid-template-columns:minmax(300px,420px) 1fr;gap:48px;align-items:center;padding:28px;border:1px solid #e3e6eb;border-radius:20px;background:#fff}
+.svcProj .photo{aspect-ratio:4/3;border-radius:14px}
+.svcProj .no{font:500 13px 'Poppins',sans-serif;color:var(--sky);letter-spacing:.04em}
+.svcProj h4{margin-top:10px;font-size:23px;font-weight:600;color:#111;line-height:1.45;letter-spacing:-.01em;word-break:keep-all}
+.svcProj .desc{margin-top:12px;font-size:16px;line-height:1.8;color:#555;word-break:keep-all}
+.svcProj dl{display:grid;grid-template-columns:1fr 1fr;margin-top:24px;border-top:1px solid #e5e8ec}
+.svcProj dl div{display:grid;grid-template-columns:72px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #eef0f3;font-size:15px;line-height:1.6}
+.svcProj dl div:nth-child(odd){padding-right:20px}
+.svcProj dt{color:#888}
+.svcProj dd{color:#222;word-break:keep-all}
+.svcProj dd.num{font-family:'Poppins',sans-serif;font-size:14.5px;white-space:nowrap}
+.svcProj dd.strong{color:var(--accent);font-weight:600;font-size:16px}
+@media (max-width:1100px){
+  .svcProj dl{grid-template-columns:1fr}
+  .svcProj dl div:nth-child(odd){padding-right:0}
+}
+@media (max-width:812px){
+  .svcIntro .photo.tall{position:static;min-height:300px}
+  .svcLead{font-size:17px}.svcPara{font-size:15px}
+  .svcSec{grid-template-columns:1fr;gap:28px;margin-top:90px;padding-top:40px}
+  .svcNum li{grid-template-columns:44px 1fr;padding:18px 2px}
+  .svcNum span{font-size:16px}
+  .svcProj li{grid-template-columns:1fr;gap:20px;padding:18px}
+  .svcProj h4{font-size:19px}
+  .svcProj dd.num{white-space:normal}
+}
+
+/* ===== 헤더: 브로슈어 버튼, 햄버거는 모바일(상단 메뉴가 숨는 1100px 이하)에서만 ===== */
+.gnb .contact.brochure{gap:6px}
+.gnb .contact.brochure svg{width:14px;height:14px;stroke-width:1.8;transition:transform .3s}
+.gnb .contact.brochure:hover svg{transform:translateY(2px)}
+@media (min-width:1101px){.btnMenu{display:none}}
+.amBrochure{position:absolute;left:var(--pad);bottom:32px;display:inline-flex;align-items:center;gap:8px;height:48px;padding:0 22px;border-radius:24px;background:var(--navy);color:#fff;font-size:15px;font-weight:500}
+.amBrochure svg{width:15px;height:15px;stroke-width:1.8}
+.amBrochure small{margin-left:4px;font-size:12px;font-weight:400;color:rgba(255,255,255,.65)}
+.amBrochure:hover{background:var(--accent)}
+.allmenuWrap{padding-bottom:110px}
