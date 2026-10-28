@@ -292,11 +292,39 @@ page('certification.html', '인증·특허', '대경기술 면허·인증 현황
     <h2>Certification<span class="dot"></span></h2>
     <h3>주요 면허 및 인증 현황</h3>
   </div>
-  <div class="certGrid">
-    {box('NUCLEAR &amp; POWER', '원자력·전력산업 전문자격', NUC)}
-    {box('QUALITY &amp; SAFETY', '품질·안전 및 경영 인증', QUAL)}
-    {box('ENGINEERING LICENSES', '엔지니어링 및 사업 면허', LIC)}
-  </div>
+<section class="certFlow">
+    <div class="cfSide"><div class="cfSticky">
+      <div class="cfBg">
+        <img src="assets/img/cert-wall.jpg" alt="대경기술 면허·인증서 벽면">
+        <i class="cfDark"></i>
+        <p class="cfCenter">Certification</p>
+        <div class="cfBlock">
+          <div class="cfTop">
+            <div class="cfNum"><span class="d"><span class="trk"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span><span class="d"><span class="trk"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></div>
+            <p class="cfName" data-names='["NUCLEAR & POWER","QUALITY & SAFETY","ENGINEERING LICENSES"]'>NUCLEAR &amp; POWER</p>
+          </div>
+          <div class="cfAnchors"><a href="#cf0" class="on">원자력·전력</a><a href="#cf1">품질·안전</a><a href="#cf2">사업 면허</a></div>
+        </div>
+      </div>
+    </div></div>
+    <div class="cfContents">
+      <div class="cfPanel" id="cf0">
+        <p class="cfEng">NUCLEAR &amp; POWER</p>
+        <h3 class="cfTitle">원자력·전력산업 전문자격</h3>
+        <ul><li><b>01</b><span>한국수력원자력㈜ 전기케이블 및 전기패널 정비 용역 “Q” 등급</span></li><li><b>02</b><span>한국수력원자력㈜ 조명설비 정비 공사 “A” 등급</span></li><li><b>03</b><span>한국남동발전㈜, 남부발전㈜, 동서발전㈜, 서부발전㈜, 중부발전㈜ 정비적격기업인증 - (WITHU20260929365)</span></li><li><b>04</b><span>한국전력기술㈜ 협력업체약정 (원자력 - 전기설계, 계측제어)/(플랜트 - 계측제어)</span></li></ul>
+      </div>
+      <div class="cfPanel" id="cf1">
+        <p class="cfEng">QUALITY &amp; SAFETY</p>
+        <h3 class="cfTitle">품질·안전 및 경영 인증</h3>
+        <ul><li><b>01</b><span>ISO 9001 : 2015 품질경영시스템 인증서</span></li><li><b>02</b><span>KS Q ISO 45001 : 2018 안전보건경영시스템 인증서</span></li><li><b>03</b><span>INNO - BIZ 확인서, MAIN - BIZ 확인서</span></li><li><b>04</b><span>벤처기업확인서, 기업부설연구소인정서</span></li><li><b>05</b><span>가족친화기업인증서, 원전기업인증서</span></li><li><b>06</b><span>에너지특화기업지정서</span></li></ul>
+      </div>
+      <div class="cfPanel" id="cf2">
+        <p class="cfEng">ENGINEERING LICENSES</p>
+        <h3 class="cfTitle">엔지니어링 및 사업 면허</h3>
+        <ul><li><b>01</b><span>전기공사, 정보통신, 기계설비, 소방시설업 등록증(전문소방), 설계업, 감리업 등록증</span></li><li><b>02</b><span>비계 · 구조물해체 공사업, 산업 · 환경설비 공사업 등록증</span></li><li><b>03</b><span>무정전배전 공사 자격증 및 지중배전 전문회사 인증서, 직접생산확인증명서</span></li><li><b>04</b><span>신재생에너지 설비 · 설치전문기업, 위생관리용역업, 엔지니어링사업자 신고증</span></li><li><b>05</b><span>해외건설업 신고확인증, 근로자 파견허가증, 통신판매, 소프트웨어사업자 신고증</span></li></ul>
+      </div>
+    </div>
+  </section>
 
   <div class="block">
     <div class="title ani">
