@@ -49,6 +49,7 @@ def page(fname, title, desc, eng, h2, lead, bg, body):
     <h2>{g_ko}</h2>
     <ul class="heroTab">{tabs}</ul>
   </div>
+  <div class="scrollHint"><span></span>SCROLL</div>
 </section>
 {'' if fname in ('company.html', 'history.html', 'organ.html') else f'''<div class="pageTitle2">
   <div class="inner">
