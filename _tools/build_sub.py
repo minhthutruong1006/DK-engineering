@@ -362,6 +362,26 @@ def ttl(eng, h3):
 def bul(L):
     return '<ul class="dkList">' + ''.join(f'<li>{e(x)}</li>' for x in L) + '</ul>'
 
+# 회사 개요 카드 격자: 사진 + 항목별 아이콘 카드
+INFO_ICON = {
+    '기업명': '<path d="M4 21V5l8-2v18M12 21V9l8 2v10M2 21h20M7 9h2M7 13h2M7 17h2M15 13h2M15 17h2"/>',
+    '설립일': '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    '소재지': '<path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+    '관계사': '<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M11 20c0-3 2.5-5 5-5s5 2 5 5"/>',
+    '주요 사업': '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+    '주요 인허가': '<path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
+}
+INFO_CLS = {'기업명': '', '설립일': '', '소재지': '', '관계사': '', '주요 사업': ' wide', '주요 인허가': ' full'}
+def info_grid(rows):
+    d = dict(rows)
+    order = ['기업명', '설립일', '소재지', '관계사', '주요 사업', '주요 인허가']
+    cards = [f'<div class="iPhoto ani"><div class="photo" style="background-image:url(assets/img/contact.jpg)"></div></div>']
+    for k in order:
+        v = d[k]
+        body = bul(v) if len(v) > 1 else f'<p>{e(v[0])}</p>'
+        cards.append(f'<div class="iCard{INFO_CLS[k]} ani"><h4><i><svg viewBox="0 0 24 24">{INFO_ICON[k]}</svg></i>{e(k)}</h4><div class="iBody">{body}</div></div>')
+    return ''.join(cards)
+
 c = DK['ceo']
 page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 인사말: 21세기 전력산업의 Global Leader.',
      'CEO Message', 'CEO 인사', e(c['sub']), '', f'''  <div class="ceoMsg2">
@@ -386,8 +406,7 @@ page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 
 co = DK['company']
 page('company.html', '회사 개요', '대경기술주식회사 회사 개요: 설립일 2006.6.1, 부산 기장 대경기술빌딩, 주요 인허가와 주요 사업.',
      'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''{open(os.path.join(ROOT, '_tools', 'overview_section.html'), encoding='utf-8').read()}  {ttl('Company', '<br>'.join(e(x) for x in co['head']))}
-  <div class="infoTable ani">{''.join(f'<dl><dt>{e(k)}</dt><dd>{bul(v) if len(v) > 1 else e(v[0])}</dd></dl>' for k, v in co['rows'])}</div>
-  <div class="companyPhoto ani photo" style="background-image:url(assets/img/contact.jpg)"></div>''')
+  <div class="infoGrid">{info_grid(co['rows'])}</div>''')
 
 page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조직도.', 'Organization', '사훈/조직도', '기술 중시, 경쟁력 확보', '', f'''  {ttl('Motto', '사훈')}
   <div class="motto ani">

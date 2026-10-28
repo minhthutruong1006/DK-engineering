@@ -879,3 +879,22 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 }
 .subCon .section1.fullBleed{margin-top:-20px}
 @media (max-width:812px){.subCon .section1.fullBleed{margin-top:0}}
+/* ===== 회사 개요: 사진 + 아이콘 카드 격자 ===== */
+.infoGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.iPhoto{grid-column:span 2;border-radius:16px;overflow:hidden;min-height:300px}
+.iPhoto .photo{height:100%;min-height:300px;transition:transform 1.2s}
+.iPhoto:hover .photo{transform:scale(1.05)}
+.iCard{background:#f7f8fa;border-radius:16px;padding:28px 30px 32px;min-height:300px;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s,box-shadow .3s,transform .3s}
+.iCard:hover{background:#fff;box-shadow:0 18px 40px -20px rgba(0,50,110,.3);transform:translateY(-4px)}
+.iCard.wide{grid-column:span 2}
+.iCard.full{grid-column:1/-1;min-height:0}
+.iCard h4{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:600;color:#111}
+.iCard h4 i{width:36px;height:36px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.iCard h4 svg{width:20px;height:20px;stroke:#fff;stroke-width:1.8}
+.iBody{margin-top:40px;font-size:16px;line-height:1.75;color:#444}
+.iCard.full .iBody{margin-top:22px}
+.iCard.full .dkList{columns:2;column-gap:40px}
+.iBody .dkList li{font-size:15px;padding:5px 0 5px 16px}
+.iBody .dkList li::before{top:15px}
+@media (max-width:1100px){.infoGrid{grid-template-columns:repeat(2,1fr)}.iPhoto,.iCard.wide{grid-column:1/-1}.iCard{min-height:220px}}
+@media (max-width:812px){.infoGrid{grid-template-columns:1fr;gap:12px}.iCard{min-height:0;padding:22px}.iBody{margin-top:18px;font-size:15px}.iPhoto,.iPhoto .photo{min-height:220px}.iCard.full .dkList{columns:1}}
