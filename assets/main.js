@@ -207,8 +207,10 @@
   io.observe(head);
   function dim() {
     var r = g.getBoundingClientRect(), vh = window.innerHeight;
-    var p = Math.min(1, Math.max(0, (-r.top - vh * .15) / (vh * .7)));
-    head.style.opacity = 1 - p * .62;
+    var p = Math.min(1, Math.max(0, (-r.top - vh * .1) / (vh * .55)));
+    head.style.opacity = 1 - p * .94;
+    head.style.filter = p ? 'blur(' + (p * 6).toFixed(1) + 'px)' : '';
+    head.style.transform = 'scale(' + (1 - p * .06).toFixed(3) + ')';
   }
   window.addEventListener('scroll', dim, { passive: true });
   window.addEventListener('resize', dim);
