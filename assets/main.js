@@ -143,13 +143,14 @@
         cBg.style.top = lerp(vh * 0.1, (vh - H) / 2, e) + 'px';
         cBg.style.borderRadius = lerp(30, 26, e) + 'px';
         cImg.style.transform = 'scale(' + lerp(1, 1.28, e).toFixed(4) + ')';
+        cImg.style.objectPosition = '50% ' + lerp(17, 26, e).toFixed(2) + '%';
         cDark.style.opacity = lerp(.2, .5, e);
         cCenter.style.opacity = Math.max(1 - e * 2.5, 0);
         cBlock.style.opacity = Math.min(Math.max((e - .6) / .4, 0), 1);
         cCont.style.opacity = Math.min(Math.max((e - .7) / .3, 0), 1);
       } else {
         ['left', 'width', 'height', 'top', 'borderRadius'].forEach(function (k) { cBg.style[k] = ''; });
-        cDark.style.opacity = cCenter.style.opacity = cBlock.style.opacity = cCont.style.opacity = cImg.style.transform = '';
+        cDark.style.opacity = cCenter.style.opacity = cBlock.style.opacity = cCont.style.opacity = cImg.style.transform = cImg.style.objectPosition = '';
       }
       // 오른쪽 항목은 화면에 들어오면 하나씩 등장
       var k = 0;
