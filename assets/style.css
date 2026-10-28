@@ -537,12 +537,20 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
 .certGallery li:hover .frame{transform:translateY(-6px)}
 .certGallery img{width:100%;aspect-ratio:260/364;object-fit:cover;box-shadow:0 6px 18px rgba(0,0,0,.12)}
 .certGallery p{margin-top:12px;font-size:14px;line-height:1.5;text-align:center;color:#333}
-.patentWrap{display:grid;grid-template-columns:300px 1fr;gap:50px;align-items:start}
-.patentWrap img{width:100%;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.patentWrap{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:70px;align-items:center;counter-reset:pat}
+.patentWrap .patFig{position:relative;margin:0;padding:44px 50px 30px;border-radius:var(--radius);background:linear-gradient(160deg,#eef5fc 0%,#dcebf8 100%);text-align:center;overflow:hidden}
+.patentWrap .patFig:before{content:"";position:absolute;right:-90px;top:-90px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(0,98,177,.14),transparent 70%)}
+.patentWrap .patFig img{position:relative;display:block;width:100%;max-width:420px;margin:0 auto;border-radius:6px;box-shadow:0 24px 50px rgba(19,45,90,.22);transition:transform .5s}
+.patentWrap .patFig:hover img{transform:translateY(-6px)}
+.patentWrap .patFig figcaption{position:relative;margin-top:24px;font-size:15px;color:#4a5a70}
+.patentWrap .patFig figcaption b{display:block;margin-bottom:4px;font-family:'Poppins';font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--accent)}
 .patentWrap ul{list-style:none;border-top:2px solid #111}
-.patentWrap li{padding:20px 6px;border-bottom:1px solid var(--line)}
-.patentWrap li b{display:block;font-size:17px;font-weight:500;color:#111}
-.patentWrap li span{display:block;margin-top:6px;font-size:14px;color:#888;font-family:'Poppins'}
+.patentWrap li{position:relative;display:grid;grid-template-columns:56px 1fr;align-items:center;padding:29px 16px 29px 4px;border-bottom:1px solid var(--line);transition:background .3s,padding .3s}
+.patentWrap li:before{counter-increment:pat;content:counter(pat,decimal-leading-zero);font-family:'Poppins';font-size:20px;font-weight:600;color:#c3ccd8;transition:color .3s}
+.patentWrap li:hover{background:#f5f9fd;padding-left:14px}
+.patentWrap li:hover:before{color:var(--accent)}
+.patentWrap li b{grid-column:2;display:block;font-size:18px;font-weight:500;line-height:1.5;color:#111}
+.patentWrap li span{grid-column:2;display:block;margin-top:6px;font-size:14px;color:#888;font-family:'Poppins'}
 .projList{list-style:none;display:grid;gap:24px}
 .projList li{display:grid;grid-template-columns:380px 1fr;gap:40px;align-items:center;padding:24px;border:1px solid var(--line);border-radius:20px}
 .projList .photo{aspect-ratio:3/2;border-radius:14px}
@@ -572,7 +580,10 @@ body.sub #header:not(.fix):not(:hover) .btnMenu span{background:#fff}
   .ceoPhoto{position:static;height:360px}
   .histPhotos{grid-template-columns:repeat(3,1fr)}
   .certGallery{grid-template-columns:repeat(4,1fr)}
-  .patentWrap img{max-width:300px}
+  .patentWrap .patFig{padding:36px 30px 26px}
+  .patentWrap .patFig img{max-width:320px}
+  .patentWrap li{grid-template-columns:42px 1fr}
+  .patentWrap li b{font-size:16px}
 }
 @media (max-width:812px){
   .ceoText h3{font-size:26px}
