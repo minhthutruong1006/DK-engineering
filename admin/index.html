@@ -97,6 +97,33 @@ tr.unread td.t{font-weight:700}
 .seoCur{font-weight:400;font-size:12.5px;color:#9aa0a6;line-height:1.5}
 td .ov{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:10px;background:#e8f1fb;color:var(--accent);font-size:11px}
 td .sub{display:block;font-size:12.5px;color:#9aa0a6;margin-top:3px;max-width:640px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lbl{display:block;font-size:13px;font-weight:500;color:#444;margin-bottom:6px}
+.edWrap{border-radius:10px}
+.edBar{display:flex;flex-wrap:wrap;align-items:center;gap:2px;padding:6px;border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:#fafbfc}
+.edBar button{height:32px;min-width:32px;padding:0 9px;border:0;border-radius:6px;background:none;font-size:13px;color:#333}
+.edBar button:hover{background:#e8edf3}
+.edBar select{height:32px;padding:0 6px;border:1px solid var(--line);border-radius:6px;background:#fff;font-size:13px}
+.edBar .sep{width:1px;height:18px;background:var(--line);margin:0 4px}
+.editor{min-height:360px;max-height:70vh;overflow:auto;padding:20px 22px;border:1px solid var(--line);border-radius:0 0 8px 8px;background:#fff;font-size:15px;line-height:1.85;outline:none}
+.editor:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,98,177,.12)}
+.editor.drop{background:#f0f6fd;border-color:var(--sky)}
+.editor:empty::before{content:attr(data-ph);color:#a0a6ad}
+.editor p{margin:0 0 .6em}.editor h3{font-size:20px;margin:1em 0 .5em}.editor h4{font-size:17px;margin:1em 0 .4em}
+.editor ul,.editor ol{padding-left:1.4em;margin:0 0 .8em}
+.editor blockquote{margin:0 0 .8em;padding:10px 16px;border-left:3px solid var(--accent);background:#f6f8fb;color:#444}
+.editor img{max-width:100%;height:auto;border-radius:6px}
+.editor a{color:var(--accent)}
+.editor hr{border:0;border-top:1px solid var(--line);margin:1.2em 0}
+.files #fileList{list-style:none;margin-bottom:8px}
+.files #fileList li{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;margin-bottom:6px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+.files #fileList em{font-style:normal;color:#9aa0a6;font-size:12px;margin-left:6px}
+.files #fileList button{border:0;background:none;color:var(--sub);font-size:13px}
+.btn.small{height:36px;padding:0 16px;font-size:13px}
+.form .chkRow{flex-direction:row;align-items:center;gap:8px;padding-top:26px}
+.form .chkRow input{width:16px;height:16px}
+td .ov.gray{background:#eef0f3;color:#666}
+td.ops a{color:var(--sub);font-size:13px;padding:4px 8px;text-decoration:none}
+td.ops a:hover{color:var(--accent)}
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#111;color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;z-index:60}
 
 @media (max-width:812px){
@@ -179,13 +206,43 @@ td .sub{display:block;font-size:12.5px;color:#9aa0a6;margin-top:3px;max-width:64
         <label class="w2">제목<input name="title" required maxlength="200"></label>
         <label>작성자<input name="author" value="대경기술" required></label>
         <label>날짜<input name="date" type="date" required></label>
-        <label class="w4">내용<textarea name="body" required></textarea></label>
-        <label class="w4">원문 링크 (선택)<input name="link" type="url" placeholder="https://"></label>
-        <div class="actions"><button type="button" class="btn" id="postCancel" hidden>취소</button><button class="btn primary">등록</button></div>
+        <div class="w4 edWrap">
+          <span class="lbl">내용</span>
+          <div class="edBar" id="edBar">
+            <select id="edBlock" title="문단 모양"><option value="P">본문</option><option value="H3">제목</option><option value="H4">소제목</option><option value="BLOCKQUOTE">인용</option></select>
+            <span class="sep"></span>
+            <button type="button" data-cmd="bold" title="굵게 (Ctrl+B)"><b>B</b></button>
+            <button type="button" data-cmd="italic" title="기울임 (Ctrl+I)"><i>I</i></button>
+            <button type="button" data-cmd="underline" title="밑줄 (Ctrl+U)"><u>U</u></button>
+            <button type="button" data-cmd="strikeThrough" title="취소선"><s>S</s></button>
+            <span class="sep"></span>
+            <button type="button" data-cmd="insertUnorderedList" title="글머리 목록">• 목록</button>
+            <button type="button" data-cmd="insertOrderedList" title="번호 목록">1. 목록</button>
+            <button type="button" data-cmd="insertHorizontalRule" title="구분선">구분선</button>
+            <span class="sep"></span>
+            <button type="button" data-act="link" title="링크 걸기">링크</button>
+            <button type="button" data-act="img" title="사진 넣기">사진</button>
+            <span class="sep"></span>
+            <button type="button" data-cmd="removeFormat" title="서식 지우기">서식 지우기</button>
+            <button type="button" data-cmd="undo" title="되돌리기 (Ctrl+Z)">↶</button>
+            <button type="button" data-cmd="redo" title="다시 하기 (Ctrl+Y)">↷</button>
+          </div>
+          <div class="editor" id="editor" contenteditable="true" data-ph="내용을 입력하세요. 사진은 [사진] 버튼, 끌어다 놓기, 붙여넣기로 넣을 수 있습니다."></div>
+          <input type="file" id="edImg" accept="image/*" multiple hidden>
+        </div>
+        <div class="w4 files">
+          <span class="lbl">첨부파일</span>
+          <ul id="fileList"></ul>
+          <button type="button" class="btn small" id="fileAdd">파일 추가</button><input type="file" id="fileIn" multiple hidden>
+        </div>
+        <label class="w2">원문 링크 (선택)<input name="link" type="url" placeholder="https://  기사 원문 등"></label>
+        <label class="w2 chkRow"><input type="checkbox" name="pinned"> 목록 맨 위에 고정 (공지)</label>
+        <div class="actions"><button type="button" class="btn" id="postCancel" hidden>취소</button><button type="button" class="btn" id="postPreview">미리보기</button><button class="btn primary">등록</button></div>
       </form>
     </div>
     <div class="panel">
       <h2 id="postListTitle">게시글 <small id="postCount"></small></h2>
+      <div class="toolbar"><input id="postQ" type="search" placeholder="제목·내용 검색"></div>
       <table><thead><tr><th>날짜</th><th>제목</th><th class="hm">작성자</th><th></th></tr></thead><tbody id="postList"></tbody></table>
     </div>
   </section>
@@ -246,8 +303,8 @@ td .sub{display:block;font-size:12.5px;color:#9aa0a6;margin-top:3px;max-width:64
   </div>
 </div>
 
-<script src="../assets/dk-config.js?v=2"></script>
-<script src="../assets/dk-api.js?v=2"></script>
+<script src="../assets/dk-config.js?v=4"></script>
+<script src="../assets/dk-api.js?v=4"></script>
 <script>
 (function () {
   var $ = function (s) { return document.querySelector(s); };
@@ -378,32 +435,120 @@ td .sub{display:block;font-size:12.5px;color:#9aa0a6;margin-top:3px;max-width:64
   });
 
   // ---------- 소식 / 보도자료 ----------
-  var posts = [];
+  var posts = [], files = [], ed = $('#editor');
   function loadPosts() { DK.posts.list({ board: board }).then(function (a) { posts = sortDesc(a || [], 'date'); renderPosts(); }, fail); }
   function renderPosts() {
+    var q = $('#postQ').value.trim().toLowerCase();
+    var a = posts.filter(function (x) { return !q || (x.title + ' ' + (x.body || '').replace(/<[^>]+>/g, ' ')).toLowerCase().indexOf(q) >= 0; });
+    a.sort(function (x, y) { return (y.pinned ? 1 : 0) - (x.pinned ? 1 : 0); });
     $('#postListTitle').firstChild.textContent = BOARD[board] + ' ';
-    $('#postCount').textContent = posts.length + '건';
-    $('#postList').innerHTML = posts.length ? posts.map(function (x) {
-      return '<tr><td class="num">' + esc(x.date) + '</td><td>' + esc(x.title) + '</td><td class="hm">' + esc(x.author) + '</td><td class="ops"><button data-e="' + esc(x.id) + '">수정</button><button class="del" data-d="' + esc(x.id) + '">삭제</button></td></tr>';
-    }).join('') : '<tr><td colspan="4" class="empty">등록된 글이 없습니다.</td></tr>';
+    $('#postCount').textContent = a.length + '건';
+    $('#postList').innerHTML = a.length ? a.map(function (x) {
+      var extra = (x.pinned ? '<span class="ov">공지</span>' : '') + (x.files && x.files.length ? '<span class="ov gray">첨부 ' + x.files.length + '</span>' : '');
+      return '<tr><td class="num">' + esc(x.date) + '</td><td>' + esc(x.title) + extra + '</td><td class="hm">' + esc(x.author) + '</td><td class="ops"><a href="../' + board + '.html?id=' + encodeURIComponent(x.id) + '" target="_blank">보기</a><button data-e="' + esc(x.id) + '">수정</button><button class="del" data-d="' + esc(x.id) + '">삭제</button></td></tr>';
+    }).join('') : '<tr><td colspan="4" class="empty">' + (q ? '검색 결과가 없습니다.' : '등록된 글이 없습니다.') + '</td></tr>';
   }
+  $('#postQ').addEventListener('input', renderPosts);
   function resetPost() {
-    editPost = null; $('#postForm').reset(); $('#postForm').date.value = today();
+    editPost = null; $('#postForm').reset(); $('#postForm').date.value = today(); ed.innerHTML = ''; files = []; renderFiles();
     $('#postFormTitle').textContent = BOARD[board] + ' 글쓰기'; $('#postForm .primary').textContent = '등록'; $('#postCancel').hidden = true;
   }
   $('#postCancel').addEventListener('click', resetPost);
+  function bodyHtml() { return DK.clean(ed.innerHTML).replace(/^(<p><br><\/p>|<br>)+|(<p><br><\/p>|<br>)+$/g, ''); }
   $('#postForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    var f = this, d = { board: board, title: f.title.value.trim(), author: f.author.value.trim(), date: f.date.value, body: f.body.value, link: f.link.value.trim() };
-    (editPost ? DK.posts.update(editPost, d) : DK.posts.create(d)).then(function () { toast(editPost ? '수정했습니다' : '등록했습니다'); resetPost(); loadPosts(); }, fail);
+    var f = this, body = bodyHtml();
+    if (!ed.textContent.trim() && !ed.querySelector('img')) { toast('내용을 입력해 주세요'); ed.focus(); return; }
+    var d = { board: board, title: f.title.value.trim(), author: f.author.value.trim(), date: f.date.value, body: body, link: f.link.value.trim(), pinned: f.pinned.checked, files: files };
+    (editPost ? DK.posts.update(editPost, d) : DK.posts.create(d)).then(function () { toast(editPost ? '수정했습니다' : '등록했습니다'); resetPost(); loadPosts(); }, function (err) {
+      fail(/quota/i.test(err && err.name + err.message) ? new Error('미리보기 저장 공간이 가득 찼습니다. 사진 수를 줄여 주세요') : err);
+    });
   });
   $('#postList').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
     if (b.dataset.d) { if (confirm('이 글을 삭제할까요?')) DK.posts.remove(b.dataset.d).then(function () { toast('삭제했습니다'); loadPosts(); }, fail); return; }
     var x = posts.filter(function (p) { return p.id === b.dataset.e; })[0], f = $('#postForm');
-    editPost = x.id; f.title.value = x.title; f.author.value = x.author || ''; f.date.value = x.date; f.body.value = x.body || ''; f.link.value = x.link || '';
+    editPost = x.id; f.title.value = x.title; f.author.value = x.author || ''; f.date.value = x.date; f.link.value = x.link || ''; f.pinned.checked = !!x.pinned;
+    ed.innerHTML = DK.clean(x.body || ''); files = (x.files || []).slice(); renderFiles();
     $('#postFormTitle').textContent = '글 수정'; $('#postForm .primary').textContent = '수정 저장'; $('#postCancel').hidden = false;
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // 에디터 툴바
+  document.execCommand('defaultParagraphSeparator', false, 'p');
+  $('#edBar').addEventListener('mousedown', function (e) { if (e.target.closest('button')) e.preventDefault(); }); // 선택 영역 유지
+  $('#edBar').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    ed.focus();
+    if (b.dataset.cmd) { document.execCommand(b.dataset.cmd, false, null); return; }
+    if (b.dataset.act === 'link') {
+      var u = prompt('연결할 주소를 입력하세요', 'https://');
+      if (u && /^(https?:|mailto:|tel:)/i.test(u.trim())) document.execCommand('createLink', false, u.trim());
+    }
+    if (b.dataset.act === 'img') $('#edImg').click();
+  });
+  $('#edBlock').addEventListener('change', function () { ed.focus(); document.execCommand('formatBlock', false, '<' + this.value + '>'); this.value = 'P'; });
+
+  // 사진: 긴 변 1600px로 줄여 올린 뒤 커서 위치에 넣음
+  function shrink(file) {
+    if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return Promise.resolve(file);
+    return new Promise(function (ok) {
+      var img = new Image(), url = URL.createObjectURL(file);
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var k = Math.min(1, 1600 / Math.max(img.width, img.height));
+        if (k === 1 && file.size < 400 * 1024) { ok(file); return; }
+        var c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+        var g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+        c.toBlob(function (bl) { ok(bl || file); }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); ok(file); };
+      img.src = url;
+    });
+  }
+  function addImages(list) {
+    var a = Array.prototype.filter.call(list, function (f) { return /^image\//.test(f.type); });
+    if (!a.length) return;
+    toast('사진을 올리는 중…');
+    a.reduce(function (p, f) {
+      return p.then(function () { return shrink(f); }).then(function (bl) { return DK.upload(bl, (f.name || 'image').replace(/\.\w+$/, '') + '.jpg'); }).then(function (r) {
+        ed.focus(); document.execCommand('insertHTML', false, '<p><img src="' + esc(r.url) + '" alt=""></p><p><br></p>');
+      });
+    }, Promise.resolve()).then(function () { toast('사진을 넣었습니다'); }, fail);
+  }
+  $('#edImg').addEventListener('change', function () { addImages(this.files); this.value = ''; });
+  ed.addEventListener('paste', function (e) {
+    var cd = e.clipboardData; if (!cd) return;
+    if (cd.files && cd.files.length) { e.preventDefault(); addImages(cd.files); return; }
+    var h = cd.getData('text/html');
+    if (h) { e.preventDefault(); document.execCommand('insertHTML', false, DK.clean(h)); }
+  });
+  ed.addEventListener('dragover', function (e) { e.preventDefault(); ed.classList.add('drop'); });
+  ed.addEventListener('dragleave', function () { ed.classList.remove('drop'); });
+  ed.addEventListener('drop', function (e) {
+    ed.classList.remove('drop');
+    if (e.dataTransfer && e.dataTransfer.files.length) { e.preventDefault(); addImages(e.dataTransfer.files); }
+  });
+
+  // 첨부파일
+  function size(n) { return n > 1048576 ? (n / 1048576).toFixed(1) + 'MB' : Math.max(1, Math.round(n / 1024)) + 'KB'; }
+  function renderFiles() {
+    $('#fileList').innerHTML = files.map(function (f, i) {
+      return '<li><span>' + esc(f.name) + ' <em>' + size(f.size || 0) + '</em></span><button type="button" data-i="' + i + '">삭제</button></li>';
+    }).join('');
+  }
+  $('#fileAdd').addEventListener('click', function () { $('#fileIn').click(); });
+  $('#fileIn').addEventListener('change', function () {
+    var a = Array.prototype.slice.call(this.files); this.value = '';
+    a.reduce(function (p, f) { return p.then(function () { return DK.upload(f); }).then(function (r) { files.push(r); renderFiles(); }); }, Promise.resolve()).catch(fail);
+  });
+  $('#fileList').addEventListener('click', function (e) { var b = e.target.closest('button[data-i]'); if (b) { files.splice(+b.dataset.i, 1); renderFiles(); } });
+
+  // 미리보기: 사이트와 같은 모양으로 새 창에
+  $('#postPreview').addEventListener('click', function () {
+    var f = $('#postForm'), w = window.open('', '_blank');
+    w.document.write('<!DOCTYPE html><meta charset="utf-8"><title>미리보기</title><link rel="stylesheet" href="' + new URL('../assets/style.css?v=52', location.href) + '"><body class="sub" style="padding:60px 24px"><div class="subCon" style="padding:0;max-width:1000px"><div class="postView"><div class="pvHead"><h3>' + esc(f.title.value || '(제목)') + '</h3><div class="meta"><span>' + esc(f.author.value) + '</span><span>' + esc(f.date.value) + '</span></div></div><div class="pvBody">' + bodyHtml() + '</div></div></div></body>');
+    w.document.close();
   });
 
   // ---------- SEO ----------

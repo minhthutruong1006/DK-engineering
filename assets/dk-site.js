@@ -50,24 +50,84 @@
     }, quiet);
   }
 
-  // ---------- 소식 / 보도자료 (news.html, press.html) ----------
+  // ---------- 소식 / 보도자료 게시판 (news.html, press.html) ----------
   var board = document.querySelector('.boardTable[data-board]');
   if (board) {
+    var PER = 10, all = [], view = [], pageNo = 1;
     var body = board.querySelector('tbody');
-    DK.posts.list({ board: board.dataset.board }).then(function (a) {
-      if (!a || !a.length) return;
-      a.sort(byDesc('date'));
-      body.innerHTML = a.map(function (x, i) {
-        var link = x.link ? '<p class="link"><a href="' + esc(x.link) + '" target="_blank" rel="noopener">원문 보기</a></p>' : '';
-        return '<tr class="bRow" tabindex="0"><td class="no">' + (a.length - i) + '</td><td class="tit">' + esc(x.title) + '</td><td>' + esc(x.author) + '</td><td class="date">' + esc(x.date) + '</td></tr>' +
-          '<tr class="bView" hidden><td colspan="4"><div class="txt">' + esc(x.body).replace(/\n/g, '<br>') + '</div>' + link + '</td></tr>';
+    board.insertAdjacentHTML('beforebegin', '<div class="bbsTop"><span class="bbsCount">전체 <b>0</b>건</span><form class="bbsSearch" role="search"><input type="search" placeholder="제목·내용 검색" aria-label="게시글 검색"><button>검색</button></form></div>');
+    board.insertAdjacentHTML('afterend', '<div class="bbsPager" hidden></div><div class="postView" hidden></div>');
+    var top = board.previousElementSibling, pager = board.nextElementSibling, pv = pager.nextElementSibling;
+    var input = top.querySelector('input');
+    function text(h) { var d = document.createElement('div'); d.innerHTML = DK.clean(h || ''); return d.textContent; }
+    function size(n) { return n > 1048576 ? (n / 1048576).toFixed(1) + 'MB' : Math.max(1, Math.round((n || 0) / 1024)) + 'KB'; }
+
+    function list() {
+      var q = input.value.trim().toLowerCase();
+      view = all.filter(function (x) { return !q || (x.title + ' ' + text(x.body)).toLowerCase().indexOf(q) >= 0; });
+      top.querySelector('b').textContent = view.length;
+      var pages = Math.max(1, Math.ceil(view.length / PER));
+      pageNo = Math.min(pageNo, pages);
+      var rows = view.slice((pageNo - 1) * PER, pageNo * PER);
+      var left = view.filter(function (x) { return !x.pinned; }).length, nos = {};
+      view.forEach(function (x) { if (!x.pinned) nos[x.id] = left--; }); // 공지 제외 최신글이 가장 큰 번호
+      body.innerHTML = rows.length ? rows.map(function (x) {
+        var no = x.pinned ? '<span class="pin">공지</span>' : nos[x.id];
+        var clip = x.files && x.files.length ? '<i class="clip" title="첨부파일">첨부</i>' : '';
+        return '<tr class="bRow' + (x.pinned ? ' pinned' : '') + '"><td class="no">' + no + '</td><td class="tit"><a href="?id=' + encodeURIComponent(x.id) + '" data-id="' + DK.esc(x.id) + '">' + DK.esc(x.title) + '</a>' + clip + '</td><td>' + DK.esc(x.author) + '</td><td class="date">' + DK.esc(x.date) + '</td></tr>';
+      }).join('') : '<tr><td colspan="4" class="empty">' + (q ? '검색 결과가 없습니다.' : '등록된 게시물이 없습니다.') + '</td></tr>';
+      pager.hidden = pages < 2;
+      var h = '<button data-p="' + (pageNo - 1) + '"' + (pageNo < 2 ? ' disabled' : '') + ' aria-label="이전 페이지">‹</button>';
+      for (var p = 1; p <= pages; p++) h += '<button data-p="' + p + '"' + (p === pageNo ? ' class="on" aria-current="page"' : '') + '>' + p + '</button>';
+      pager.innerHTML = h + '<button data-p="' + (pageNo + 1) + '"' + (pageNo >= pages ? ' disabled' : '') + ' aria-label="다음 페이지">›</button>';
+    }
+
+    function show(id) {
+      var seq = all.slice().sort(function (x, y) { return String(y.date || '').localeCompare(String(x.date || '')) || String(y.created_at || '').localeCompare(String(x.created_at || '')); });
+      var i = -1;
+      seq.forEach(function (x, k) { if (x.id === id) i = k; });
+      var on = i >= 0;
+      board.hidden = top.hidden = on; pv.hidden = !on; pager.hidden = on || pager.innerHTML.indexOf('data-p="2"') < 0;
+      if (!on) return;
+      var x = seq[i], prev = seq[i + 1], next = seq[i - 1];
+      var files = (x.files || []).map(function (f) {
+        return '<li><a href="' + DK.esc(f.url) + '" download="' + DK.esc(f.name) + '">' + DK.esc(f.name) + '</a><em>' + size(f.size) + '</em></li>';
       }).join('');
+      function nav(lbl, y) {
+        return '<li><span>' + lbl + '</span>' + (y ? '<a href="?id=' + encodeURIComponent(y.id) + '" data-id="' + DK.esc(y.id) + '">' + DK.esc(y.title) + '</a><em>' + DK.esc(y.date) + '</em>' : '<span class="none">' + lbl + '이 없습니다.</span>') + '</li>';
+      }
+      pv.innerHTML = '<div class="pvHead"><h3>' + DK.esc(x.title) + '</h3><div class="meta"><span>' + DK.esc(x.author) + '</span><span>' + DK.esc(x.date) + '</span></div></div>' +
+        '<div class="pvBody">' + DK.clean(x.body) + '</div>' +
+        (x.link ? '<p class="pvLink"><a href="' + DK.esc(x.link) + '" target="_blank" rel="noopener">원문 보기</a></p>' : '') +
+        (files ? '<div class="pvFiles"><strong>첨부파일</strong><ul>' + files + '</ul></div>' : '') +
+        '<ul class="pvNav">' + nav('다음글', next) + nav('이전글', prev) + '</ul>' +
+        '<div class="pvBtns"><a href="' + location.pathname.split('/').pop() + '" class="btnList">목록</a></div>';
+      document.title = x.title + ' | ' + document.title.split(' | ').slice(-1)[0];
+    }
+
+    function route() {
+      var id = new URLSearchParams(location.search).get('id');
+      show(id || '');
+      if (id) { var t = document.querySelector('.subCon'); if (t) window.scrollTo(0, t.getBoundingClientRect().top + scrollY - 120); }
+    }
+    function go(id) { history.pushState(null, '', id ? '?id=' + encodeURIComponent(id) : location.pathname); route(); }
+
+    DK.posts.list({ board: board.dataset.board }).then(function (a) {
+      all = (a || []).slice().sort(function (x, y) {
+        return (y.pinned ? 1 : 0) - (x.pinned ? 1 : 0) || String(y.date || '').localeCompare(String(x.date || '')) || String(y.created_at || '').localeCompare(String(x.created_at || ''));
+      });
+      list(); route();
     }, quiet);
-    body.addEventListener('click', function (e) {
-      var tr = e.target.closest('.bRow'); if (!tr) return;
-      var v = tr.nextElementSibling; v.hidden = !v.hidden; tr.classList.toggle('open', !v.hidden);
+
+    top.querySelector('form').addEventListener('submit', function (e) { e.preventDefault(); pageNo = 1; list(); });
+    input.addEventListener('search', function () { pageNo = 1; list(); });
+    pager.addEventListener('click', function (e) { var b = e.target.closest('button[data-p]'); if (!b || b.disabled) return; pageNo = +b.dataset.p; list(); board.scrollIntoView({ block: 'start' }); });
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('.boardTable a[data-id], .postView a[data-id], .postView .btnList');
+      if (!a) return;
+      e.preventDefault(); go(a.dataset.id || '');
     });
-    body.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.classList.contains('bRow')) e.target.click(); });
+    window.addEventListener('popstate', route);
   }
 
   // ---------- 고객 문의 폼 (inquiry.html) ----------

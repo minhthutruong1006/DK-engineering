@@ -156,6 +156,46 @@
     me: function () { try { return JSON.parse(ssGet('dk_me')) || null; } catch (e) { return null; } },
     esc: function (s) {
       return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; });
+    },
+    // 파일 업로드 → { url, name, size }. 서버: POST /api/upload, 미리보기: data URL(브라우저 저장 한도 약 5MB)
+    upload: function (file, name) {
+      name = name || file.name || 'file';
+      if (BASE) {
+        var fd = new FormData(); fd.append('file', file, name);
+        return fetch(BASE + '/api/upload', { method: 'POST', headers: token() ? { Authorization: 'Bearer ' + token() } : {}, body: fd }).then(function (r) {
+          if (r.status === 401) { var e = new Error('로그인이 필요합니다'); e.auth = true; throw e; }
+          if (!r.ok) throw new Error('업로드 실패 (' + r.status + ')');
+          return r.json();
+        }).then(function (j) { return { url: j.url, name: name, size: file.size }; });
+      }
+      if (file.size > 1.5 * 1024 * 1024) return fail('미리보기 모드에서는 1.5MB 이하 파일만 올릴 수 있습니다 (서버 연결 후 제한 없음)');
+      return new Promise(function (ok, no) {
+        var fr = new FileReader();
+        fr.onload = function () { ok({ url: fr.result, name: name, size: file.size }); };
+        fr.onerror = function () { no(new Error('파일을 읽지 못했습니다')); };
+        fr.readAsDataURL(file);
+      });
+    },
+    // 게시글 본문 HTML 정리: 허용한 태그·속성만 남김 (붙여넣기·화면 표시 공용)
+    clean: function (html) {
+      if (!/[<>]/.test(html || '')) return DK.esc(html).replace(/\n/g, '<br>'); // 예전 일반 텍스트 글
+      var OK = { P: 1, BR: 1, B: 1, STRONG: 1, I: 1, EM: 1, U: 1, S: 1, H2: 1, H3: 1, H4: 1, UL: 1, OL: 1, LI: 1, BLOCKQUOTE: 1, A: 1, IMG: 1, FIGURE: 1, FIGCAPTION: 1, HR: 1, TABLE: 1, THEAD: 1, TBODY: 1, TR: 1, TH: 1, TD: 1, DIV: 1, SPAN: 1 };
+      var ATTR = { A: ['href'], IMG: ['src', 'alt'], TD: ['colspan', 'rowspan'], TH: ['colspan', 'rowspan'] };
+      var doc = new DOMParser().parseFromString('<div>' + html + '</div>', 'text/html');
+      (function walk(el) {
+        Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+          if (n.nodeType === 3) return;
+          if (n.nodeType !== 1 || /^(SCRIPT|STYLE|IFRAME|OBJECT|EMBED|META|LINK|TITLE|HEAD)$/.test(n.tagName)) { n.remove(); return; }
+          walk(n);
+          if (!OK[n.tagName]) { while (n.firstChild) n.parentNode.insertBefore(n.firstChild, n); n.remove(); return; }
+          var keep = ATTR[n.tagName] || [];
+          Array.prototype.slice.call(n.attributes).forEach(function (a) { if (keep.indexOf(a.name) < 0) n.removeAttribute(a.name); });
+          var u = n.getAttribute('href') || n.getAttribute('src');
+          if (u && !/^(https?:|mailto:|tel:|data:image\/|\/|\.\.?\/|#)/i.test(u.trim())) { n.removeAttribute('href'); n.removeAttribute('src'); }
+          if (n.tagName === 'A') { n.setAttribute('target', '_blank'); n.setAttribute('rel', 'noopener'); }
+        });
+      })(doc.body.firstChild);
+      return doc.body.firstChild.innerHTML;
     }
   };
 })();

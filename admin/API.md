@@ -108,9 +108,30 @@
 | DELETE | `/api/posts/{id}` | 필요 | 삭제 |
 
 ```json
-{ "id": "5", "board": "news", "title": "제목", "author": "대경기술", "date": "2026-10-28", "body": "본문(줄바꿈은 \n)", "link": "https://... (선택)" }
+{
+  "id": "5", "board": "news", "title": "제목", "author": "대경기술", "date": "2026-10-28",
+  "body": "<p>본문 <b>HTML</b></p><p><img src=\"https://.../a.jpg\" alt=\"\"></p>",
+  "link": "https://... (선택)",
+  "pinned": false,
+  "files": [ { "url": "https://.../brochure.pdf", "name": "brochure.pdf", "size": 482113 } ],
+  "created_at": "..."
+}
 ```
-`board`: `news` 대경기술 소식, `press` 보도자료. 본문은 일반 텍스트(HTML 아님)로 저장하고, 사이트에서 이스케이프해서 보여 줍니다.
+`board`: `news` 대경기술 소식, `press` 보도자료. `pinned`: 목록 맨 위 공지 고정.
+`body`는 관리자 에디터가 만든 HTML입니다. 화면에 낼 때는 사이트·관리자가 허용 태그만 남기도록 다시 정리하지만(`DK.clean`), 서버에서도 저장 전에 같은 허용 목록으로 정리하세요:
+`p br b strong i em u s h2 h3 h4 ul ol li blockquote a[href] img[src,alt] figure figcaption hr table thead tbody tr th td div span`, 그 외 태그·속성(style, on* 이벤트 등)과 `javascript:` 주소는 제거.
+예전 글처럼 `body`에 태그가 없으면 일반 텍스트로 보고 줄바꿈을 살려 표시합니다.
+
+사이트 상세 보기 주소는 `news.html?id={id}`, `press.html?id={id}` 입니다(목록·검색·10개씩 페이지·이전글/다음글은 사이트에서 처리).
+
+## 파일 업로드
+
+| 메서드 | 경로 | 인증 | 요청 | 응답 |
+|---|---|---|---|---|
+| POST | `/api/upload` | 필요 | `multipart/form-data`, 필드 이름 `file` | `{ "url": "https://.../파일" }` |
+
+게시글 본문 사진(관리자가 긴 변 1600px JPEG로 줄여서 보냄)과 첨부파일에 씁니다. 공개 주소로 바로 열려야 하고, 확장자 허용 목록(jpg png webp gif pdf hwp hwpx doc docx xls xlsx ppt pptx zip)과 용량 제한(예: 20MB)을 두세요.
+미리보기 모드에서는 파일을 data URL로 브라우저에 저장하므로 1.5MB 이하만 받습니다.
 
 ## 공개 GET 응답
 `GET /api/perf`, `GET /api/posts`는 로그인 없이 열려 있어야 합니다(사이트 방문자가 읽음). 그 외 쓰기와 `GET /api/inquiries`는 반드시 인증 필요.
