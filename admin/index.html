@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/img/icon/favicon-32.png">
 <title>관리자 | DK ENGINEERING 대경기술</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,6 +126,11 @@ td .sub{display:block;font-size:12.5px;color:#9aa0a6;margin-top:3px;max-width:64
 td .ov.gray{background:#eef0f3;color:#666}
 td.ops a{color:var(--sub);font-size:13px;padding:4px 8px;text-decoration:none}
 td.ops a:hover{color:var(--accent)}
+.imgPick .pick{display:flex;align-items:center;gap:16px}
+.imgPick .pick .note{margin:8px 0 0}
+.imgPick img{flex:none;border:1px solid var(--line);border-radius:10px;background:#f4f6f9;object-fit:cover}
+.imgPick img.fav{width:64px;height:64px}
+.imgPick img.og{width:152px;height:80px}
 .toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#111;color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;z-index:60}
 
 @media (max-width:812px){
@@ -249,6 +256,24 @@ td.ops a:hover{color:var(--accent)}
 
   <!-- SEO -->
   <section data-v="seo" hidden>
+    <div class="panel">
+      <h2>사이트 공통</h2>
+      <form class="form" id="siteForm">
+        <label class="w2">사이트 이름 (공유 시 표시)<input name="site_name" maxlength="60" placeholder="대경기술주식회사 DK ENGINEERING"></label>
+        <div class="w2"></div>
+        <div class="w2 imgPick"><span class="lbl">파비콘 (브라우저 탭 아이콘)</span>
+          <div class="pick"><img id="favPrev" alt="" class="fav"><div><button type="button" class="btn small" data-up="favicon">이미지 바꾸기</button> <button type="button" class="btn small" data-def="favicon">기본으로</button><p class="note">정사각형 PNG, 512×512 권장</p></div></div>
+        </div>
+        <div class="w2 imgPick"><span class="lbl">기본 공유 이미지 (카톡·페이스북 미리보기)</span>
+          <div class="pick"><img id="ogPrev" alt="" class="og"><div><button type="button" class="btn small" data-up="og_image">이미지 바꾸기</button> <button type="button" class="btn small" data-def="og_image">기본으로</button><p class="note">1200×630 권장. 페이지별로 따로 넣지 않으면 이 이미지가 쓰입니다.</p></div></div>
+        </div>
+        <label class="w2">구글 서치콘솔 인증 코드<input name="google_verify" placeholder="google-site-verification 값만"></label>
+        <label class="w2">네이버 서치어드바이저 인증 코드<input name="naver_verify" placeholder="naver-site-verification 값만"></label>
+        <p class="w4 note" style="margin:0">검색엔진 인증 코드는 HTML에 직접 들어가야 인식됩니다. 서버를 연결하면 저장할 때 HTML에 반영되도록 하고, 그 전에는 코드만 알려주시면 페이지에 넣어 드립니다.</p>
+        <input type="file" id="siteImg" accept="image/png,image/jpeg,image/webp,image/x-icon" hidden>
+        <div class="actions"><button class="btn primary">저장</button></div>
+      </form>
+    </div>
     <div class="panel" id="seoEdit" hidden>
       <h2 id="seoTitle">SEO 수정</h2>
       <form class="form" id="seoForm">
@@ -261,7 +286,7 @@ td.ops a:hover{color:var(--accent)}
     <div class="panel">
       <h2>페이지별 SEO <small id="seoCount"></small></h2>
       <p class="note">페이지를 누르면 검색 결과에 나오는 제목과 설명을 고칠 수 있습니다. 제목은 30자 안팎, 설명은 80~120자가 적당합니다. 수정한 값은 페이지가 열릴 때 적용되며, 서버를 붙이면 HTML에 직접 반영하도록 할 수 있습니다.</p>
-      <table><thead><tr><th>페이지</th><th>제목 / 설명</th></tr></thead><tbody id="seoList"></tbody></table>
+      <table><thead><tr><th>페이지</th><th>제목 / 설명</th><th>점검</th></tr></thead><tbody id="seoList"></tbody></table>
     </div>
   </section>
 
@@ -303,8 +328,8 @@ td.ops a:hover{color:var(--accent)}
   </div>
 </div>
 
-<script src="../assets/dk-config.js?v=4"></script>
-<script src="../assets/dk-api.js?v=4"></script>
+<script src="../assets/dk-config.js?v=5"></script>
+<script src="../assets/dk-api.js?v=5"></script>
 <script>
 (function () {
   var $ = function (s) { return document.querySelector(s); };
@@ -570,10 +595,15 @@ td.ops a:hover{color:var(--accent)}
   function loadSeo() {
     Promise.all([DK.seo.list().catch(function () { return []; })].concat(PAGES.map(function (p) { return readOrig(p[0]); }))).then(function (r) {
       seoMap = {}; (r[0] || []).forEach(function (x) { seoMap[x.page] = x; });
+      site = seoMap._site || {}; delete seoMap._site; fillSite();
       $('#seoCount').textContent = PAGES.length + '개 페이지 · 수정 ' + Object.keys(seoMap).length;
       $('#seoList').innerHTML = PAGES.map(function (p) {
         var o = seoMap[p[0]], v = Object.assign({}, orig[p[0]], o || {});
-        return '<tr class="click" data-p="' + p[0] + '"><td style="white-space:nowrap">' + esc(p[1]) + (o ? '<span class="ov">수정됨</span>' : '') + '</td><td>' + esc(v.title) + '<span class="sub">' + esc(v.description) + '</span></td></tr>';
+        var t = (v.title || '').length, d = (v.description || '').length, warn = [];
+        if (t < 10 || t > 40) warn.push('제목 ' + t + '자');
+        if (d < 50 || d > 160) warn.push(d ? '설명 ' + d + '자' : '설명 없음');
+        var chk = warn.length ? '<span class="chip s0">' + warn.join(' · ') + '</span>' : '<span class="chip s1">양호</span>';
+        return '<tr class="click" data-p="' + p[0] + '"><td style="white-space:nowrap">' + esc(p[1]) + (o ? '<span class="ov">수정됨</span>' : '') + '</td><td>' + esc(v.title) + '<span class="sub">' + esc(v.description) + '</span></td><td style="white-space:nowrap">' + chk + '</td></tr>';
       }).join('');
     });
   }
@@ -600,6 +630,30 @@ td.ops a:hover{color:var(--accent)}
   $('#seoReset').addEventListener('click', function () {
     if (!confirm('이 페이지의 SEO를 원래 값으로 되돌릴까요?')) return;
     DK.seo.reset(seoPage).then(function () { toast('원래대로 되돌렸습니다'); $('#seoEdit').hidden = true; loadSeo(); }, fail);
+  });
+
+  // 사이트 공통 (seo 목록의 _site 항목으로 저장 → 모든 페이지가 읽음)
+  var site = {}, DEF = { favicon: '../assets/img/icon/icon-192.png', og_image: '../assets/img/icon/og-default.jpg' }, upKey = '';
+  function fillSite() {
+    var f = $('#siteForm');
+    f.site_name.value = site.site_name || ''; f.google_verify.value = site.google_verify || ''; f.naver_verify.value = site.naver_verify || '';
+    fillImgs();
+  }
+  function fillImgs() { $('#favPrev').src = site.favicon || DEF.favicon; $('#ogPrev').src = site.og_image || DEF.og_image; }
+  $('#siteForm').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.up) { upKey = b.dataset.up; $('#siteImg').click(); }
+    if (b.dataset.def) { delete site[b.dataset.def]; fillImgs(); toast('저장하면 기본 이미지로 돌아갑니다'); }
+  });
+  $('#siteImg').addEventListener('change', function () {
+    var file = this.files[0]; this.value = ''; if (!file) return;
+    DK.upload(file).then(function (r) { site[upKey] = r.url; fillImgs(); toast('저장을 눌러야 적용됩니다'); }, fail);
+  });
+  $('#siteForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = this, v = function (s) { return s.trim().replace(/^.*content="([^"]+)".*$/, '$1'); }; // 메타 태그째 붙여넣어도 값만
+    site.site_name = f.site_name.value.trim(); site.google_verify = v(f.google_verify.value); site.naver_verify = v(f.naver_verify.value);
+    DK.seo.save('_site', site).then(function () { toast('저장했습니다'); loadSeo(); }, fail);
   });
 
   // ---------- 설정: 문의 알림 메일 ----------

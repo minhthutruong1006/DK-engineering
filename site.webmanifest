@@ -1,0 +1,19 @@
+{
+  "name": "대경기술주식회사 DK ENGINEERING",
+  "short_name": "대경기술",
+  "icons": [
+    {
+      "src": "assets/img/icon/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/icon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0062B1",
+  "background_color": "#ffffff",
+  "display": "browser"
+}

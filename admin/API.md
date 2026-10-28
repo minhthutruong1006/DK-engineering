@@ -54,6 +54,13 @@
 ```json
 { "page": "perf-design.html", "title": "...", "description": "...", "og_image": "https://..." }
 ```
+사이트 공통 값은 `page`가 `_site`인 항목으로 같은 API에 저장합니다:
+```json
+{ "page": "_site", "site_name": "...", "favicon": "https://.../icon.png", "og_image": "https://.../share.jpg", "google_verify": "코드값", "naver_verify": "코드값" }
+```
+`google_verify`·`naver_verify`는 검색엔진이 HTML 원문에서만 확인하므로, 서버가 index.html `<head>`에
+`<meta name="google-site-verification" content="...">`, `<meta name="naver-site-verification" content="...">`로 직접 써 넣어야 합니다.
+정식 도메인을 연결하면 각 HTML의 `<!-- SEO -->` 블록(canonical·og:url·og:image), `sitemap.xml`, `robots.txt`의 `https://minhthutruong1006.github.io/DK-engineering/` 주소를 새 도메인으로 바꿔야 합니다.
 지금은 페이지가 열릴 때 JS로 title·description·og 태그를 바꿉니다(구글은 반영, 네이버는 JS 반영이 약함).
 서버가 생기면 이 값을 HTML `<head>`에 직접 써 넣는 굽기 작업(저장 시 또는 주기적으로 GitHub에 커밋)을 붙이는 것을 권장합니다.
 

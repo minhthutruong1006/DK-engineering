@@ -8,8 +8,11 @@
   // ---------- 관리자 SEO 수정값 (모든 페이지) ----------
   var page = location.pathname.split('/').pop() || 'index.html';
   DK.seo.list().then(function (a) {
-    var o = (a || []).filter(function (x) { return x.page === page; })[0];
-    if (!o) return;
+    var o = (a || []).filter(function (x) { return x.page === page; })[0] || {};
+    var site = (a || []).filter(function (x) { return x.page === '_site'; })[0] || {};
+    if (site.favicon) document.querySelectorAll('link[rel="icon"],link[rel="apple-touch-icon"]').forEach(function (l) { l.href = site.favicon; l.removeAttribute('type'); });
+    meta('property', 'og:site_name', site.site_name);
+    meta('property', 'og:image', o.og_image || site.og_image);
     function meta(attr, key, val) {
       if (!val) return;
       var m = document.head.querySelector('meta[' + attr + '="' + key + '"]');
@@ -20,7 +23,6 @@
     meta('name', 'description', o.description);
     meta('property', 'og:title', o.title);
     meta('property', 'og:description', o.description);
-    meta('property', 'og:image', o.og_image);
   }, quiet);
 
   // ---------- 분야별 실적 카드 (perf-*.html) ----------
