@@ -55,7 +55,7 @@
   // ---------- 소식 / 보도자료 게시판 (news.html, press.html) ----------
   var board = document.querySelector('.boardTable[data-board]');
   if (board) {
-    var PER = 10, all = [], view = [], pageNo = 1;
+    var PER = 10, all = [], view = [], pageNo = 1, pageCount = 1;
     var body = board.querySelector('tbody');
     board.insertAdjacentHTML('beforebegin', '<div class="bbsTop"><span class="bbsCount">전체 <b>0</b>건</span><form class="bbsSearch" role="search"><input type="search" placeholder="제목·내용 검색" aria-label="게시글 검색"><button>검색</button></form></div>');
     board.insertAdjacentHTML('afterend', '<div class="bbsPager" hidden></div><div class="postView" hidden></div>');
@@ -68,7 +68,7 @@
       var q = input.value.trim().toLowerCase();
       view = all.filter(function (x) { return !q || (x.title + ' ' + text(x.body)).toLowerCase().indexOf(q) >= 0; });
       top.querySelector('b').textContent = view.length;
-      var pages = Math.max(1, Math.ceil(view.length / PER));
+      var pages = pageCount = Math.max(1, Math.ceil(view.length / PER));
       pageNo = Math.min(pageNo, pages);
       var rows = view.slice((pageNo - 1) * PER, pageNo * PER);
       var left = view.filter(function (x) { return !x.pinned; }).length, nos = {};
@@ -89,7 +89,7 @@
       var i = -1;
       seq.forEach(function (x, k) { if (x.id === id) i = k; });
       var on = i >= 0;
-      board.hidden = top.hidden = on; pv.hidden = !on; pager.hidden = on || pager.innerHTML.indexOf('data-p="2"') < 0;
+      board.hidden = top.hidden = on; pv.hidden = !on; pager.hidden = on || pageCount < 2;
       if (!on) return;
       var x = seq[i], prev = seq[i + 1], next = seq[i - 1];
       var files = (x.files || []).map(function (f) {

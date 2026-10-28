@@ -1006,7 +1006,7 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
 .inqForm .captcha canvas{flex:none;width:160px;height:54px;border:1px solid var(--line);border-radius:10px}
 .inqForm .capRe{flex:none;height:54px;padding:0 18px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;font-size:14px;color:#555;cursor:pointer;transition:border-color .2s,color .2s}
 .inqForm .capRe:hover{border-color:var(--accent);color:var(--accent)}
-.inqForm .captcha input{flex:1;max-width:340px;height:54px;padding:0 16px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px}
+.inqForm .captcha input{flex:1;max-width:340px;height:54px;margin:0;padding:0 16px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:15px}
 @media (max-width:812px){
   .inqForm .captcha .row{flex-wrap:wrap}
   .inqForm .captcha input{flex-basis:100%;max-width:none}
