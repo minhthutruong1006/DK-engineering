@@ -50,12 +50,12 @@ def page(fname, title, desc, eng, h2, lead, bg, body):
     <ul class="heroTab">{tabs}</ul>
   </div>
 </section>
-<div class="pageTitle2">
+{'' if fname == 'company.html' else f'''<div class="pageTitle2">
   <div class="inner">
     <h3>{h2}</h3>
     <p>{lead}</p>
   </div>
-</div>
+</div>'''}
 
 <main class="subCon">
 {body}
@@ -371,7 +371,7 @@ INFO_ICON = {
     '주요 사업': '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
     '주요 인허가': '<path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/>',
 }
-INFO_CLS = {'기업명': '', '설립일': '', '소재지': '', '관계사': '', '주요 사업': ' wide', '주요 인허가': ' full'}
+INFO_CLS = {'기업명': '', '설립일': '', '소재지': '', '관계사': '', '주요 사업': ' wide', '주요 인허가': ' wide'}
 def info_grid(rows):
     d = dict(rows)
     order = ['기업명', '설립일', '소재지', '관계사', '주요 사업', '주요 인허가']
@@ -405,7 +405,7 @@ page('ceo.html', 'CEO 인사', '대경기술주식회사 대표이사 임영하 
 
 co = DK['company']
 page('company.html', '회사 개요', '대경기술주식회사 회사 개요: 설립일 2006.6.1, 부산 기장 대경기술빌딩, 주요 인허가와 주요 사업.',
-     'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''{open(os.path.join(ROOT, '_tools', 'overview_section.html'), encoding='utf-8').read()}  {ttl('Company', '<br>'.join(e(x) for x in co['head']))}
+     'Company', '회사 개요', '창조적인 도전정신으로 새로운 기술 창출을 선도하다', '', f'''{open(os.path.join(ROOT, '_tools', 'overview_section.html'), encoding='utf-8').read()}  <div class="title coTitle ani"><h2>Company<span class="dot"></span></h2><h3>회사 개요</h3><p>{' '.join(e(x) for x in co['head'])}</p></div>
   <div class="infoGrid">{info_grid(co['rows'])}</div>''')
 
 page('organ.html', '사훈/조직도', '대경기술주식회사 사훈과 조직도.', 'Organization', '사훈/조직도', '기술 중시, 경쟁력 확보', '', f'''  {ttl('Motto', '사훈')}
