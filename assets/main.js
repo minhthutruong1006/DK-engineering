@@ -107,7 +107,7 @@
     var cImg = cBg.querySelector('img'), cAct = 0, cItems = cf.querySelectorAll('.cfEng, .cfTitle, .cfPanel li');
     cItems.forEach(function (el) { el.classList.add('cfRv'); });
     // saltlux처럼 관성 스크롤(Lenis)로 부드럽게
-    var lenis = window.Lenis ? new Lenis({ duration: 1.1 }) : null;
+    var lenis = window.Lenis && window.innerWidth > 1024 && matchMedia('(pointer: fine)').matches ? new Lenis({ duration: 1.1 }) : null;
     if (lenis) (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
     cAnch.forEach(function (a) {
       a.addEventListener('click', function (ev) {

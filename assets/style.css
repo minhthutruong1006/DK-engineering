@@ -1037,7 +1037,7 @@ html.lenis,html.lenis body{height:auto}
 .cfRv.on{opacity:1;transform:none}
 @media (max-width:1024px){
   .cfSide{position:static}
-  .cfSticky{position:static;width:auto;height:280px}
+  .cfSticky{position:relative;top:auto;width:auto;height:280px}
   .cfBg{border-radius:20px}
   .cfContents{padding:0}
   .cfPanel{padding:44px 0 10px}
