@@ -1004,7 +1004,7 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
 /* 인증: 왼쪽 고정 사진 패널 + 오른쪽 목록 (saltlux 연혁 방식) */
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-.certFlow{position:relative;--H:min(70vh,640px);padding-top:calc(120vh - var(--H) / 2 - 100px)}
+.certFlow{position:relative;--H:min(70vh,640px);padding-top:calc(150vh - var(--H) / 2 - 100px)}
 .cfSide{position:absolute;inset:0;z-index:3;pointer-events:none}
 .cfSticky{position:sticky;top:0;height:100vh}
 .cfBg{position:absolute;left:0;top:calc((100vh - var(--H)) / 2);width:45%;height:var(--H);border-radius:26px;overflow:hidden;pointer-events:auto;background:#cfd6df;box-shadow:0 30px 60px -30px rgba(0,0,0,.35);will-change:left,top,width,height}

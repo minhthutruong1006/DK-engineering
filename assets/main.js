@@ -134,7 +134,7 @@
       if (vw > 1024) {
         var cr = cf.getBoundingClientRect(), W = cr.width;
         var H = Math.min(vh * 0.7, 640);
-        var t = Math.min(Math.max((-cr.top + vh * 0.3) / (vh * 1.0), 0), 1);
+        var t = Math.min(Math.max(-cr.top / vh, 0), 1);
         var e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
         var w0 = Math.min(vw * 0.8, 1440), x0 = (vw - w0) / 2 - cr.left;
         cBg.style.left = lerp(x0, 0, e) + 'px';
