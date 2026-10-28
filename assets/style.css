@@ -1112,3 +1112,20 @@ html.lenis,html.lenis body{height:auto}
   .pvNav li{grid-template-columns:60px 1fr;gap:10px}.pvNav em{display:none}
   .btnList{padding:14px 48px}
 }
+
+/* ===== 메인 Merit·연구 링크 아이콘: 의미별 라인 아이콘 + 포인트 컬러, 등장 시 선 그리기 ===== */
+.merits .icon .a,.links .icon .a{stroke:var(--accent)}
+.merits .icon .f,.links .icon .f{fill:var(--accent)}
+.merits .icon .d{stroke-dasharray:.07 .07}
+.merits .icon :is(path,rect,circle,ellipse):not(.d),.links .icon :is(path,rect,circle,ellipse){stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.45,0,.2,1) .35s}
+.merits .icon .a,.links .icon .a{transition-delay:.9s}
+.merits li.on .icon :is(path,rect,circle,ellipse),.links li.on .icon :is(path,rect,circle,ellipse){stroke-dashoffset:0}
+.merits .icon .d{opacity:0;transition:opacity .6s 1.5s}
+.merits li.on .icon .d{opacity:1}
+.links .icon{transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.links a:hover .icon{transform:translateY(-4px)}
+@media (prefers-reduced-motion:reduce){
+  .merits .icon *,.links .icon *{transition:none!important;stroke-dashoffset:0!important;opacity:1!important}
+}
+@media (min-width:813px){.links .tit{text-align:center}}
+.section8 .bg.photo{background-position:center bottom}

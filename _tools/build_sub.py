@@ -120,7 +120,7 @@ for d, t, s in sorted(HISTORY, key=lambda x: x[0]):
 ERAS = [
     ('2006', '2012', '원자력 협력 기반 구축', ['dk/about_history01.jpg', 'dk/about_history02.jpg']),
     ('2013', '2017', '사옥·기업부설연구소 설립과 성장', ['dk/about_history03.jpg', 'dk/about_history04.jpg']),
-    ('2018', '2026', 'DK 그룹 출범과 원전해체 기술 선도', ['dk/about_history05.jpg', 'dk/about_history06.jpg']),
+    ('2018', '2026', '코센 자회사 편입과 원전해체 기술 선도', ['dk/about_history05.jpg', 'dk/about_history06.jpg']),
 ]
 era_of = lambda y: next(i for i, (a, b, _, _) in enumerate(ERAS) if a <= y <= b)
 rows, thumbs, n_img = [], [], 0
