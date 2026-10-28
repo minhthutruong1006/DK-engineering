@@ -50,7 +50,7 @@ def page(fname, title, desc, eng, h2, lead, bg, body):
     <ul class="heroTab">{tabs}</ul>
   </div>
 </section>
-{'' if fname == 'company.html' else f'''<div class="pageTitle2">
+{'' if fname in ('company.html', 'history.html') else f'''<div class="pageTitle2">
   <div class="inner">
     <h3>{h2}</h3>
     <p>{lead}</p>
@@ -135,9 +135,10 @@ for i, (a, b, cat, imgs) in enumerate(ERAS):
     n_img += len(imgs)
 eras_json = json.dumps([[a, b, cat] for a, b, cat, _ in ERAS], ensure_ascii=False)
 page('history.html', '연혁', '대경기술주식회사(DK ENGINEERING) 2006~2026 연혁: 한수원 유자격공급자 등록, 면허 확장, 기업부설연구소 설립, 대통령 표창.',
-     'History', '연혁', '2006년 설립 이후 원자력·전력산업과 함께 걸어온 길입니다.', 'sub-history.jpg', f'''  <div class="title ani">
+     'History', '연혁', '2006년 설립 이후 원자력·전력산업과 함께 걸어온 길입니다.', 'sub-history.jpg', f'''  <div class="title coTitle ani">
     <h2>History<span class="dot"></span></h2>
-    <h3>신뢰를 쌓아온 20년</h3>
+    <h3>연혁</h3>
+    <p><b>신뢰를 쌓아온 20년,</b> 2006년 설립 이후 원자력·전력산업과 함께 걸어온 길입니다.</p>
   </div>
   <div class="hTimeline" data-eras='{eras_json}'>
     <div class="hLeft">

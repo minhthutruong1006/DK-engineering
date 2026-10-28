@@ -931,3 +931,4 @@ body.sub .subCon .section1.fullBleed:first-child{margin-top:-90px}
 .section1.fullBleed p .sign{color:#888}
 .section1.fullBleed .btnMore.light{color:#111}
 .section1.fullBleed .pill{box-shadow:0 10px 24px -12px rgba(0,50,110,.45)}
+.coTitle p b{color:var(--accent);font-weight:600}
