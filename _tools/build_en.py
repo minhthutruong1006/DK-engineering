@@ -124,7 +124,11 @@ def main():
     for page in pages:
         path = os.path.join(ROOT, page)
         ko = io.open(path, encoding='utf-8').read()
-        ko2 = lang_link(set_seo(ko, page, False), page, False)
+        if 'http-equiv="refresh"' in ko:  # 옛 주소 넘김 페이지(biz-services·biz-major)는 그대로 복사
+            io.open(os.path.join(ROOT, 'en', page), 'w', encoding='utf-8', newline='').write(
+                ko.replace('<html lang="ko">', '<html lang="en">').replace(BASE, BASE + 'en/'))
+            continue
+        ko2 =lang_link(set_seo(ko, page, False), page, False)
         if ko2 != ko:
             io.open(path, 'w', encoding='utf-8', newline='').write(ko2)
         en = translate_html(ko2, page)

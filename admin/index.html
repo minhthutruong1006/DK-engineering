@@ -572,15 +572,15 @@ td.ops a:hover{color:var(--accent)}
   // 미리보기: 사이트와 같은 모양으로 새 창에
   $('#postPreview').addEventListener('click', function () {
     var f = $('#postForm'), w = window.open('', '_blank');
-    w.document.write('<!DOCTYPE html><meta charset="utf-8"><title>미리보기</title><link rel="stylesheet" href="' + new URL('../assets/style.css?v=73', location.href) + '"><body class="sub" style="padding:60px 24px"><div class="subCon" style="padding:0;max-width:1000px"><div class="postView"><div class="pvHead"><h3>' + esc(f.title.value || '(제목)') + '</h3><div class="meta"><span>' + esc(f.author.value) + '</span><span>' + esc(f.date.value) + '</span></div></div><div class="pvBody">' + bodyHtml() + '</div></div></div></body>');
+    w.document.write('<!DOCTYPE html><meta charset="utf-8"><title>미리보기</title><link rel="stylesheet" href="' + new URL('../assets/style.css?v=75', location.href) + '"><body class="sub" style="padding:60px 24px"><div class="subCon" style="padding:0;max-width:1000px"><div class="postView"><div class="pvHead"><h3>' + esc(f.title.value || '(제목)') + '</h3><div class="meta"><span>' + esc(f.author.value) + '</span><span>' + esc(f.date.value) + '</span></div></div><div class="pvBody">' + bodyHtml() + '</div></div></div></body>');
     w.document.close();
   });
 
   // ---------- SEO ----------
   var PAGES = [
     ['index.html', '메인'], ['ceo.html', 'CEO 인사'], ['company.html', '회사 개요'], ['history.html', '연혁'], ['organ.html', '사훈/조직도'],
-    ['certification.html', '인증·특허'], ['ci.html', 'C.I. 소개'], ['clients.html', '주요 고객사'], ['biz-services.html', '수행 역무'],
-    ['biz-nuclear.html', '원자력/발전 사업'], ['biz-plant.html', '플랜트/해양모듈'], ['biz-major.html', '주요 사업'], ['rnd.html', '국책과제'],
+    ['certification.html', '인증·특허'], ['ci.html', 'C.I. 소개'], ['clients.html', '주요 고객사'],
+    ['biz-nuclear.html', '원자력/발전 사업'], ['biz-plant.html', '플랜트/해양모듈'], ['rnd.html', 'R&D'],
     ['perf-design.html', '설계/엔지니어링 실적'], ['perf-nuclear.html', '원자력 공사/설치 실적'], ['perf-plant.html', '플랜트 공사/제작 실적'],
     ['performance.html', '전체 실적 목록'], ['news.html', '대경기술 소식'], ['press.html', '보도자료'], ['inquiry.html', '고객 문의'], ['location.html', '오시는 길']
   ];
