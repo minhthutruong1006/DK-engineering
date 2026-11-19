@@ -89,7 +89,7 @@ def drop_echo_eyebrow(s):
 
 
 def fix_paths(s):
-    s = re.sub(r'\b(href|src)="(assets/|favicon\.ico|site\.webmanifest)', r'\1="../\2', s)
+    s = re.sub(r'\b(href|src|poster)="(assets/|favicon\.ico|site\.webmanifest)', r'\1="../\2', s)
     s = s.replace('url(assets/', 'url(../assets/')
     return s
 
