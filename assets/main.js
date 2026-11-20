@@ -242,15 +242,15 @@
   function vid(i) { return slides[i].querySelector('video'); }
   function tick() {
     var v = vid(cur), p = v.duration ? Math.min(v.currentTime / v.duration, 1) : 0;
-    tabs[cur].querySelector('i').style.width = (p * 100) + '%';
+    if (tabs[cur]) tabs[cur].querySelector('i').style.width = (p * 100) + '%';
     raf = requestAnimationFrame(tick);
   }
   function go(i) {
     var old = vid(cur); old.pause();
-    slides[cur].classList.remove('on'); tabs[cur].classList.remove('on');
+    slides[cur].classList.remove('on'); if (tabs[cur]) tabs[cur].classList.remove('on');
     tabs.forEach(function (t) { t.querySelector('i').style.width = '0'; });
     cur = (i + slides.length) % slides.length;
-    slides[cur].classList.add('on'); tabs[cur].classList.add('on');
+    slides[cur].classList.add('on'); if (tabs[cur]) tabs[cur].classList.add('on');
     var v = vid(cur); v.preload = 'auto';
     try { v.currentTime = 0; } catch (e) {}
     if (!paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
