@@ -216,3 +216,20 @@
   window.addEventListener('resize', dim);
   dim();
 })();
+
+/* 메인 진입 인트로: 0.5초 원형 창 열림 → 2.8초 확장 → 3.4초 종료 */
+(function () {
+  var el = document.querySelector('.fixIntro');
+  if (!el) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.classList.add('done'); document.documentElement.classList.remove('introOn'); return; }
+  var root = document.documentElement;
+  root.classList.add('introOn');
+  var v = document.querySelector('.visualVideo');
+  setTimeout(function () { el.classList.add('bgNone'); }, 500);
+  setTimeout(function () { el.classList.add('active'); }, 2800);
+  setTimeout(function () {
+    el.classList.add('done');
+    root.classList.remove('introOn');
+    if (v) { try { v.play(); } catch (e) {} }
+  }, 3400);
+})();

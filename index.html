@@ -30,9 +30,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=79">
+<link rel="stylesheet" href="assets/style.css?v=84">
+<script>document.documentElement.classList.add('introOn')</script>
 </head>
 <body>
+<div class="fixIntro" aria-hidden="true"><img class="introLogo" src="assets/img/logo/symbol_w.png" alt="" width="200" height="150"></div>
 
 <!-- ============ HEADER ============ -->
 <header id="header">
@@ -57,8 +59,8 @@
         </li>
       </ul>
       <div class="navLinks">
-        <a href="http://www.dkenc.kr/download/DK_bro_kr.pdf" target="_blank" rel="noopener">브로슈어 다운로드 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v9M4 8l4 4 4-4M3 14h10"/></svg></a>
-        <a href="inquiry.html">문의하기 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></a>
+        <a href="#" class="branch" target="_blank" rel="noopener">○○지사 홈페이지 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></a>
+        <a href="#" class="branch" target="_blank" rel="noopener">○○지사 홈페이지 <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 11L11 5M6 5h5v5"/></svg></a>
       </div>
     </nav>
     <div class="gnb">
@@ -216,7 +218,7 @@
 </footer>
 
 <button class="btnTop" aria-label="맨 위로"></button>
-<script src="assets/main.js?v=57"></script>
+<script src="assets/main.js?v=59"></script>
 <script src="assets/dk-config.js?v=7"></script>
 <script src="assets/dk-api.js?v=7"></script>
 <script src="assets/dk-site.js?v=7"></script>

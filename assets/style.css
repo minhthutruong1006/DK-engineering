@@ -1390,3 +1390,26 @@ html.lenis,html.lenis body{height:auto}
   .pcNav li li a{font-size:15px}
 }
 @media (max-width:1100px){.navLinks{display:none}}
+
+/* ===== 메인 진입 인트로 (두산에너빌리티 방식: 원형 창 → 전체 확장) ===== */
+html.introOn,html.introOn body{overflow:hidden}
+.fixIntro{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;transition:background .3s}
+.fixIntro::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,transparent max(33vh,16.2vw),#fff calc(max(33vh,16.2vw) + 1px));transition:transform 1s cubic-bezier(.6,0,.3,1)}
+.fixIntro.bgNone{background:transparent}
+.fixIntro.active::before{transform:scale(5)}
+.fixIntro.done{display:none}
+.introTxt{position:relative;z-index:1;display:block;font-size:clamp(40px,4.2vw,64px);font-weight:700;color:#fff;letter-spacing:.02em;text-shadow:0 2px 20px rgba(0,0,0,.25)}
+.introTxt span{position:relative;display:inline-block;opacity:0}
+.fixIntro.bgNone .introTxt span:nth-child(odd){animation:introTextDown 1.5s cubic-bezier(.63,.01,.67,0) forwards}
+.fixIntro.bgNone .introTxt span:nth-child(even){animation:introTextUp 1.5s cubic-bezier(.63,.01,.67,0) forwards}
+.fixIntro.active .introTxt{opacity:0;visibility:hidden;transition:.3s}
+@keyframes introTextDown{0%{opacity:0;filter:blur(10px);top:-30px}60%{opacity:0;top:-25px}100%{opacity:1;filter:blur(0);top:0}}
+@keyframes introTextUp{0%{opacity:0;top:30px;filter:blur(10px)}60%{opacity:0;top:25px}100%{opacity:1;filter:blur(0);top:0}}
+@media (prefers-reduced-motion:reduce){.fixIntro{display:none}}
+.visual .slides,.visual .scrollDown{transition:opacity .8s .2s}
+html.introOn .visual .slides,html.introOn .visual .scrollDown,body:has(.fixIntro:not(.done)) .visual .slides,body:has(.fixIntro:not(.done)) .visual .scrollDown{opacity:0;transition:none}
+.introLogo{position:relative;z-index:1;display:block;width:clamp(150px,11vw,210px);height:auto;opacity:0;filter:drop-shadow(0 2px 16px rgba(0,0,0,.25))}
+.fixIntro.bgNone .introLogo{animation:introLogoIn 1.5s cubic-bezier(.63,.01,.67,0) forwards}
+.fixIntro.active .introLogo{opacity:1;animation:introLogoOut .3s forwards}
+@keyframes introLogoOut{to{opacity:0}}
+@keyframes introLogoIn{0%{opacity:0;filter:blur(10px) drop-shadow(0 2px 16px rgba(0,0,0,.25));transform:translateY(-20px)}60%{opacity:0;transform:translateY(-16px)}100%{opacity:1;filter:blur(0) drop-shadow(0 2px 16px rgba(0,0,0,.25));transform:none}}
