@@ -273,9 +273,11 @@
   });
   window.hvStart = function () {
     if (started) return; started = true;
-    var v = vid(cur); try { v.currentTime = 0; } catch (e) {}
+    var v = vid(cur);
     var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
     tick();
   };
+  /* 인트로 원 안에서도 첫 영상이 움직이도록 바로 재생 */
+  (function () { var v0 = vid(0); var pr = v0.play(); if (pr && pr.catch) pr.catch(function () {}); })();
   if (!document.querySelector('.fixIntro') || !document.documentElement.classList.contains('introOn')) window.hvStart();
 })();
