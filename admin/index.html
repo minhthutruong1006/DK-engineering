@@ -190,7 +190,7 @@ td.ops a:hover{color:var(--accent)}
     <div class="panel">
       <h2 id="perfFormTitle">실적 등록</h2>
       <form class="form" id="perfForm">
-        <label>구분<select name="cat" required><option value="design">설계/엔지니어링</option><option value="nuclear">원자력 공사/설치</option><option value="plant">플랜트 공사/제작</option></select></label>
+        <label>구분<select name="cat" required><option value="design">설계·엔지니어링</option><option value="nuclear">원자력 공사·설치</option><option value="plant">플랜트 공사·제작</option></select></label>
         <label>분야<select name="field"><option>발전 플랜트</option><option>일반건설</option></select></label>
         <label>수행 연월<input name="ym" type="month" required></label>
         <label>&nbsp;<span style="font-weight:400;color:#888;font-size:12px;line-height:44px">해당 실적 페이지와 전체 실적 목록에 함께 표시</span></label>
@@ -200,7 +200,7 @@ td.ops a:hover{color:var(--accent)}
     </div>
     <div class="panel">
       <h2>등록한 실적 <small id="perfCount"></small></h2>
-      <div class="toolbar"><select id="perfCat"><option value="">전체 구분</option><option value="design">설계/엔지니어링</option><option value="nuclear">원자력 공사/설치</option><option value="plant">플랜트 공사/제작</option></select><span class="cnt">기존 홈페이지 실적은 페이지에 그대로 있고, 여기서 등록한 것만 목록에 나옵니다.</span></div>
+      <div class="toolbar"><select id="perfCat"><option value="">전체 구분</option><option value="design">설계·엔지니어링</option><option value="nuclear">원자력 공사·설치</option><option value="plant">플랜트 공사·제작</option></select><span class="cnt">기존 홈페이지 실적은 페이지에 그대로 있고, 여기서 등록한 것만 목록에 나옵니다.</span></div>
       <table><thead><tr><th>연월</th><th>구분</th><th class="hm">분야</th><th>공사 / 용역명</th><th></th></tr></thead><tbody id="perfList"></tbody></table>
     </div>
   </section>
@@ -334,7 +334,7 @@ td.ops a:hover{color:var(--accent)}
 (function () {
   var $ = function (s) { return document.querySelector(s); };
   var esc = DK.esc;
-  var CAT = { design: '설계/엔지니어링', nuclear: '원자력 공사/설치', plant: '플랜트 공사/제작' };
+  var CAT = { design: '설계·엔지니어링', nuclear: '원자력 공사·설치', plant: '플랜트 공사·제작' };
   var ST = ['신규', '확인', '답변 완료'];
   var BOARD = { news: '대경기술 소식', press: '보도자료' };
   var cur = 'inq', board = 'news', inqs = [], openInq = null, editPerf = null, editPost = null;
@@ -578,10 +578,10 @@ td.ops a:hover{color:var(--accent)}
 
   // ---------- SEO ----------
   var PAGES = [
-    ['index.html', '메인'], ['ceo.html', 'CEO 인사'], ['company.html', '회사 개요'], ['history.html', '연혁'], ['organ.html', '사훈/조직도'],
+    ['index.html', '메인'], ['ceo.html', 'CEO 인사'], ['company.html', '회사 개요'], ['history.html', '연혁'], ['organ.html', '사훈·조직도'],
     ['certification.html', '인증·특허'], ['ci.html', 'C.I. 소개'], ['clients.html', '주요 고객사'],
-    ['biz-nuclear.html', '원자력/발전 사업'], ['biz-plant.html', '플랜트/해양모듈'], ['rnd.html', 'R&D'],
-    ['perf-design.html', '설계/엔지니어링 실적'], ['perf-nuclear.html', '원자력 공사/설치 실적'], ['perf-plant.html', '플랜트 공사/제작 실적'],
+    ['biz-nuclear.html', '원자력·발전 사업'], ['biz-plant.html', '플랜트·해양모듈'], ['rnd.html', 'R&D'],
+    ['perf-design.html', '설계·엔지니어링 실적'], ['perf-nuclear.html', '원자력 공사·설치 실적'], ['perf-plant.html', '플랜트 공사·제작 실적'],
     ['performance.html', '전체 실적 목록'], ['news.html', '대경기술 소식'], ['press.html', '보도자료'], ['inquiry.html', '고객 문의'], ['location.html', '오시는 길']
   ];
   var orig = {}, seoMap = {}, seoPage = null;
