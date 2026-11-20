@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=84">
+<link rel="stylesheet" href="assets/style.css?v=85">
 <script>document.documentElement.classList.add('introOn')</script>
 </head>
 <body>
@@ -85,20 +85,36 @@
 </div>
 
 <!-- ============ VISUAL ============ -->
-<section class="visual">
-  <div class="visualBg photo" style="background-image:url(assets/img/hero.jpg)"></div>
-  <video class="visualVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-video.jpg" aria-hidden="true"><source src="assets/video/hero.mp4" type="video/mp4"></video>
-  <div class="slides">
-    <div class="slide on">
-      <div class="tit">Global Leader in the<br>Electric Power Industry</div>
-      <div class="txt">보다 더 완벽한 미래를 위해 오늘도 끊임없이 개발을 이끌어 갑니다</div>
+<section class="visual hv">
+  <div class="hvSlides">
+    <div class="hvSlide on">
+      <video muted playsinline preload="auto" poster="assets/img/hero-01.jpg" aria-hidden="true"><source src="assets/video/hero-01.mp4" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>대경기술은</span></span><span class="w"><span><strong>설계부터 시운전까지</strong></span></span><span class="w"><span>전력산업의 모든 과정을</span></span><span class="w"><span>한 번에 수행합니다.</span></span></h2></div></div>
     </div>
-    <div class="slide">
-      <div class="tit">From Design to<br>Commissioning.</div>
-      <div class="txt">설계부터 제작·설치 시공·시운전까지 한 번에 수행합니다</div>
+    <div class="hvSlide">
+      <video muted playsinline preload="metadata" poster="assets/img/hero-02.jpg" aria-hidden="true"><source src="assets/video/hero-02.mp4" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span><strong>가동원전 계전설비 설계</strong>부터</span></span><span class="w"><span><strong>주제어반 교체 공사</strong>까지</span></span><span class="w"><span>원자력 발전 현장을</span></span><span class="w"><span>함께합니다.</span></span></h2></div></div>
+    </div>
+    <div class="hvSlide">
+      <video muted playsinline preload="metadata" poster="assets/img/hero-03.jpg?v=2" aria-hidden="true"><source src="assets/video/hero-03.mp4?v=2" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>대경기술은</span></span><span class="w"><span><strong>플랜트 전기·계장 공사</strong>와</span></span><span class="w"><span><strong>E-House 제작·설치</strong>를</span></span><span class="w"><span>수행합니다.</span></span></h2></div></div>
+    </div>
+    <div class="hvSlide">
+      <video muted playsinline preload="metadata" poster="assets/img/hero-04.jpg" aria-hidden="true"><source src="assets/video/hero-04.mp4" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>대경기술은</span></span><span class="w"><span><strong>국책과제 19건</strong>으로</span></span><span class="w"><span><strong>원전해체 기술</strong>을</span></span><span class="w"><span>개발하고 있습니다.</span></span></h2></div></div>
     </div>
   </div>
-  <div class="scrollDown"><span></span>SCROLL</div>
+  <div class="hvCtrl"><div class="hvInner">
+    <button type="button" class="hvPlay" aria-label="일시정지"><svg viewBox="0 0 16 16" class="i-pause" aria-hidden="true"><path d="M5 3.5v9M11 3.5v9"/></svg><svg viewBox="0 0 16 16" class="i-play" aria-hidden="true"><path d="M5.5 3.5l7 4.5-7 4.5z"/></svg></button>
+    <button type="button" class="hvArrow hvPrev" aria-label="이전"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+    <button type="button" class="hvArrow hvNext" aria-label="다음"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+  </div></div>
+  <div class="hvProg"><div class="hvInner"><div class="hvTabs">
+        <button type="button" class="hvTab on"><span class="bar"><i></i></span><strong>대경기술</strong></button>
+        <button type="button" class="hvTab"><span class="bar"><i></i></span><strong>원자력·발전</strong></button>
+        <button type="button" class="hvTab"><span class="bar"><i></i></span><strong>플랜트·해양모듈</strong></button>
+        <button type="button" class="hvTab"><span class="bar"><i></i></span><strong>R&amp;D</strong></button>
+  </div></div></div>
 </section>
 
 <main id="contents">
@@ -218,7 +234,7 @@
 </footer>
 
 <button class="btnTop" aria-label="맨 위로"></button>
-<script src="assets/main.js?v=59"></script>
+<script src="assets/main.js?v=61"></script>
 <script src="assets/dk-config.js?v=7"></script>
 <script src="assets/dk-api.js?v=7"></script>
 <script src="assets/dk-site.js?v=7"></script>

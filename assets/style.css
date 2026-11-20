@@ -1406,10 +1406,59 @@ html.introOn,html.introOn body{overflow:hidden}
 @keyframes introTextDown{0%{opacity:0;filter:blur(10px);top:-30px}60%{opacity:0;top:-25px}100%{opacity:1;filter:blur(0);top:0}}
 @keyframes introTextUp{0%{opacity:0;top:30px;filter:blur(10px)}60%{opacity:0;top:25px}100%{opacity:1;filter:blur(0);top:0}}
 @media (prefers-reduced-motion:reduce){.fixIntro{display:none}}
-.visual .slides,.visual .scrollDown{transition:opacity .8s .2s}
-html.introOn .visual .slides,html.introOn .visual .scrollDown,body:has(.fixIntro:not(.done)) .visual .slides,body:has(.fixIntro:not(.done)) .visual .scrollDown{opacity:0;transition:none}
+.hv .hvTit,.hv .hvCtrl,.hv .hvProg{transition:opacity .8s .2s}
+html.introOn .hv .hvTit,html.introOn .hv .hvCtrl,html.introOn .hv .hvProg,body:has(.fixIntro:not(.done)) .hv .hvTit,body:has(.fixIntro:not(.done)) .hv .hvCtrl,body:has(.fixIntro:not(.done)) .hv .hvProg{opacity:0;transition:none}
 .introLogo{position:relative;z-index:1;display:block;width:clamp(150px,11vw,210px);height:auto;opacity:0;filter:drop-shadow(0 2px 16px rgba(0,0,0,.25))}
 .fixIntro.bgNone .introLogo{animation:introLogoIn 1.5s cubic-bezier(.63,.01,.67,0) forwards}
 .fixIntro.active .introLogo{opacity:1;animation:introLogoOut .3s forwards}
 @keyframes introLogoOut{to{opacity:0}}
 @keyframes introLogoIn{0%{opacity:0;filter:blur(10px) drop-shadow(0 2px 16px rgba(0,0,0,.25));transform:translateY(-20px)}60%{opacity:0;transform:translateY(-16px)}100%{opacity:1;filter:blur(0) drop-shadow(0 2px 16px rgba(0,0,0,.25));transform:none}}
+
+/* ===== 메인 히어로: 탭형 영상 슬라이드 (두산에너빌리티 방식) ===== */
+.hv::after{display:none}
+.hvInner{max-width:1460px;width:90%;margin:0 auto}
+.hvSlides{position:absolute;inset:0}
+.hvSlide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .6s linear,visibility .6s}
+.hvSlide.on{opacity:1;visibility:visible;z-index:1}
+.hvSlide video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hvSlide::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.3);z-index:1}
+.hvTit{position:absolute;left:0;top:0;z-index:10;width:100%;height:56%}
+.hvTit .hvInner{display:flex;align-items:flex-end;height:100%}
+.hvTit h2{font-size:55px;font-weight:300;color:#fff;letter-spacing:-.005em;line-height:1.455;font-family:'Noto Sans KR',sans-serif}
+.hvTit h2 strong{font-weight:700}
+.hvTit .w{display:block;overflow:hidden}
+.hvTit .w>span{display:block;opacity:0;transform:translateY(100%)}
+.hvSlide.on .hvTit .w>span{animation:hvText 1s ease forwards}
+.hvSlide.on .hvTit .w:nth-child(1)>span{animation-delay:.2s}
+.hvSlide.on .hvTit .w:nth-child(2)>span{animation-delay:.4s}
+.hvSlide.on .hvTit .w:nth-child(3)>span{animation-delay:.6s}
+.hvSlide.on .hvTit .w:nth-child(4)>span{animation-delay:.8s}
+html.introOn .hvSlide.on .hvTit .w>span{animation:none}
+@keyframes hvText{to{opacity:1;transform:none}}
+.hvCtrl{position:absolute;left:0;top:56%;z-index:10;width:100%;padding-top:50px}
+.hvCtrl .hvInner{display:flex;align-items:center}
+.hvPlay{position:relative;width:45px;height:45px;border:0;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;color:#fff;transition:background .3s,color .3s}
+.hvPlay:hover{background:#fff;color:#000}
+.hvPlay svg{position:absolute;left:50%;top:50%;width:16px;height:16px;transform:translate(-50%,-50%);fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.hvPlay .i-play{fill:currentColor;stroke-width:1;display:none}
+.hvPlay.paused .i-play{display:block}.hvPlay.paused .i-pause{display:none}
+.hvArrow{background:none;border:0;cursor:pointer;color:#fff;padding:6px;display:flex}
+.hvArrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hvPrev{margin-left:25px;margin-right:12px}
+.hvProg{position:absolute;left:0;bottom:2%;z-index:10;width:100%}
+.hvTabs{display:flex;max-width:800px;width:100%}
+.hvTab{position:relative;display:inline-flex;align-items:flex-start;width:25%;height:65px;padding:0;background:none;border:0;cursor:pointer}
+.hvTab .bar{display:block;width:100%;height:4px;background:rgba(255,255,255,.4)}
+.hvTab .bar i{display:block;width:0;height:4px;background:#fff}
+.hvTab strong{position:absolute;left:0;bottom:0;display:flex;align-items:center;justify-content:center;width:100%;height:50px;font-size:16px;font-weight:500;color:rgba(255,255,255,.5);transition:.3s;white-space:nowrap}
+.hvTab.on strong{font-size:24px;font-weight:700;color:#fff}
+@media (max-width:1600px){.hvTit h2{font-size:45px}.hvProg{bottom:5%}}
+@media (max-width:1280px){.hvTit h2{font-size:40px}}
+@media (max-width:767px){
+  .hvTit{height:52%}
+  .hvTit h2{font-size:28px}
+  .hvCtrl{top:52%;padding-top:28px}
+  .hvTab{height:54px}
+  .hvTab strong{font-size:12px;height:40px}
+  .hvTab.on strong{font-size:14px}
+}

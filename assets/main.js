@@ -224,12 +224,58 @@
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.classList.add('done'); document.documentElement.classList.remove('introOn'); return; }
   var root = document.documentElement;
   root.classList.add('introOn');
-  var v = document.querySelector('.visualVideo');
   setTimeout(function () { el.classList.add('bgNone'); }, 500);
   setTimeout(function () { el.classList.add('active'); }, 2800);
   setTimeout(function () {
     el.classList.add('done');
     root.classList.remove('introOn');
-    if (v) { try { v.play(); } catch (e) {} }
+    if (window.hvStart) window.hvStart();
   }, 3400);
+})();
+
+/* 메인 히어로 탭 슬라이드: 영상 길이만큼 진행 막대가 차고 다음 탭으로 */
+(function () {
+  var hv = document.querySelector('.hv');
+  if (!hv) return;
+  var slides = hv.querySelectorAll('.hvSlide'), tabs = hv.querySelectorAll('.hvTab'), play = hv.querySelector('.hvPlay');
+  var cur = 0, paused = false, started = false, raf;
+  function vid(i) { return slides[i].querySelector('video'); }
+  function tick() {
+    var v = vid(cur), p = v.duration ? Math.min(v.currentTime / v.duration, 1) : 0;
+    tabs[cur].querySelector('i').style.width = (p * 100) + '%';
+    raf = requestAnimationFrame(tick);
+  }
+  function go(i) {
+    var old = vid(cur); old.pause();
+    slides[cur].classList.remove('on'); tabs[cur].classList.remove('on');
+    tabs.forEach(function (t) { t.querySelector('i').style.width = '0'; });
+    cur = (i + slides.length) % slides.length;
+    slides[cur].classList.add('on'); tabs[cur].classList.add('on');
+    var v = vid(cur); v.preload = 'auto';
+    try { v.currentTime = 0; } catch (e) {}
+    if (!paused) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    var nx = vid((cur + 1) % slides.length); nx.preload = 'auto';
+  }
+  slides.forEach(function (s, i) {
+    var sv = s.querySelector('video');
+    sv.addEventListener('ended', function () { if (i === cur) go(cur + 1); });
+    sv.addEventListener('timeupdate', function () { if (i === cur && !paused && sv.duration && sv.currentTime >= sv.duration - 0.08) go(cur + 1); });
+  });
+  tabs.forEach(function (t, i) { t.addEventListener('click', function () { if (i !== cur) go(i); }); });
+  hv.querySelector('.hvPrev').addEventListener('click', function () { go(cur - 1); });
+  hv.querySelector('.hvNext').addEventListener('click', function () { go(cur + 1); });
+  play.addEventListener('click', function () {
+    paused = !paused;
+    play.classList.toggle('paused', paused);
+    var en = document.documentElement.lang === 'en'; play.setAttribute('aria-label', paused ? (en ? 'Play' : '재생') : (en ? 'Pause' : '일시정지'));
+    var v = vid(cur);
+    if (paused) v.pause(); else { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+  });
+  window.hvStart = function () {
+    if (started) return; started = true;
+    var v = vid(cur); try { v.currentTime = 0; } catch (e) {}
+    var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+    tick();
+  };
+  if (!document.querySelector('.fixIntro') || !document.documentElement.classList.contains('introOn')) window.hvStart();
 })();

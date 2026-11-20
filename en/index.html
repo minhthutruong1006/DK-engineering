@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/style.css?v=84">
+<link rel="stylesheet" href="../assets/style.css?v=85">
 <script>document.documentElement.classList.add('introOn')</script>
 </head>
 <body>
@@ -85,20 +85,36 @@
 </div>
 
 <!-- ============ VISUAL ============ -->
-<section class="visual">
-  <div class="visualBg photo" style="background-image:url(../assets/img/hero.jpg)"></div>
-  <video class="visualVideo" autoplay muted loop playsinline preload="auto" poster="../assets/img/hero-video.jpg" aria-hidden="true"><source src="../assets/video/hero.mp4" type="video/mp4"></video>
-  <div class="slides">
-    <div class="slide on">
-      <div class="tit">Global Leader in the<br>Electric Power Industry</div>
-      <div class="txt">We keep driving development every day for a more perfect future</div>
+<section class="visual hv">
+  <div class="hvSlides">
+    <div class="hvSlide on">
+      <video muted playsinline preload="auto" poster="../assets/img/hero-01.jpg" aria-hidden="true"><source src="../assets/video/hero-01.mp4" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>DK Engineering delivers</span></span><span class="w"><span><strong>every stage from design</strong></span></span><span class="w"><span><strong>to commissioning</strong></span></span><span class="w"><span>as one team.</span></span></h2></div></div>
     </div>
-    <div class="slide">
-      <div class="tit">From Design to<br>Commissioning.</div>
-      <div class="txt">From design to manufacturing, installation and commissioning, all in one</div>
+    <div class="hvSlide">
+      <video muted playsinline preload="metadata" poster="../assets/img/hero-02.jpg" aria-hidden="true"><source src="../assets/video/hero-02.mp4" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>From <strong>electrical design</strong></span></span><span class="w"><span><strong>for operating nuclear plants</strong></span></span><span class="w"><span>to <strong>main control board</strong></span></span><span class="w"><span><strong>replacement</strong>.</span></span></h2></div></div>
+    </div>
+    <div class="hvSlide">
+      <video muted playsinline preload="metadata" poster="../assets/img/hero-03.jpg?v=2" aria-hidden="true"><source src="../assets/video/hero-03.mp4?v=2" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>DK Engineering delivers</span></span><span class="w"><span><strong>plant E&amp;I construction</strong></span></span><span class="w"><span>and <strong>E-House</strong></span></span><span class="w"><span><strong>manufacturing &amp; installation</strong>.</span></span></h2></div></div>
+    </div>
+    <div class="hvSlide">
+      <video muted playsinline preload="metadata" poster="../assets/img/hero-04.jpg" aria-hidden="true"><source src="../assets/video/hero-04.mp4" type="video/mp4"></video>
+      <div class="hvTit"><div class="hvInner"><h2><span class="w"><span>Through <strong>19 national R&amp;D projects</strong>,</span></span><span class="w"><span>we develop</span></span><span class="w"><span><strong>nuclear decommissioning</strong></span></span><span class="w"><span>technologies.</span></span></h2></div></div>
     </div>
   </div>
-  <div class="scrollDown"><span></span>SCROLL</div>
+  <div class="hvCtrl"><div class="hvInner">
+    <button type="button" class="hvPlay" aria-label="Pause"><svg viewBox="0 0 16 16" class="i-pause" aria-hidden="true"><path d="M5 3.5v9M11 3.5v9"/></svg><svg viewBox="0 0 16 16" class="i-play" aria-hidden="true"><path d="M5.5 3.5l7 4.5-7 4.5z"/></svg></button>
+    <button type="button" class="hvArrow hvPrev" aria-label="Previous"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg></button>
+    <button type="button" class="hvArrow hvNext" aria-label="Next"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
+  </div></div>
+  <div class="hvProg"><div class="hvInner"><div class="hvTabs">
+        <button type="button" class="hvTab on"><span class="bar"><i></i></span><strong>DK Engineering</strong></button>
+        <button type="button" class="hvTab"><span class="bar"><i></i></span><strong>Nuclear &amp; Power</strong></button>
+        <button type="button" class="hvTab"><span class="bar"><i></i></span><strong>Plant &amp; Offshore</strong></button>
+        <button type="button" class="hvTab"><span class="bar"><i></i></span><strong>R&amp;D</strong></button>
+  </div></div></div>
 </section>
 
 <main id="contents">
@@ -218,7 +234,7 @@
 </footer>
 
 <button class="btnTop" aria-label="Back to top"></button>
-<script src="../assets/main.js?v=59"></script>
+<script src="../assets/main.js?v=61"></script>
 <script src="../assets/dk-config.js?v=7"></script>
 <script src="../assets/dk-api.js?v=7"></script>
 <script src="../assets/dk-site.js?v=7"></script>
