@@ -1697,3 +1697,40 @@ html.introOn .hvSlide.on .hvTit .w>span{animation:none}
 .pjTop .pjHint{margin:0}
 .pjTop .rndHead{margin:0}
 @media (max-width:760px){.pjTop{flex-direction:column;align-items:flex-start;gap:8px}}
+/* 연도별 실적 사진 */
+.pjBody.hasPics .pics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:760px;margin-bottom:18px}
+.pjBody.hasPics .pics a{display:block;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#dbe2ea}
+.pjBody.hasPics .pics img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.pjBody.hasPics .pics a:hover img{transform:scale(1.05)}
+@media (max-width:768px){.pjBody.hasPics .pics{grid-template-columns:repeat(2,1fr)}}
+/* 대표 실적 가로 카드 */
+.repWrap{margin-bottom:70px}
+.repTit{font-size:22px;font-weight:700;color:#0a5fb4;margin-bottom:22px}
+.repCards{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.repCard{display:flex;flex-direction:column;border:1px solid #e3e8ee;border-radius:14px;overflow:hidden;background:#fff}
+.repCard .photo{aspect-ratio:4/3;background:#f3f5f8 center/cover no-repeat}
+.repCard .txt{padding:24px 26px 28px;display:flex;flex-direction:column;flex:1}
+.repCard .ym{font-size:14px;color:#8a97a6;margin-bottom:6px}
+.repCard h5{font-size:18px;font-weight:600;line-height:1.45;color:#111;word-break:keep-all}
+.repCard p{margin-top:12px;font-size:15px;line-height:1.7;color:#555;word-break:keep-all}
+.repCard dl{margin-top:auto;padding-top:18px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.repCard dl>div{display:flex;gap:12px}
+.repCard dt{color:#8a97a6;flex:none;min-width:56px}
+.repCard dd{color:#333}
+@media (max-width:1100px){.repCards{gap:18px}.repCard .txt{padding:20px}}
+@media (max-width:768px){.repCards{grid-template-columns:1fr}.repWrap{margin-bottom:50px}}
+/* 대표 카드 줄 높이 맞춤 */
+.repCard{display:grid;grid-template-rows:subgrid;grid-row:span 4;gap:0}
+.repCard .txt{display:contents}
+.repCard .hd{padding:24px 26px 0}
+.repCard p{margin:0;padding:12px 26px 0}
+.repCard dl{margin:0;padding:18px 26px 28px;align-self:end}
+@media (max-width:1100px){.repCard .hd{padding:20px 20px 0}.repCard p{padding:10px 20px 0}.repCard dl{padding:16px 20px 22px}}
+@media (max-width:768px){.repCard{grid-template-rows:auto;grid-row:auto;display:flex}.repCard .txt{display:flex}.repCard dl{margin-top:0}}
+/* 연도 머리글이 첫 실적 줄 높이를 늘리지 않게 */
+.pjGroup{display:block;position:relative;padding-left:200px;min-height:110px}
+.pjGroup>.pjYear{position:absolute;left:0;top:0;width:200px}
+@media (max-width:1100px){.pjGroup{padding-left:140px}.pjGroup>.pjYear{width:140px}}
+@media (max-width:768px){.pjGroup{padding-left:0;min-height:0}.pjGroup>.pjYear{position:static;width:auto}}
+@media (max-width:768px){.repCard .txt{padding:0}.repCard .hd{padding:20px 20px 0}.repCard p{padding:10px 20px 0}.repCard dl{padding:14px 20px 22px}}
+@media (max-width:768px){.repCard dl{align-self:stretch}}

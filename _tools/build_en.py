@@ -26,7 +26,7 @@ RAW = {
     ],
 }
 # 한글이 남아도 되는 곳(전체 실적 585건 공사명 데이터, 검색 예시, 필터 값)
-ALLOW = re.compile(r'var PERF = \[|data-v="|indexOf\(\'설계\'\)|p\[1\] === \'일반건설\'|e\.g\. 고리|<!--|<script type="application/ld\+json">')
+ALLOW = re.compile(r'var PERF = \[|var PJPHOTO = |data-v="|indexOf\(\'설계\'\)|p\[1\] === \'일반건설\'|e\.g\. 고리|<!--|<script type="application/ld\+json">')
 
 missing = {}
 

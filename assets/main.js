@@ -310,7 +310,7 @@
     box.innerHTML = ys.map(function (y) {
       return '<div class="pjGroup"><h4 class="pjYear">' + y + '<span>' + L.n(g[y].length) + '</span></h4>' + g[y].map(function (p) {
         return '<details class="pj"><summary><span class="ym">' + esc(p[0]) + '</span><span class="tt">' + esc(p[1]) + '</span><i></i></summary>' +
-          '<div class="pjBody"><dl><div><dt>' + L.ym + '</dt><dd>' + esc(p[0]) + '</dd></div><div><dt>' + L.kind + '</dt><dd>' + KIND + '</dd></div>' +
+          (function (ph) { return ph ? '<div class="pjBody hasPics"><div class="pics">' + ph.map(function (u) { u = (document.documentElement.lang === 'en' ? '../' : '') + u; return '<a href="' + u + '" target="_blank" rel="noopener"><img src="' + u + '" alt="" loading="lazy"></a>'; }).join('') + '</div>' : '<div class="pjBody">'; })((window.PJPHOTO || {})[p[1]]) + '<dl><div><dt>' + L.ym + '</dt><dd>' + esc(p[0]) + '</dd></div><div><dt>' + L.kind + '</dt><dd>' + KIND + '</dd></div>' +
           (p[2] ? '<div><dt>' + L.field + '</dt><dd>' + esc(FIELD[p[2]] || p[2]) + '</dd></div>' : '') + '</dl></div></details>';
       }).join('') + '</div>';
     }).join('');
