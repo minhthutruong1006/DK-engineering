@@ -57,6 +57,18 @@
     }, quiet);
   }
 
+  // ---------- 분야별 실적 연도별 목록 (perf-*.html) — 관리자에서 추가한 실적 합치기 ----------
+  var yl = document.querySelector('.pjList[data-cat]');
+  if (yl && window.PERF && window.yearRender) {
+    DK.perf.list({ cat: yl.dataset.cat }).then(function (a) {
+      if (!a || !a.length) return;
+      a.forEach(function (x) { if (x.ym && x.title) PERF.push([x.ym, x.title, x.field || '']); });
+      window.yearRender();
+      var n = document.querySelector('.perfIntro .title p b');
+      if (n) n.textContent = PERF.length;
+    }, quiet);
+  }
+
   // ---------- 전체 실적 목록 (performance.html) ----------
   if (window.PERF && window.perfRender) {
     DK.perf.list().then(function (a) {

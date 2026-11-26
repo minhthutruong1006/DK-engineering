@@ -281,3 +281,39 @@
   (function () { var v0 = vid(0); var pr = v0.play(); if (pr && pr.catch) pr.catch(function () {}); })();
   if (!document.querySelector('.fixIntro') || !document.documentElement.classList.contains('introOn')) window.hvStart();
 })();
+
+/* 수상실적 타임라인: 스크롤에 따라 가운데 선 채우기 */
+(function () {
+  var tl = document.querySelector('.awTl'); if (!tl) return;
+  var line = tl.querySelector('.awLine');
+  function upd() {
+    var r = tl.getBoundingClientRect(), mid = window.innerHeight * 0.6;
+    line.style.height = Math.max(0, Math.min(r.height, mid - r.top)) + 'px';
+  }
+  window.addEventListener('scroll', upd, { passive: true }); window.addEventListener('resize', upd); upd();
+})();
+
+/* 분야별 실적: 연도별 나열 + 실적 클릭 시 상세 (window.PERF = [[연월, 공사명, 분야], ...]) */
+(function () {
+  var list = document.querySelector('.pjList[data-cat]'); if (!list || !window.PERF) return;
+  var box = list.querySelector('.pjYears'), en = document.documentElement.lang === 'en';
+  var KIND = { design: en ? 'Design & Engineering' : '설계·엔지니어링', nuclear: en ? 'Construction & Maintenance' : '시공·정비', plant: en ? 'Fabrication & Modules' : '제작·모듈' }[list.dataset.cat];
+  var L = en ? { ym: 'Date', kind: 'Type', field: 'Field', n: function (k) { return k + (k > 1 ? ' projects' : ' project'); } }
+             : { ym: '수행 연월', kind: '구분', field: '분야', n: function (k) { return k + '건'; } };
+  var FIELD = { '발전 플랜트': en ? 'Power Plant' : '발전 플랜트', '일반건설': en ? 'General Construction' : '일반건설' };
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  window.yearRender = function () {
+    var g = {}, ys = [];
+    window.PERF.slice().sort(function (a, b) { return b[0].localeCompare(a[0]); }).forEach(function (p) {
+      var y = p[0].slice(0, 4); if (!g[y]) { g[y] = []; ys.push(y); } g[y].push(p);
+    });
+    box.innerHTML = ys.map(function (y) {
+      return '<div class="pjGroup"><h4 class="pjYear">' + y + '<span>' + L.n(g[y].length) + '</span></h4>' + g[y].map(function (p) {
+        return '<details class="pj"><summary><span class="ym">' + esc(p[0]) + '</span><span class="tt">' + esc(p[1]) + '</span><i></i></summary>' +
+          '<div class="pjBody"><dl><div><dt>' + L.ym + '</dt><dd>' + esc(p[0]) + '</dd></div><div><dt>' + L.kind + '</dt><dd>' + KIND + '</dd></div>' +
+          (p[2] ? '<div><dt>' + L.field + '</dt><dd>' + esc(FIELD[p[2]] || p[2]) + '</dd></div>' : '') + '</dl></div></details>';
+      }).join('') + '</div>';
+    }).join('');
+  };
+  window.yearRender();
+})();
