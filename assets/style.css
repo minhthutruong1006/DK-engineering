@@ -1734,3 +1734,7 @@ html.introOn .hvSlide.on .hvTit .w>span{animation:none}
 @media (max-width:768px){.pjGroup{padding-left:0;min-height:0}.pjGroup>.pjYear{position:static;width:auto}}
 @media (max-width:768px){.repCard .txt{padding:0}.repCard .hd{padding:20px 20px 0}.repCard p{padding:10px 20px 0}.repCard dl{padding:14px 20px 22px}}
 @media (max-width:768px){.repCard dl{align-self:stretch}}
+
+/* 1번 탭: 영상 자막 구간에서 왼쪽 문구 숨김 */
+.hv .hvSlide.tOff .hvTit{opacity:0;transition:opacity .6s}
+.hv.tOff .hvCtrl{opacity:0;pointer-events:none;transition:opacity .6s}

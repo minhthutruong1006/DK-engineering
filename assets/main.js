@@ -247,7 +247,7 @@
   }
   function go(i) {
     var old = vid(cur); old.pause();
-    slides[cur].classList.remove('on'); if (tabs[cur]) tabs[cur].classList.remove('on');
+    slides[cur].classList.remove('on', 'tOff'); hv.classList.remove('tOff'); if (tabs[cur]) tabs[cur].classList.remove('on');
     tabs.forEach(function (t) { t.querySelector('i').style.width = '0'; });
     cur = (i + slides.length) % slides.length;
     slides[cur].classList.add('on'); if (tabs[cur]) tabs[cur].classList.add('on');
@@ -259,6 +259,9 @@
   slides.forEach(function (s, i) {
     var sv = s.querySelector('video');
     sv.addEventListener('ended', function () { if (i === cur) go(cur + 1); });
+    var hideAt = parseFloat(s.getAttribute('data-hide-at'));
+    /* 영상 자체 자막이 나오는 구간에서는 왼쪽 문구를 숨김 */
+    if (hideAt) sv.addEventListener('timeupdate', function () { var off = i === cur && sv.currentTime >= hideAt; s.classList.toggle('tOff', off); hv.classList.toggle('tOff', off); });
     sv.addEventListener('timeupdate', function () { if (i === cur && !paused && sv.duration && sv.currentTime >= sv.duration - 0.08) go(cur + 1); });
   });
   tabs.forEach(function (t, i) { t.addEventListener('click', function () { if (i !== cur) go(i); }); });
